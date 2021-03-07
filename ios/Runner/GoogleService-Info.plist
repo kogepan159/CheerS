@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>866283689294-27vo5jh9j54d58p8bdvs51hc4e6db1eh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.866283689294-27vo5jh9j54d58p8bdvs51hc4e6db1eh</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDOKGLVVQk0Ohr3Ar8Krc108egYVMOiHxA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>866283689294</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.cheersApp</string>
+	<key>PROJECT_ID</key>
+	<string>cheers-6c69b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cheers-6c69b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:866283689294:ios:058f6070399e96cf6b7a1f</string>
+</dict>
+</plist>

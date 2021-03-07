@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CheerS</string>
+
+    <!-- "000000000000"をアプリIDに変える. -->
+    <string name="facebook_app_id">462506268256581</string>
+
+    <!--
+      Replace "000000000000"をアプリIDに変える.
+      **NOTE**: 最初にfbがつくので注意！.
+    -->
+    <string name="fb_login_protocol_scheme">fb462506268256581</string>
+</resources>
