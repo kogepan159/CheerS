@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:bubble/bubble.dart';
 import 'package:cheers_app/data_models/host_party.dart';
-import 'package:cheers_app/data_models/offer.dart';
 import 'package:cheers_app/data_models/user.dart';
 import 'package:cheers_app/models/repositories/party_repository.dart';
 import 'package:cheers_app/models/repositories/user_repository.dart';
@@ -15,12 +13,8 @@ class ProfileViewModel extends ChangeNotifier {
 
   ProfileViewModel({this.partyRepository, this.userRepository});
 
-  User _profileUser;
-  User get profileUser => _profileUser;
-  set profileUser(User value) {
-    _profileUser = value;
-    notifyListeners();
-  }
+  User profileUser;
+
 
   User get currentUser => UserRepository.currentUser;
 
@@ -41,8 +35,24 @@ class ProfileViewModel extends ChangeNotifier {
   String selectedBirthPlace = "";
   String selectedBloodType = "";
   String selectedLivingStatus = "";
-  int selectedHeight = 0;
-  String selectedBodyShape = "";
+  int _selectedHeight = 0 ;
+
+  //"""""""外のクラスから、selectedHeightでアクセス。getterを使うことで、_selectedHeightにアクセスできる"""""""""""""""""""""""""""""""
+  int get selectedHeight => _selectedHeight;
+  //"""""""setterとnotifyListenersを使い、値の変更をウィジェットに通知できる"""""""""""""""""""""""""""""""
+  set selectedHeight(int value) {
+    _selectedHeight = value;
+    notifyListeners();
+  }
+
+  String _selectedBodyShape  = "";
+
+  String get selectedBodyShape => _selectedBodyShape;
+  set selectedBodyShape(String value) {
+    _selectedBodyShape = value;
+    notifyListeners();
+  }
+
   String selectedEducationalBackground = "";
   String selectedOccupation = "";
   String selectedHoliday = "";
@@ -67,7 +77,7 @@ class ProfileViewModel extends ChangeNotifier {
     isProcessing = true;
     notifyListeners();
 
-    parties = await partyRepository.getParties(profileMode, _profileUser);
+    parties = await partyRepository.getParties(profileMode, profileUser);
 
     isProcessing = false;
     notifyListeners();
@@ -79,7 +89,7 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   Future<int> getNumberOfOffer() async {
-    return await partyRepository.getNumberOfOffer(_profileUser);
+    return await partyRepository.getNumberOfOffer(profileUser);
   }
 
   void updateProfile() async {
@@ -87,7 +97,7 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
 
     await userRepository.updateProfile(
-      _profileUser,
+      profileUser,
       updateBio,
       updateInAppUserName,
       // selectedGender,
@@ -96,8 +106,8 @@ class ProfileViewModel extends ChangeNotifier {
       selectedBirthPlace,
       selectedBloodType,
       selectedLivingStatus,
-      selectedHeight,
-      selectedBodyShape,
+      _selectedHeight,
+      _selectedBodyShape,
       selectedEducationalBackground,
       selectedOccupation,
       selectedHoliday,
@@ -110,7 +120,7 @@ class ProfileViewModel extends ChangeNotifier {
       selectedPartyFee,
     );
     // プロフィール更新後にユーザーデータを再取得。staticに保存
-    await userRepository.getCurrentUserById(_profileUser.uId);
+    await userRepository.getCurrentUserById(profileUser.uId);
     profileUser = currentUser;
 
     isProcessing = false;
@@ -123,7 +133,7 @@ class ProfileViewModel extends ChangeNotifier {
     isProcessing = true;
     // notifyListeners();
 
-    final User user = await userRepository.getProfile(_profileUser);
+    final User user = await userRepository.getProfile(profileUser);
     isProcessing = false;
     return user;
   }

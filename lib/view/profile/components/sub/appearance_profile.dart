@@ -7,21 +7,10 @@ import '../../../../style.dart';
 
 
 
-class AppearanceProfile extends StatefulWidget {
-  @override
-  _AppearanceProfileState createState() => _AppearanceProfileState();
-}
-
-class _AppearanceProfileState extends State<AppearanceProfile> {
+class AppearanceProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
-    final profileUser = profileViewModel.profileUser;
-
-    profileViewModel.selectedHeight = profileUser.height;
-    profileViewModel.selectedBodyShape = profileUser.bodyShape;
-
-
+    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: true);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,12 +91,10 @@ class _AppearanceProfileState extends State<AppearanceProfile> {
                 value: profileViewModel.selectedHeight,
                 onChanged: (selectedValue) {
 
-                    setState(() {
                       profileViewModel.selectedHeight = selectedValue;
                       // _onUpdated();
                       //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                       FocusScope.of(context).requestFocus(new FocusNode());
-                    });
 
                 }),
           ],
@@ -138,12 +125,10 @@ class _AppearanceProfileState extends State<AppearanceProfile> {
                 ],
                 value: profileViewModel.selectedBodyShape,
                 onChanged: (selectedValue) {
-                  setState(() {
                     profileViewModel.selectedBodyShape = selectedValue;
                     // _onUpdated();
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
-                  });
                 }),
           ],
         ),
