@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:cheers_app/data_models/host_party.dart';
 import 'package:cheers_app/data_models/offer.dart';
 import 'package:cheers_app/data_models/user.dart';
+import 'package:cheers_app/models/repositories/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 
 class DatabaseManager {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -230,9 +230,9 @@ class DatabaseManager {
   }
 
   //firebaseへプロフィール画像を追加
-  Future<void> addProfilePhoto_2(User addedPhotoUrl_2) async{
-    await _db.collection("users").doc(addedPhotoUrl_2.uId).set(addedPhotoUrl_2.toMap());
-  }
+  // Future<void> addProfilePhoto_2(User addedPhotoUrl_2) async{
+  //   await _db.collection("users").doc(addedPhotoUrl_2.uId).set(addedPhotoUrl_2.toMap());
+  // }
 
   //合コン企画を削除
  Future<void> deleteHostParty(String hostPartyId) async{
@@ -249,6 +249,25 @@ class DatabaseManager {
     await reference.update(updateHostParty.toMap());
 
     print(" dbManager.updateHostParty invoked");
+
+  }
+
+  Future<List<User>> searchUsers(String queryString) async{
+    final query = await _db.collection("users").orderBy("inAppUserName")
+    .startAt([queryString])
+    .endAt([queryString + "\uf8ff"])
+    .get();
+
+    if (query.docs.length == 0) return List();
+
+    var soughtUsers = List<User>();
+    query.docs.forEach((element) {
+      final selectedUser = User.fromMap(element.data());
+      if(selectedUser.uId != UserRepository.currentUser.uId){
+        soughtUsers.add(selectedUser);
+      }
+    });
+    return soughtUsers;
 
   }
 

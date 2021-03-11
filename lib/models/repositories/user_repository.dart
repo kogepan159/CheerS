@@ -73,15 +73,14 @@ class UserRepository {
         //dbにユーザー登録されてなかったら、登録するメソッドに流す
 
         if (isUserExistedInDb == false) {
-          await dbManager.insertUser(_convertToUser(firebaseUser,profile));
-          }
+          await dbManager.insertUser(_convertToUser(firebaseUser, profile));
+        }
 
-          //dbに登録したユーザーデータをアプリ全体で使えるようにしておく為に、currentUserプロパティ作成
-          currentUser = await dbManager.getUserInfoFromDbById(firebaseUser.uid);
+        //dbに登録したユーザーデータをアプリ全体で使えるようにしておく為に、currentUserプロパティ作成
+        currentUser = await dbManager.getUserInfoFromDbById(firebaseUser.uid);
 
-          // すでにユーザー登録している場合はtrueを返す
-          return true;
-
+        // すでにユーザー登録している場合はtrueを返す
+        return true;
 
         break;
       case FacebookLoginStatus.cancelledByUser:
@@ -95,11 +94,10 @@ class UserRepository {
   }
 
   // firebaseのユーザー情報をアプリで使うデータクラスに変換
-  _convertToUser(auth.User firebaseUser,  profile) {
-
+  _convertToUser(auth.User firebaseUser, profile) {
     //"""""""""""""年齢の計算"""ここから""""""""""""""""""""""""""""""""""""""
     final birthday = profile["birthday"].toString();
-    final splitBirthday =  birthday.split("/").map(int.parse).toList();
+    final splitBirthday = birthday.split("/").map(int.parse).toList();
     final birthdayYear = splitBirthday[2];
     final birthdayMonth = splitBirthday[0];
     final birthdayDay = splitBirthday[1];
@@ -108,7 +106,10 @@ class UserRepository {
     final thisMonth = DateTime.now().month;
     final thisDay = DateTime.now().day;
 
-    final roughAge = (((thisYear*1000) + (thisMonth*100) + (thisDay))/1000) - (((birthdayYear*1000) + (birthdayMonth*100) + (birthdayDay))/1000);
+    final roughAge =
+        (((thisYear * 1000) + (thisMonth * 100) + (thisDay)) / 1000) -
+            (((birthdayYear * 1000) + (birthdayMonth * 100) + (birthdayDay)) /
+                1000);
 
     print("roughAge $roughAge");
 
@@ -116,9 +117,7 @@ class UserRepository {
 
     print("age $age");
 
-
     //"""""""""""""年齢の計算"""""ここまで""""""""""""""""""""""""""""""""""""
-
 
     return User(
       uId: firebaseUser.uid,
@@ -265,16 +264,12 @@ class UserRepository {
 
   //###################################################端末のギャラリーから画像を取得#####ここまで########################################################
 
-
-
   Future<void> updateProfilePhoto_1(
     User profileUser,
     String photoUrl_1,
     bool isImageFromFile_1,
   ) async {
     var updatePhotoUrl;
-
-
 
     if (isImageFromFile_1) {
       final updatePhotoFile = File(photoUrl_1);
@@ -290,24 +285,22 @@ class UserRepository {
           await dbManager.getUserInfoFromDbById(profileUser.uId);
 
       final updatedProfilePhoto = userBeforeUpdate.copyWith(
-        photoUrl_1: isImageFromFile_1 ? updatePhotoUrl : userBeforeUpdate.photoUrl_1,
+        photoUrl_1:
+            isImageFromFile_1 ? updatePhotoUrl : userBeforeUpdate.photoUrl_1,
       );
 
       await dbManager.updateProfilePhoto_1(updatedProfilePhoto);
     }
   }
 
-
   Future<void> updateProfilePhoto_2(
-      User profileUser,
-      String photoUrl_2,
-      bool isImageFromFile_2,
-      ) async {
+    User profileUser,
+    String photoUrl_2,
+    bool isImageFromFile_2,
+  ) async {
     var updatePhotoUrl;
 
-
-
-    if(photoUrl_2.length > 0) {
+    if (photoUrl_2.length > 0) {
       //""""""""""""写真更新処理"""""""""""""""""
       if (isImageFromFile_2) {
         final updatePhotoFile = File(photoUrl_2);
@@ -320,33 +313,26 @@ class UserRepository {
         );
 
         final userBeforeUpdate =
-        await dbManager.getUserInfoFromDbById(profileUser.uId);
-
+            await dbManager.getUserInfoFromDbById(profileUser.uId);
 
         final updatedProfilePhoto = userBeforeUpdate.copyWith(
-          photoUrl_2: isImageFromFile_2 ? updatePhotoUrl : userBeforeUpdate
-              .photoUrl_2,
+          photoUrl_2:
+              isImageFromFile_2 ? updatePhotoUrl : userBeforeUpdate.photoUrl_2,
         );
 
         await dbManager.updateProfilePhoto_2(updatedProfilePhoto);
       }
-    }else{
-
+    } else {
       //""""""""""""写真削除処理"""""""""""""""""
 
       final userBeforeUpdate =
-      await dbManager.getUserInfoFromDbById(profileUser.uId);
+          await dbManager.getUserInfoFromDbById(profileUser.uId);
 
-
-      final updatedProfilePhoto = userBeforeUpdate.copyWith(
-        photoUrl_2: photoUrl_2
-      );
+      final updatedProfilePhoto =
+          userBeforeUpdate.copyWith(photoUrl_2: photoUrl_2);
 
       await dbManager.updateProfilePhoto_2(updatedProfilePhoto);
-
-
     }
-
 
     // if (isImageFromFile_2) {
     //
@@ -369,21 +355,16 @@ class UserRepository {
     //
     //   await dbManager.updateProfilePhoto_2(updatedProfilePhoto);
     // }
-
-
-
   }
 
-
   Future<void> updateProfilePhoto_3(
-      User profileUser,
-      String photoUrl_3,
-      bool isImageFromFile_3,
-      ) async {
+    User profileUser,
+    String photoUrl_3,
+    bool isImageFromFile_3,
+  ) async {
     var updatePhotoUrl;
 
-
-    if(photoUrl_3.length > 0) {
+    if (photoUrl_3.length > 0) {
       //""""""""""""写真更新処理"""""""""""""""""
       if (isImageFromFile_3) {
         final updatePhotoFile = File(photoUrl_3);
@@ -396,157 +377,145 @@ class UserRepository {
         );
 
         final userBeforeUpdate =
-        await dbManager.getUserInfoFromDbById(profileUser.uId);
+            await dbManager.getUserInfoFromDbById(profileUser.uId);
 
         final updatedProfilePhoto = userBeforeUpdate.copyWith(
-          photoUrl_3: isImageFromFile_3 ? updatePhotoUrl : userBeforeUpdate
-              .photoUrl_3,
+          photoUrl_3:
+              isImageFromFile_3 ? updatePhotoUrl : userBeforeUpdate.photoUrl_3,
         );
 
         await dbManager.updateProfilePhoto_3(updatedProfilePhoto);
       }
-    }else{
-
+    } else {
       //""""""""""""写真削除処理"""""""""""""""""
       final userBeforeUpdate =
-      await dbManager.getUserInfoFromDbById(profileUser.uId);
+          await dbManager.getUserInfoFromDbById(profileUser.uId);
 
-      final updatedProfilePhoto = userBeforeUpdate.copyWith(
-        photoUrl_3: photoUrl_3
-      );
+      final updatedProfilePhoto =
+          userBeforeUpdate.copyWith(photoUrl_3: photoUrl_3);
 
       await dbManager.updateProfilePhoto_3(updatedProfilePhoto);
-
     }
   }
-
-
 
   Future<void> updateProfilePhoto_4(
-      User profileUser,
-      String photoUrl_4,
-      bool isImageFromFile_4,
-      ) async {
+    User profileUser,
+    String photoUrl_4,
+    bool isImageFromFile_4,
+  ) async {
     var updatePhotoUrl;
 
-    if(photoUrl_4.length > 0) {
+    if (photoUrl_4.length > 0) {
       //""""""""""""写真更新処理"""""""""""""""""
 
-    if (isImageFromFile_4) {
-      final updatePhotoFile = File(photoUrl_4);
+      if (isImageFromFile_4) {
+        final updatePhotoFile = File(photoUrl_4);
 
-      final storagePath = Uuid().v1();
+        final storagePath = Uuid().v1();
 
-      updatePhotoUrl = await dbManager.uploadImageToStorage(
-        updatePhotoFile,
-        storagePath,
-      );
+        updatePhotoUrl = await dbManager.uploadImageToStorage(
+          updatePhotoFile,
+          storagePath,
+        );
 
-      final userBeforeUpdate =
-      await dbManager.getUserInfoFromDbById(profileUser.uId);
+        final userBeforeUpdate =
+            await dbManager.getUserInfoFromDbById(profileUser.uId);
 
-      final updatedProfilePhoto = userBeforeUpdate.copyWith(
-        photoUrl_4: isImageFromFile_4 ? updatePhotoUrl : userBeforeUpdate.photoUrl_4,
-      );
+        final updatedProfilePhoto = userBeforeUpdate.copyWith(
+          photoUrl_4:
+              isImageFromFile_4 ? updatePhotoUrl : userBeforeUpdate.photoUrl_4,
+        );
 
-      await dbManager.updateProfilePhoto_4(updatedProfilePhoto);
-    }
-
-    }else{
-
+        await dbManager.updateProfilePhoto_4(updatedProfilePhoto);
+      }
+    } else {
       //""""""""""""写真削除処理"""""""""""""""""
       final userBeforeUpdate =
-      await dbManager.getUserInfoFromDbById(profileUser.uId);
+          await dbManager.getUserInfoFromDbById(profileUser.uId);
 
-      final updatedProfilePhoto = userBeforeUpdate.copyWith(
-          photoUrl_4: photoUrl_4
-      );
+      final updatedProfilePhoto =
+          userBeforeUpdate.copyWith(photoUrl_4: photoUrl_4);
 
       await dbManager.updateProfilePhoto_3(updatedProfilePhoto);
-
     }
-
   }
-
 
   Future<void> updateProfilePhoto_5(
-      User profileUser,
-      String photoUrl_5,
-      bool isImageFromFile_5,
-      ) async {
+    User profileUser,
+    String photoUrl_5,
+    bool isImageFromFile_5,
+  ) async {
     var updatePhotoUrl;
 
-    if(photoUrl_5.length > 0) {
+    if (photoUrl_5.length > 0) {
       //""""""""""""写真更新処理"""""""""""""""""
 
-    if (isImageFromFile_5) {
-      final updatePhotoFile = File(photoUrl_5);
+      if (isImageFromFile_5) {
+        final updatePhotoFile = File(photoUrl_5);
 
-      final storagePath = Uuid().v1();
+        final storagePath = Uuid().v1();
 
-      updatePhotoUrl = await dbManager.uploadImageToStorage(
-        updatePhotoFile,
-        storagePath,
-      );
+        updatePhotoUrl = await dbManager.uploadImageToStorage(
+          updatePhotoFile,
+          storagePath,
+        );
 
-      final userBeforeUpdate =
-      await dbManager.getUserInfoFromDbById(profileUser.uId);
+        final userBeforeUpdate =
+            await dbManager.getUserInfoFromDbById(profileUser.uId);
 
-      final updatedProfilePhoto = userBeforeUpdate.copyWith(
-        photoUrl_5: isImageFromFile_5 ? updatePhotoUrl : userBeforeUpdate.photoUrl_5,
-      );
+        final updatedProfilePhoto = userBeforeUpdate.copyWith(
+          photoUrl_5:
+              isImageFromFile_5 ? updatePhotoUrl : userBeforeUpdate.photoUrl_5,
+        );
 
-      await dbManager.updateProfilePhoto_5(updatedProfilePhoto);
-    }
-
-    }else{
-
+        await dbManager.updateProfilePhoto_5(updatedProfilePhoto);
+      }
+    } else {
       //""""""""""""写真削除処理"""""""""""""""""
       final userBeforeUpdate =
-      await dbManager.getUserInfoFromDbById(profileUser.uId);
+          await dbManager.getUserInfoFromDbById(profileUser.uId);
 
-      final updatedProfilePhoto = userBeforeUpdate.copyWith(
-          photoUrl_5: photoUrl_5
-      );
+      final updatedProfilePhoto =
+          userBeforeUpdate.copyWith(photoUrl_5: photoUrl_5);
 
       await dbManager.updateProfilePhoto_3(updatedProfilePhoto);
-
-    }
-
-  }
-
-  Future<void> addProfilePhoto_2(
-      User profileUser,
-      String photoUrl_2,
-      bool isImageFromFile,
-      ) async {
-    var updatePhotoUrl;
-
-
-
-    if (isImageFromFile) {
-      final updatePhotoFile = File(photoUrl_2);
-
-      final storagePath = Uuid().v1();
-
-      updatePhotoUrl = await dbManager.uploadImageToStorage(
-        updatePhotoFile,
-        storagePath,
-      );
-
-      // final userBeforeUpdate =
-      // await dbManager.getUserInfoFromDbById(profileUser.uId);
-
-      final addedPhotoUrl_2 = User(
-        uId: currentUser.uId,
-        photoUrl_2: photoUrl_2,
-        imageStoragePath_2: storagePath,
-
-      );
-
-      await dbManager.addProfilePhoto_2(addedPhotoUrl_2);
     }
   }
-  
-  
+
+  // Future<void> addProfilePhoto_2(
+  //   User profileUser,
+  //   String photoUrl_2,
+  //   bool isImageFromFile,
+  // ) async {
+  //   var updatePhotoUrl;
+  //
+  //   if (isImageFromFile) {
+  //     final updatePhotoFile = File(photoUrl_2);
+  //
+  //     final storagePath = Uuid().v1();
+  //
+  //     updatePhotoUrl = await dbManager.uploadImageToStorage(
+  //       updatePhotoFile,
+  //       storagePath,
+  //     );
+  //
+  //     // final userBeforeUpdate =
+  //     // await dbManager.getUserInfoFromDbById(profileUser.uId);
+  //
+  //     final addedPhotoUrl_2 = User(
+  //       uId: currentUser.uId,
+  //       photoUrl_2: photoUrl_2,
+  //       imageStoragePath_2: storagePath,
+  //     );
+  //
+  //     await dbManager.addProfilePhoto_2(addedPhotoUrl_2);
+  //   }
+  // }
+
+ Future<List<User>> searchUsers(String query)async {
+    return dbManager.searchUsers(query);
+
+ }
+
+
 }

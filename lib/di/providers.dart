@@ -6,6 +6,7 @@ import 'package:cheers_app/view_models/feed_view_model.dart';
 import 'package:cheers_app/view_models/host_party_view_model.dart';
 import 'package:cheers_app/view_models/login_view_model.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
+import 'package:cheers_app/view_models/search_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -81,6 +82,13 @@ List<SingleChildWidget> viewModels = [
     create: (context) => ProfileViewModel(
       userRepository: Provider.of<UserRepository>(context, listen: false),
       partyRepository: Provider.of<PartyRepository>(context, listen: false),
+    ),
+  ),
+
+  // SearchViewModel => UserRepository
+  ChangeNotifierProvider<SearchViewModel>(
+    create: (context) => SearchViewModel(
+      userRepository: Provider.of<UserRepository>(context, listen: false),
     ),
   ),
 

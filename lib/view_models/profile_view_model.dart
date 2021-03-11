@@ -307,19 +307,19 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addProfilePhoto_2(String photoUrl_2, bool isImageFromFile) async {
-    isProcessing = true;
-    notifyListeners();
-
-    await userRepository.addProfilePhoto_2(profileUser, photoUrl_2, isImageFromFile);
-
-    // プロフィール写真更新後にユーザーデータを再取得。staticに保存
-    await userRepository.getCurrentUserById(profileUser.uId);
-    profileUser = currentUser;
-
-    isProcessing = false;
-    notifyListeners();
-  }
+  // Future<void> addProfilePhoto_2(String photoUrl_2, bool isImageFromFile) async {
+  //   isProcessing = true;
+  //   notifyListeners();
+  //
+  //   await userRepository.addProfilePhoto_2(profileUser, photoUrl_2, isImageFromFile);
+  //
+  //   // プロフィール写真更新後にユーザーデータを再取得。staticに保存
+  //   await userRepository.getCurrentUserById(profileUser.uId);
+  //   profileUser = currentUser;
+  //
+  //   isProcessing = false;
+  //   notifyListeners();
+  // }
 
   Future<void> deleteHostParty(String hostPartyId, ProfileMode profileMode) async {
     isProcessing = true;

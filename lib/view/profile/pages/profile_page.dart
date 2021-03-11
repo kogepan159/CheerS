@@ -4,8 +4,6 @@ import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/style.dart';
 import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/view/common/components/button_with_icon.dart';
-import 'package:cheers_app/view/common/components/circle_photo.dart';
-import 'package:cheers_app/view/feed/screen/feed_screen.dart';
 import 'package:cheers_app/view/profile/components/profile_photo_part.dart';
 import 'package:cheers_app/view/profile/components/profile_post_tile.dart';
 import 'package:cheers_app/view/profile/components/profile_setting_part.dart';
@@ -13,7 +11,6 @@ import 'package:cheers_app/view/profile/components/sub/profile_detail_part.dart'
 import 'package:cheers_app/view/profile/components/sub/profile_likes_part.dart';
 import 'package:cheers_app/view/profile/screens/change_photo_screen.dart';
 import 'package:cheers_app/view/profile/screens/profile_edit_screen.dart';
-import 'package:cheers_app/view/profile/screens/profile_photo_expanded_screen.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -148,23 +145,6 @@ class ProfilePage extends StatelessWidget {
         ));
   }
 
-  //タップしてフィード画面に映る
-  _openFeedScreen(BuildContext context, int index) {
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
-    final feedUser = profileViewModel.profileUser;
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => FeedScreen(
-          feedUser: feedUser,
-          index: index,
-          feedMode: FeedMode.FROM_PROFILE,
-        ),
-      ),
-    );
-  }
 
   _openChangePhotoScreen(BuildContext context) {
 

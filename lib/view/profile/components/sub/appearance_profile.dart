@@ -273,7 +273,7 @@ class AppearanceProfile extends StatelessWidget {
                 value: profileViewModel.selectedHeight,
                 onChanged: (selectedValue) {
                   profileViewModel.selectedHeight = selectedValue;
-                  // _onUpdated();
+                  // _onUpdated(context);
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -328,7 +328,7 @@ class AppearanceProfile extends StatelessWidget {
                 value: profileViewModel.selectedBodyShape,
                 onChanged: (selectedValue) {
                   profileViewModel.selectedBodyShape = selectedValue;
-                  // _onUpdated();
+                  // _onUpdated(context);
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -340,4 +340,8 @@ class AppearanceProfile extends StatelessWidget {
       ],
     );
   }
+
+
+
+
 }

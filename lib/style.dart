@@ -37,3 +37,9 @@ const numberOfOfferTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 22.0, )
 const profileEditTitleTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 18.0, color: Colors.deepOrange );
 
 const profileEditTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 16.0, );
+
+//ユーザー検索
+const SearchUserBarTextStyle = TextStyle(fontFamily: RegularFont, color: Colors.white );
+
+const userCardForSearchUserTitleTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 20.0,);
+const userCardForSearchUserTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 14.0,);

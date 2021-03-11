@@ -20,7 +20,7 @@ class CirclePhoto extends StatelessWidget {
       radius: radius,
       backgroundImage: isImageFromFile
       ? FileImage(File(photoUrl))
-      : CachedNetworkImageProvider(
+      :  CachedNetworkImageProvider(
           photoUrl
       ),
     );
