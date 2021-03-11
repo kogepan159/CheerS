@@ -45,6 +45,7 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+
   String _selectedBodyShape  = "";
 
   String get selectedBodyShape => _selectedBodyShape;

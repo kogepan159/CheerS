@@ -1,3 +1,4 @@
+import 'package:cheers_app/data_models/user.dart';
 import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,17 @@ import '../../../../style.dart';
 
 
 class AppearanceProfile extends StatelessWidget {
+
+
+  final User profileUser;
+  AppearanceProfile({@required this.profileUser});
+
   @override
   Widget build(BuildContext context) {
     final profileViewModel = Provider.of<ProfileViewModel>(context, listen: true);
+
+    profileViewModel.selectedHeight = profileUser.height;
+    profileViewModel.selectedBodyShape = profileUser.bodyShape;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,6 +34,7 @@ class AppearanceProfile extends StatelessWidget {
             DropdownButton(
                 items: [
 
+                  DropdownMenuItem(value: 0, child: Text(""),),
                   DropdownMenuItem(value: 140, child: Text("140cm以下"),),
                   DropdownMenuItem(value: 141, child: Text("141cm"),),
                   DropdownMenuItem(value: 142, child: Text("142cm"),),
@@ -90,12 +100,10 @@ class AppearanceProfile extends StatelessWidget {
                 ],
                 value: profileViewModel.selectedHeight,
                 onChanged: (selectedValue) {
-
-                      profileViewModel.selectedHeight = selectedValue;
+                  profileViewModel.selectedHeight = selectedValue;
                       // _onUpdated();
                       //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                       FocusScope.of(context).requestFocus(new FocusNode());
-
                 }),
           ],
         ),
@@ -113,7 +121,7 @@ class AppearanceProfile extends StatelessWidget {
             ),
             DropdownButton(
                 items: [
-
+                      DropdownMenuItem(value: "", child: Text(""),),
                       DropdownMenuItem(value: "スリム", child: Text("スリム"),),
                       DropdownMenuItem(value: "やや細め", child: Text("やや細め"),),
                       DropdownMenuItem(value: "普通", child: Text("普通"),),

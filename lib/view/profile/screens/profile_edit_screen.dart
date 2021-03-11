@@ -47,6 +47,7 @@ class ProfileEditScreen extends StatelessWidget {
             if (snapShot.hasData && snapShot.data != null) {
               final profileData = snapShot.data;
               print("hostPartyUser $profileData");
+              profileViewModel.profileUser = profileData;
 
               return (profileViewModel.isProcessing)
                   ? Center(child: CircularProgressIndicator())
@@ -58,7 +59,9 @@ class ProfileEditScreen extends StatelessWidget {
                             GeneralProfile(
                               profileData: profileData,
                             ),
-                            AppearanceProfile(),
+                            AppearanceProfile(
+                              profileUser: profileData
+                            ),
                             OccupationProfile(),
                             FavoriteProfile(),
                             SociabilityProfile(),
