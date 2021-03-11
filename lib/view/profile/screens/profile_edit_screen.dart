@@ -20,16 +20,11 @@ class ProfileEditScreen extends StatelessWidget {
   final String updateInAppUserName;
   final User currentUser;
 
-  ProfileEditScreen(
-      {this.hostParty,
-      this.updateBio,
-      this.updateInAppUserName,
-      this.currentUser});
+  ProfileEditScreen({this.hostParty, this.updateBio, this.updateInAppUserName, this.currentUser});
 
   @override
   Widget build(BuildContext context) {
-    final profileViewModel =
-        Provider.of<ProfileViewModel>(context, listen: false);
+    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).editProfile),
@@ -37,7 +32,6 @@ class ProfileEditScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () => showAlertOrConfirmDialog(context),
-
           )
         ],
       ),
@@ -47,7 +41,6 @@ class ProfileEditScreen extends StatelessWidget {
             if (snapShot.hasData && snapShot.data != null) {
               final profileData = snapShot.data;
               print("hostPartyUser $profileData");
-              profileViewModel.profileUser = profileData;
 
               return (profileViewModel.isProcessing)
                   ? Center(child: CircularProgressIndicator())
@@ -59,9 +52,7 @@ class ProfileEditScreen extends StatelessWidget {
                             GeneralProfile(
                               profileData: profileData,
                             ),
-                            AppearanceProfile(
-                              profileUser: profileData
-                            ),
+                            AppearanceProfile(),
                             OccupationProfile(),
                             FavoriteProfile(),
                             SociabilityProfile(),
@@ -77,18 +68,15 @@ class ProfileEditScreen extends StatelessWidget {
     );
   }
 
-
-
   showAlertOrConfirmDialog(BuildContext context) {
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
+    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
 
-    if(profileViewModel.selectedPrefecture == null ||
+    if (profileViewModel.selectedPrefecture == null ||
         profileViewModel.updateBio.length == 0 ||
         profileViewModel.updateInAppUserName.length == 0 ||
         // profileViewModel.selectedGender == null ||
         // profileViewModel.selectedAge == null||
-        profileViewModel.selectedResidence == null||
+        profileViewModel.selectedResidence == null ||
         profileViewModel.selectedBirthPlace == null ||
         profileViewModel.selectedBloodType == null ||
         profileViewModel.selectedLivingStatus == null ||
@@ -103,30 +91,21 @@ class ProfileEditScreen extends StatelessWidget {
         profileViewModel.selectedIdealNumberOfParty == null ||
         profileViewModel.selectedIdealPartyAtmosphere == null ||
         profileViewModel.selectedKaraoke == null ||
-        profileViewModel.selectedPartyFee == null
-
-    ) {
+        profileViewModel.selectedPartyFee == null) {
       showDialog(
           barrierDismissible: true,
           context: context,
-          builder: (context) =>
-              AlertDialog(
-                title: Text(S
-                    .of(context)
-                    .error),
-                content: Text(S
-                    .of(context)
-                    .someItemsHaveNotBeenEntered),
+          builder: (context) => AlertDialog(
+                title: Text(S.of(context).error),
+                content: Text(S.of(context).someItemsHaveNotBeenEntered),
                 actions: [
                   FlatButton(
-                    child: Text(S
-                        .of(context)
-                        .ok),
+                    child: Text(S.of(context).ok),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ));
-    }else {
+    } else {
       showConfirmDialog(
           context: context,
           title: S.of(context).editProfile,
@@ -137,15 +116,12 @@ class ProfileEditScreen extends StatelessWidget {
             }
           });
     }
-
   }
 
   void _updateProfile(BuildContext context) {
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
+    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
 
     profileViewModel.updateProfile();
     Navigator.pop(context);
   }
-
 }

@@ -15,7 +15,6 @@ class ProfileViewModel extends ChangeNotifier {
 
   User profileUser;
 
-
   User get currentUser => UserRepository.currentUser;
 
   bool isProcessing = false;
@@ -35,7 +34,7 @@ class ProfileViewModel extends ChangeNotifier {
   String selectedBirthPlace = "";
   String selectedBloodType = "";
   String selectedLivingStatus = "";
-  int _selectedHeight = 0 ;
+  int _selectedHeight = 0;
 
   //"""""""外のクラスから、selectedHeightでアクセス。getterを使うことで、_selectedHeightにアクセスできる"""""""""""""""""""""""""""""""
   int get selectedHeight => _selectedHeight;
@@ -45,8 +44,7 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  String _selectedBodyShape  = "";
+  String _selectedBodyShape = "";
 
   String get selectedBodyShape => _selectedBodyShape;
   set selectedBodyShape(String value) {
@@ -135,6 +133,29 @@ class ProfileViewModel extends ChangeNotifier {
     // notifyListeners();
 
     final User user = await userRepository.getProfile(profileUser);
+
+    profileUser = user;
+    updateBio = user.bio;
+    updateInAppUserName = user.name;
+    selectedGender = user.gender;
+    selectedAge = user.age;
+    selectedResidence = user.residence;
+    selectedBirthPlace = user.birthPlace;
+    selectedBloodType = user.bloodType;
+    selectedLivingStatus = user.livingStatus;
+    _selectedHeight = user.height;
+    _selectedBodyShape = user.bodyShape;
+    selectedEducationalBackground = user.educationalBackground;
+    selectedOccupation = user.occupation;
+    selectedHoliday = user.holiday;
+    selectedAlcohol = user.alcohol;
+    selectedTobacco = user.tobacco;
+    selectedSociability = user.sociability;
+    selectedIdealNumberOfParty = user.idealNumberOfParty;
+    selectedIdealPartyAtmosphere = user.idealPartyAtmosphere;
+    selectedKaraoke = user.karaoke;
+    selectedPartyFee = user.partyFee;
+
     isProcessing = false;
     return user;
   }
@@ -216,42 +237,11 @@ class ProfileViewModel extends ChangeNotifier {
 
   //"""""""""""""""""""""""""""""""""""""""""""""""""""""端末のギャラリーアプリから画像取得"""""""""ここまで""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-  Future<void> updateProfilePhoto_1(String photoUrl_1, bool isImageFromFile_1)async {
-
-    isProcessing = true;
-      notifyListeners();
-
-      await userRepository.updateProfilePhoto_1(
-          profileUser,
-          photoUrl_1,
-          isImageFromFile_1);
-
-
-
-
-
-      // プロフィール写真更新後にユーザーデータを再取得。staticに保存
-      await userRepository.getCurrentUserById(profileUser.uId);
-      profileUser = currentUser;
-
-      isProcessing = false;
-      notifyListeners();
-
-  }
-
-  Future<void> updateProfilePhoto_2(String photoUrl_2, bool isImageFromFile_2)async {
-
+  Future<void> updateProfilePhoto_1(String photoUrl_1, bool isImageFromFile_1) async {
     isProcessing = true;
     notifyListeners();
 
-    await userRepository.updateProfilePhoto_2(
-        profileUser,
-        photoUrl_2,
-        isImageFromFile_2);
-
-
-
-
+    await userRepository.updateProfilePhoto_1(profileUser, photoUrl_1, isImageFromFile_1);
 
     // プロフィール写真更新後にユーザーデータを再取得。staticに保存
     await userRepository.getCurrentUserById(profileUser.uId);
@@ -259,22 +249,13 @@ class ProfileViewModel extends ChangeNotifier {
 
     isProcessing = false;
     notifyListeners();
-
   }
 
-  Future<void> updateProfilePhoto_3(String photoUrl_3, bool isImageFromFile_3)async {
-
+  Future<void> updateProfilePhoto_2(String photoUrl_2, bool isImageFromFile_2) async {
     isProcessing = true;
     notifyListeners();
 
-    await userRepository.updateProfilePhoto_3(
-        profileUser,
-        photoUrl_3,
-        isImageFromFile_3);
-
-
-
-
+    await userRepository.updateProfilePhoto_2(profileUser, photoUrl_2, isImageFromFile_2);
 
     // プロフィール写真更新後にユーザーデータを再取得。staticに保存
     await userRepository.getCurrentUserById(profileUser.uId);
@@ -282,22 +263,13 @@ class ProfileViewModel extends ChangeNotifier {
 
     isProcessing = false;
     notifyListeners();
-
   }
 
-  Future<void> updateProfilePhoto_4(String photoUrl_4, bool isImageFromFile_4)async {
-
+  Future<void> updateProfilePhoto_3(String photoUrl_3, bool isImageFromFile_3) async {
     isProcessing = true;
     notifyListeners();
 
-    await userRepository.updateProfilePhoto_4(
-        profileUser,
-        photoUrl_4,
-        isImageFromFile_4);
-
-
-
-
+    await userRepository.updateProfilePhoto_3(profileUser, photoUrl_3, isImageFromFile_3);
 
     // プロフィール写真更新後にユーザーデータを再取得。staticに保存
     await userRepository.getCurrentUserById(profileUser.uId);
@@ -305,23 +277,13 @@ class ProfileViewModel extends ChangeNotifier {
 
     isProcessing = false;
     notifyListeners();
-
   }
 
-
-  Future<void> updateProfilePhoto_5(String photoUrl_5, bool isImageFromFile_5)async {
-
+  Future<void> updateProfilePhoto_4(String photoUrl_4, bool isImageFromFile_4) async {
     isProcessing = true;
     notifyListeners();
 
-    await userRepository.updateProfilePhoto_5(
-        profileUser,
-        photoUrl_5,
-        isImageFromFile_5);
-
-
-
-
+    await userRepository.updateProfilePhoto_4(profileUser, photoUrl_4, isImageFromFile_4);
 
     // プロフィール写真更新後にユーザーデータを再取得。staticに保存
     await userRepository.getCurrentUserById(profileUser.uId);
@@ -329,22 +291,13 @@ class ProfileViewModel extends ChangeNotifier {
 
     isProcessing = false;
     notifyListeners();
-
   }
 
-  Future<void> addProfilePhoto_2(String photoUrl_2, bool isImageFromFile)async {
-
+  Future<void> updateProfilePhoto_5(String photoUrl_5, bool isImageFromFile_5) async {
     isProcessing = true;
     notifyListeners();
 
-    await userRepository.addProfilePhoto_2(
-        profileUser,
-        photoUrl_2,
-        isImageFromFile);
-
-
-
-
+    await userRepository.updateProfilePhoto_5(profileUser, photoUrl_5, isImageFromFile_5);
 
     // プロフィール写真更新後にユーザーデータを再取得。staticに保存
     await userRepository.getCurrentUserById(profileUser.uId);
@@ -352,23 +305,31 @@ class ProfileViewModel extends ChangeNotifier {
 
     isProcessing = false;
     notifyListeners();
-
   }
 
- Future<void> deleteHostParty(String hostPartyId, ProfileMode profileMode)async {
-
+  Future<void> addProfilePhoto_2(String photoUrl_2, bool isImageFromFile) async {
     isProcessing = true;
     notifyListeners();
 
-    await partyRepository.deleteHostParty(hostPartyId );
+    await userRepository.addProfilePhoto_2(profileUser, photoUrl_2, isImageFromFile);
+
+    // プロフィール写真更新後にユーザーデータを再取得。staticに保存
+    await userRepository.getCurrentUserById(profileUser.uId);
+    profileUser = currentUser;
+
+    isProcessing = false;
+    notifyListeners();
+  }
+
+  Future<void> deleteHostParty(String hostPartyId, ProfileMode profileMode) async {
+    isProcessing = true;
+    notifyListeners();
+
+    await partyRepository.deleteHostParty(hostPartyId);
 
     await getParties(ProfileMode.MYSELF);
 
     isProcessing = false;
     notifyListeners();
-
- }
-
-
-
+  }
 }
