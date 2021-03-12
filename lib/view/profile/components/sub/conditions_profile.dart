@@ -5,42 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../../../../style.dart';
 
-
-
-class ConditionsProfile extends StatefulWidget {
-  @override
-  _ConditionsProfileState createState() => _ConditionsProfileState();
-}
-
-class _ConditionsProfileState extends State<ConditionsProfile> {
-
-  String selectedIdealNumberOfParty ;
-  String selectedIdealPartyAtmosphere ;
-  String selectedKaraoke ;
-  String selectedPartyFee ;
-
-
-  @override
-  void initState() {
-
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
-    final profileUser = profileViewModel.profileUser;
-
-    profileViewModel.selectedIdealNumberOfParty = profileUser.idealNumberOfParty;
-    profileViewModel.selectedIdealPartyAtmosphere = profileUser.idealPartyAtmosphere;
-    profileViewModel.selectedKaraoke = profileUser.karaoke;
-    profileViewModel.selectedPartyFee = profileUser.partyFee;
-
-
-
-    super.initState();
-  }
-
-
-
+class ConditionsProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -53,21 +21,32 @@ class _ConditionsProfileState extends State<ConditionsProfile> {
             ),
             DropdownButton(
                 items: [
-                  DropdownMenuItem(value: "2:2", child: Text("2:2"),),
-                  DropdownMenuItem(value: "3:3", child: Text("3:3"),),
-                  DropdownMenuItem(value: "4:4", child: Text("4:4"),),
-                  DropdownMenuItem(value: "5:5", child: Text("5:5"),),
-                  DropdownMenuItem(value: "それ以上", child: Text("それ以上"),),
-
+                  DropdownMenuItem(
+                    value: "2:2",
+                    child: Text("2:2"),
+                  ),
+                  DropdownMenuItem(
+                    value: "3:3",
+                    child: Text("3:3"),
+                  ),
+                  DropdownMenuItem(
+                    value: "4:4",
+                    child: Text("4:4"),
+                  ),
+                  DropdownMenuItem(
+                    value: "5:5",
+                    child: Text("5:5"),
+                  ),
+                  DropdownMenuItem(
+                    value: "それ以上",
+                    child: Text("それ以上"),
+                  ),
                 ],
-                value: selectedIdealNumberOfParty,
+                value: _profileViewModel.selectedIdealNumberOfParty,
                 onChanged: (selectedValue) {
-                  setState(() {
-                    selectedIdealNumberOfParty = selectedValue;
-                    _onUpdated();
-                    //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
+                  _profileViewModel.selectedIdealNumberOfParty = selectedValue;
+                  //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
+                  FocusScope.of(context).requestFocus(new FocusNode());
                 }),
           ],
         ),
@@ -84,28 +63,34 @@ class _ConditionsProfileState extends State<ConditionsProfile> {
             ),
             DropdownButton(
                 items: [
-
-                  DropdownMenuItem(value: "賑やか", child: Text("賑やか"),),
-                  DropdownMenuItem(value: "落ち着いた", child: Text("落ち着いた"),),
-                  DropdownMenuItem(value: "フレンドリー", child: Text("フレンドリー"),),
-                  DropdownMenuItem(value: "リラックス", child: Text("リラックス"),),
-
+                  DropdownMenuItem(
+                    value: "賑やか",
+                    child: Text("賑やか"),
+                  ),
+                  DropdownMenuItem(
+                    value: "落ち着いた",
+                    child: Text("落ち着いた"),
+                  ),
+                  DropdownMenuItem(
+                    value: "フレンドリー",
+                    child: Text("フレンドリー"),
+                  ),
+                  DropdownMenuItem(
+                    value: "リラックス",
+                    child: Text("リラックス"),
+                  ),
                 ],
-                value: selectedIdealPartyAtmosphere,
+                value: _profileViewModel.selectedIdealPartyAtmosphere,
                 onChanged: (selectedValue) {
-                  setState(() {
-                    selectedIdealPartyAtmosphere = selectedValue;
-                    _onUpdated();
-                    //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
+                  _profileViewModel.selectedIdealPartyAtmosphere = selectedValue;
+                  //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
+                  FocusScope.of(context).requestFocus(new FocusNode());
                 }),
           ],
         ),
         Divider(
           thickness: 1.0,
         ),
-
 
         //#####################################カラオケ####################################
         Row(
@@ -116,20 +101,24 @@ class _ConditionsProfileState extends State<ConditionsProfile> {
             ),
             DropdownButton(
                 items: [
-
-                  DropdownMenuItem(value: "好き", child: Text("好き"),),
-                  DropdownMenuItem(value: "聴くだけ", child: Text("聴くだけ"),),
-                  DropdownMenuItem(value: "苦手", child: Text("苦手"),),
-
+                  DropdownMenuItem(
+                    value: "好き",
+                    child: Text("好き"),
+                  ),
+                  DropdownMenuItem(
+                    value: "聴くだけ",
+                    child: Text("聴くだけ"),
+                  ),
+                  DropdownMenuItem(
+                    value: "苦手",
+                    child: Text("苦手"),
+                  ),
                 ],
-                value: selectedKaraoke,
+                value: _profileViewModel.selectedKaraoke,
                 onChanged: (selectedValue) {
-                  setState(() {
-                    selectedKaraoke = selectedValue;
-                    _onUpdated();
-                    //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
+                  _profileViewModel.selectedKaraoke = selectedValue;
+                  //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
+                  FocusScope.of(context).requestFocus(new FocusNode());
                 }),
           ],
         ),
@@ -145,49 +134,45 @@ class _ConditionsProfileState extends State<ConditionsProfile> {
               width: 30.0,
             ),
             DropdownButton(
-              autofocus: false,
+                autofocus: false,
                 items: [
-                  DropdownMenuItem(value: "男性陣が全て払う", child: Text("男性陣が全て払う"),),
-                  DropdownMenuItem(value: "男性陣が多めに払う", child: Text("男性陣が多めに払う"),),
-                  DropdownMenuItem(value: "割り勘", child: Text("割り勘"),),
-                  DropdownMenuItem(value: "相談して決める", child: Text("相談して決める"),),
-                  DropdownMenuItem(value: "女性陣が多めに払う", child: Text("女性陣が多めに払う"),),
-                  DropdownMenuItem(value: "女性陣が全て払う", child: Text("女性陣が全て払う"),),
+                  DropdownMenuItem(
+                    value: "男性陣が全て払う",
+                    child: Text("男性陣が全て払う"),
+                  ),
+                  DropdownMenuItem(
+                    value: "男性陣が多めに払う",
+                    child: Text("男性陣が多めに払う"),
+                  ),
+                  DropdownMenuItem(
+                    value: "割り勘",
+                    child: Text("割り勘"),
+                  ),
+                  DropdownMenuItem(
+                    value: "相談して決める",
+                    child: Text("相談して決める"),
+                  ),
+                  DropdownMenuItem(
+                    value: "女性陣が多めに払う",
+                    child: Text("女性陣が多めに払う"),
+                  ),
+                  DropdownMenuItem(
+                    value: "女性陣が全て払う",
+                    child: Text("女性陣が全て払う"),
+                  ),
                 ],
-                value: selectedPartyFee,
+                value: _profileViewModel.selectedPartyFee,
                 onChanged: (selectedValue) {
-                  setState(() {
-                    selectedPartyFee = selectedValue;
-                    _onUpdated();
-                    //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
+                  _profileViewModel.selectedPartyFee = selectedValue;
+                  //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
+                  FocusScope.of(context).requestFocus(new FocusNode());
                 }),
           ],
         ),
         Divider(
           thickness: 1.0,
         ),
-
-
-
-
       ],
     );
   }
-
-  _onUpdated() {
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
-
-    profileViewModel.selectedIdealNumberOfParty = selectedIdealNumberOfParty;
-    profileViewModel.selectedIdealPartyAtmosphere = selectedIdealPartyAtmosphere;
-    profileViewModel.selectedKaraoke = selectedKaraoke;
-    profileViewModel.selectedPartyFee = selectedPartyFee;
-
-
-
-  }
-
-
 }

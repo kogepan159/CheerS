@@ -8,7 +8,7 @@ import '../../../../style.dart';
 class AppearanceProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: true);
+    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
