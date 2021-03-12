@@ -8,7 +8,7 @@ import '../../../../style.dart';
 class AppearanceProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -270,9 +270,9 @@ class AppearanceProfile extends StatelessWidget {
                     child: Text("200cm以上"),
                   ),
                 ],
-                value: profileViewModel.selectedHeight,
+                value: _profileViewModel.selectedHeight,
                 onChanged: (selectedValue) {
-                  profileViewModel.selectedHeight = selectedValue;
+                  _profileViewModel.selectedHeight = selectedValue;
                   // _onUpdated(context);
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
@@ -325,9 +325,9 @@ class AppearanceProfile extends StatelessWidget {
                     child: Text("太め"),
                   ),
                 ],
-                value: profileViewModel.selectedBodyShape,
+                value: _profileViewModel.selectedBodyShape,
                 onChanged: (selectedValue) {
-                  profileViewModel.selectedBodyShape = selectedValue;
+                  _profileViewModel.selectedBodyShape = selectedValue;
                   // _onUpdated(context);
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());

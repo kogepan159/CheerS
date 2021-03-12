@@ -34,23 +34,23 @@ class ProfileViewModel extends ChangeNotifier {
   String selectedBirthPlace = "";
   String selectedBloodType = "";
   String selectedLivingStatus = "";
-  int _selectedHeight = 0;
+  int selectedHeight = 0;
 
-  //"""""""外のクラスから、selectedHeightでアクセス。getterを使うことで、_selectedHeightにアクセスできる"""""""""""""""""""""""""""""""
-  int get selectedHeight => _selectedHeight;
-  //"""""""setterとnotifyListenersを使い、値の変更をウィジェットに通知できる"""""""""""""""""""""""""""""""
-  set selectedHeight(int value) {
-    _selectedHeight = value;
-    notifyListeners();
-  }
+  // //"""""""外のクラスから、selectedHeightでアクセス。getterを使うことで、_selectedHeightにアクセスできる"""""""""""""""""""""""""""""""
+  // int get selectedHeight => _selectedHeight;
+  // //"""""""setterとnotifyListenersを使い、値の変更をウィジェットに通知できる"""""""""""""""""""""""""""""""
+  // set selectedHeight(int value) {
+  //   _selectedHeight = value;
+  //   notifyListeners();
+  // }
 
-  String _selectedBodyShape = "";
+  String selectedBodyShape = "";
 
-  String get selectedBodyShape => _selectedBodyShape;
-  set selectedBodyShape(String value) {
-    _selectedBodyShape = value;
-    notifyListeners();
-  }
+  // String get selectedBodyShape => _selectedBodyShape;
+  // set selectedBodyShape(String value) {
+  //   _selectedBodyShape = value;
+  //   notifyListeners();
+  // }
 
   String selectedEducationalBackground = "";
   String selectedOccupation = "";
@@ -105,8 +105,8 @@ class ProfileViewModel extends ChangeNotifier {
       selectedBirthPlace,
       selectedBloodType,
       selectedLivingStatus,
-      _selectedHeight,
-      _selectedBodyShape,
+      selectedHeight,
+      selectedBodyShape,
       selectedEducationalBackground,
       selectedOccupation,
       selectedHoliday,
@@ -155,8 +155,8 @@ class ProfileViewModel extends ChangeNotifier {
     selectedBirthPlace = user.birthPlace;
     selectedBloodType = user.bloodType;
     selectedLivingStatus = user.livingStatus;
-    _selectedHeight = user.height;
-    _selectedBodyShape = user.bodyShape;
+    selectedHeight = user.height;
+    selectedBodyShape = user.bodyShape;
     selectedEducationalBackground = user.educationalBackground;
     selectedOccupation = user.occupation;
     selectedHoliday = user.holiday;
