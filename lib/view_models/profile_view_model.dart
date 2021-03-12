@@ -134,6 +134,18 @@ class ProfileViewModel extends ChangeNotifier {
 
     final User user = await userRepository.getProfile(profileUser);
 
+    isProcessing = false;
+    return user;
+  }
+
+  //プロフィール編集画面を開いた時に、既設定の情報が表示されるように
+  Future<User> getProfileForEditScreen() async {
+    isImagePicked = false;
+    isProcessing = true;
+    // notifyListeners();
+
+    final User user = await userRepository.getProfile(profileUser);
+
     profileUser = user;
     updateBio = user.bio;
     updateInAppUserName = user.name;

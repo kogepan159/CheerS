@@ -16,22 +16,10 @@ class GeneralProfile extends StatefulWidget {
 
 class _GeneralProfileState extends State<GeneralProfile> {
   TextEditingController bioController = TextEditingController();
-  TextEditingController captionInAppUserNameController =
-      TextEditingController();
+  TextEditingController captionInAppUserNameController = TextEditingController();
 
   String updateBio = "";
   String updateInAppUserName = "";
-  String selectedGender;
-
-  int selectedAge;
-
-  String selectedResidence;
-
-  String selectedBirthPlace;
-
-  String selectedBloodType;
-
-  String selectedLivingStatus;
 
   @override
   void initState() {
@@ -55,6 +43,7 @@ class _GeneralProfileState extends State<GeneralProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -136,9 +125,7 @@ class _GeneralProfileState extends State<GeneralProfile> {
             controller: captionInAppUserNameController,
             style: profileEditTextStyle,
             autofocus: true,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: S.of(context).hintForNickName),
+            decoration: InputDecoration(border: InputBorder.none, hintText: S.of(context).hintForNickName),
           ),
         ),
         Divider(
@@ -343,10 +330,10 @@ class _GeneralProfileState extends State<GeneralProfile> {
                     child: Text("沖縄県"),
                   ),
                 ],
-                value: selectedResidence,
+                value: _profileViewModel.selectedResidence,
                 onChanged: (selectedValue) {
                   setState(() {
-                    selectedResidence = selectedValue;
+                    _profileViewModel.selectedResidence = selectedValue;
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
@@ -555,10 +542,10 @@ class _GeneralProfileState extends State<GeneralProfile> {
                     child: Text("沖縄県"),
                   ),
                 ],
-                value: selectedBirthPlace,
+                value: _profileViewModel.selectedBirthPlace,
                 onChanged: (selectedValue) {
                   setState(() {
-                    selectedBirthPlace = selectedValue;
+                    _profileViewModel.selectedBirthPlace = selectedValue;
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
@@ -595,10 +582,10 @@ class _GeneralProfileState extends State<GeneralProfile> {
                     child: Text("AB型"),
                   ),
                 ],
-                value: selectedBloodType,
+                value: _profileViewModel.selectedBloodType,
                 onChanged: (selectedValue) {
                   setState(() {
-                    selectedBloodType = selectedValue;
+                    _profileViewModel.selectedBloodType = selectedValue;
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
@@ -635,10 +622,10 @@ class _GeneralProfileState extends State<GeneralProfile> {
                     child: Text("その他"),
                   ),
                 ],
-                value: selectedLivingStatus,
+                value: _profileViewModel.selectedLivingStatus,
                 onChanged: (selectedValue) {
                   setState(() {
-                    selectedLivingStatus = selectedValue;
+                    _profileViewModel.selectedLivingStatus = selectedValue;
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
@@ -653,16 +640,9 @@ class _GeneralProfileState extends State<GeneralProfile> {
   }
 
   _onCaptionUpdated() {
-    final profileViewModel =
-        Provider.of<ProfileViewModel>(context, listen: false);
+    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
 
     profileViewModel.updateBio = bioController.text;
     profileViewModel.updateInAppUserName = captionInAppUserNameController.text;
-    profileViewModel.selectedGender = selectedGender;
-    profileViewModel.selectedAge = selectedAge;
-    profileViewModel.selectedResidence = selectedResidence;
-    profileViewModel.selectedBirthPlace = selectedBirthPlace;
-    profileViewModel.selectedBloodType = selectedBloodType;
-    profileViewModel.selectedLivingStatus = selectedLivingStatus;
   }
 }

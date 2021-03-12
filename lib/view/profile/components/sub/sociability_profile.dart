@@ -5,36 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../../../../style.dart';
 
-
-class SociabilityProfile extends StatefulWidget {
-  @override
-  _SociabilityProfileState createState() => _SociabilityProfileState();
-}
-
-class _SociabilityProfileState extends State<SociabilityProfile> {
-
-  String selectedSociability ;
-
-  @override
-  void initState() {
-
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
-    final profileUser = profileViewModel.profileUser;
-
-    profileViewModel.selectedSociability = profileUser.sociability;
-
-
-
-    super.initState();
-  }
-
-
-
-
-
+class SociabilityProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -47,7 +21,6 @@ class _SociabilityProfileState extends State<SociabilityProfile> {
             ),
             DropdownButton(
                 items: [
-
                   DropdownMenuItem(
                     value: "大人数が好き",
                     child: Text("大人数が好き"),
@@ -56,36 +29,19 @@ class _SociabilityProfileState extends State<SociabilityProfile> {
                     value: "少人数が好き",
                     child: Text("少人数が好き"),
                   ),
-
                 ],
-                value: selectedSociability,
+                value: _profileViewModel.selectedSociability,
                 onChanged: (selectedValue) {
-                  setState(() {
-                    selectedSociability = selectedValue;
-                    _onUpdated();
-                    //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
+                  _profileViewModel.selectedSociability = selectedValue;
+                  //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
+                  FocusScope.of(context).requestFocus(new FocusNode());
                 }),
           ],
         ),
         Divider(
           thickness: 1.0,
         ),
-
-
       ],
     );
   }
-
-
-  _onUpdated() {
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
-
-    profileViewModel.selectedSociability = selectedSociability;
-
-  }
-
-
 }

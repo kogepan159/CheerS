@@ -36,7 +36,7 @@ class ProfileEditScreen extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-          future: profileViewModel.getProfile(),
+          future: profileViewModel.getProfileForEditScreen(),
           builder: (context, AsyncSnapshot<User> snapShot) {
             if (snapShot.hasData && snapShot.data != null) {
               final profileData = snapShot.data;

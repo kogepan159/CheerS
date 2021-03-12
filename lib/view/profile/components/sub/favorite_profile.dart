@@ -5,38 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../../../../style.dart';
 
-
-class FavoriteProfile extends StatefulWidget {
-  @override
-  _FavoriteProfileState createState() => _FavoriteProfileState();
-}
-
-class _FavoriteProfileState extends State<FavoriteProfile> {
-
-
-  String selectedAlcohol ;
-  String selectedTobacco ;
-
-
-  @override
-  void initState() {
-
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
-    final profileUser = profileViewModel.profileUser;
-
-    profileViewModel.selectedAlcohol = profileUser.alcohol;
-    profileViewModel.selectedTobacco = profileUser.tobacco;
-
-
-
-    super.initState();
-  }
-
-
-
+class FavoriteProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -49,26 +21,30 @@ class _FavoriteProfileState extends State<FavoriteProfile> {
             ),
             DropdownButton(
                 items: [
-                      DropdownMenuItem(value: "飲まない", child: Text("飲まない"),),
-                      DropdownMenuItem(value: "時々飲む", child: Text("時々飲む"),),
-                      DropdownMenuItem(value: "飲む", child: Text("飲む"),),
-
+                  DropdownMenuItem(
+                    value: "飲まない",
+                    child: Text("飲まない"),
+                  ),
+                  DropdownMenuItem(
+                    value: "時々飲む",
+                    child: Text("時々飲む"),
+                  ),
+                  DropdownMenuItem(
+                    value: "飲む",
+                    child: Text("飲む"),
+                  ),
                 ],
-                value: selectedAlcohol,
+                value: _profileViewModel.selectedAlcohol,
                 onChanged: (selectedValue) {
-                  setState(() {
-                    selectedAlcohol = selectedValue;
-                    _onUpdated();
-                    //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
+                  _profileViewModel.selectedAlcohol = selectedValue;
+                  //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
+                  FocusScope.of(context).requestFocus(new FocusNode());
                 }),
           ],
         ),
         Divider(
           thickness: 1.0,
         ),
-
 
         //#####################################タバコ#######################################
         Row(
@@ -79,43 +55,31 @@ class _FavoriteProfileState extends State<FavoriteProfile> {
             ),
             DropdownButton(
                 items: [
-                      DropdownMenuItem(value: "吸わない", child: Text("吸わない"),),
-                      DropdownMenuItem(value: "時々吸う", child: Text("時々吸う"),),
-                      DropdownMenuItem(value: "吸う", child: Text("吸う"),),
-
+                  DropdownMenuItem(
+                    value: "吸わない",
+                    child: Text("吸わない"),
+                  ),
+                  DropdownMenuItem(
+                    value: "時々吸う",
+                    child: Text("時々吸う"),
+                  ),
+                  DropdownMenuItem(
+                    value: "吸う",
+                    child: Text("吸う"),
+                  ),
                 ],
-                value: selectedTobacco,
+                value: _profileViewModel.selectedTobacco,
                 onChanged: (selectedValue) {
-                  setState(() {
-                    selectedTobacco = selectedValue;
-                    _onUpdated();
-                    //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
+                  _profileViewModel.selectedTobacco = selectedValue;
+                  //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
+                  FocusScope.of(context).requestFocus(new FocusNode());
                 }),
           ],
         ),
         Divider(
           thickness: 1.0,
         ),
-
-
-
       ],
     );
   }
-
-
-  _onUpdated() {
-    final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
-
-    profileViewModel.selectedAlcohol = selectedAlcohol;
-    profileViewModel.selectedTobacco = selectedTobacco;
-
-
-
-  }
-
-
 }
