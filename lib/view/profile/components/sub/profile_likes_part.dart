@@ -1,5 +1,4 @@
 import 'package:cheers_app/data_models/host_party.dart';
-import 'package:cheers_app/data_models/offer.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

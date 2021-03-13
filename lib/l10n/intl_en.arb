@@ -111,7 +111,9 @@
   "subPhoto_3": "Sub photo3",
   "subPhoto_4": "Sub photo4",
   "editPhotoConfirm": "Are you sure to want to change your photo?",
-  "update": "Update"
+  "update": "Update",
+  "becomeFriend": "Become friend",
+  "quitBeingFriends": "Quit being friends"
 }
 
 

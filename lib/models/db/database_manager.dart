@@ -271,5 +271,42 @@ class DatabaseManager {
 
   }
 
+ Future<void> follow(User profileUser, User currentUser) async{
+    //(currentUserがprofileUserをフォローする。currentUserのサブコレクション[followings]にprofileUserのIDを登録)
+   await _db.collection("users").doc(currentUser.uId).collection("followings").doc(profileUser.uId).set({"uId" : profileUser.uId});
+
+   //(currentUserがprofileUserをフォローする。profileUserのサブコレクション[followers]にcurrentUserのIDを登録)
+   await _db.collection("users").doc(profileUser.uId).collection("followers").doc(currentUser.uId).set({"uId" : currentUser.uId});
+
+
+
+
+ }
+
+  Future<void>   unFollow(User profileUser, User currentUser) async{
+//(currentUserがprofileUserのフォロー辞める。currentUserのサブコレクション[followings]からprofileUserのIDを削除)
+  await _db.collection("users").doc(currentUser.uId).collection("followings").doc(profileUser.uId).delete();
+
+    //(currentUserがprofileUserのフォロー辞める。profileUserのサブコレクション[followers]からcurrentUserのIDを削除)
+  await _db.collection("users").doc(profileUser.uId).collection("followers").doc(currentUser.uId).delete();
+
+  }
+
+ Future<bool> checkIsFollowing(User profileUser, User currentUser) async{
+    //followingsにデータが入っているのかどうかを確認
+    final query = await _db.collection("users").doc(currentUser.uId).collection("followings").get();
+    if (query.docs.length == 0) return false;
+    //profileUserをcurrentUserがフォローしているのかどうかを確認。currentUserのドキュメントを読み込み
+    final checkQuery = await _db.collection("users").doc(currentUser.uId).collection("followings").where("uId", isEqualTo: profileUser.uId).get();
+    if (checkQuery.docs.length > 0) {
+      return true;
+    }else{
+      return false;
+    }
+
+
+ }
+
+
 
 }

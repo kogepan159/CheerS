@@ -517,5 +517,22 @@ class UserRepository {
 
  }
 
+ Future<void> follow(User profileUser) async{
+    await dbManager.follow(profileUser, currentUser);
+
+ }
+
+  Future<void> unFollow(User profileUser) async{
+    await dbManager.unFollow(profileUser,currentUser);
+  }
+
+
+ Future<bool> checkIsFollowing(User profileUser)async {
+   return await dbManager.checkIsFollowing(profileUser, currentUser);
+ }
+
+
+
+
 
 }

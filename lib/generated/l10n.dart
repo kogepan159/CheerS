@@ -1164,6 +1164,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Become friend`
+  String get becomeFriend {
+    return Intl.message(
+      'Become friend',
+      name: 'becomeFriend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quit being friends`
+  String get quitBeingFriends {
+    return Intl.message(
+      'Quit being friends',
+      name: 'quitBeingFriends',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

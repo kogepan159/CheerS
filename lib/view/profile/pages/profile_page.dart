@@ -23,20 +23,26 @@ class ProfilePage extends StatelessWidget {
   final bool isImageFromFile;
   final int index;
 
-  ProfilePage({@required this.profileMode, this.selectedUser, this.hostParty, this.isImageFromFile, this.index});
+  ProfilePage(
+      {@required this.profileMode,
+      this.selectedUser,
+      this.hostParty,
+      this.isImageFromFile,
+      this.index});
 
   @override
   Widget build(BuildContext context) {
     final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
+        Provider.of<ProfileViewModel>(context, listen: false);
     //プロフィール画面がどこから開かれたかを判別
-    profileViewModel.getProfileUser(profileMode, selectedUser);
+    profileViewModel.setProfileUser(profileMode, selectedUser);
 
     Future(() => profileViewModel.getParties(profileMode));
 
     return Consumer<ProfileViewModel>(builder: (context, model, child) {
       final profileUser = model.profileUser;
       final profileImageFromFile = model.imageFile;
+      final isFollowing = profileViewModel.isFollowingProfileUser;
       return Scaffold(
         appBar: AppBar(
           title: Text(profileUser.inAppUserName),
@@ -49,90 +55,110 @@ class ProfilePage extends StatelessWidget {
         body: model.isProcessing
             ? Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    //""""""""""""プロフィール画像パート"""""""""""""""""""""""""""
+                    profileViewModel.isProcessing
+                        ? CircularProgressIndicator()
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 400,
+                              child: InkWell(
+                                // onTap: () => _openProfilePhotoExpandedScreen(context,index),
+                                child: ProfilePhotoPart(
+                                  profileImageFromFile: profileImageFromFile,
+                                  mode: profileMode,
+                                  isImageFromFile: false,
+                                ),
+                              ),
+                            ),
+                          ),
 
-              //""""""""""""プロフィール画像パート"""""""""""""""""""""""""""
-              profileViewModel.isProcessing
-                  ? CircularProgressIndicator()
-                  : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 400,
-                  child: InkWell(
-                    // onTap: () => _openProfilePhotoExpandedScreen(context,index),
-                    child: ProfilePhotoPart(
-                      profileImageFromFile: profileImageFromFile,
-                      mode: profileMode,
-                      isImageFromFile: false,
+                    //""""""""""""いいね表示パート"""""""""""""""""""""""""""
+                    Row(
+                      children: [
+                        ProfileLikesPart(
+                          hostParty: hostParty,
+                        ),
+
+                        ///""""""""""""友達人数表示パート"""""""""""""""""""""""""""
+                        // ProfileNumberOfFriendsPart(
+                        //   hostParty: hostParty,
+                        // ),
+
+                        ///""""""""""""友達申し込み申請パート"""""""""""""""""""""""""""
+                        // ProfileApplicationOfFriendsPart(
+                        //   hostParty: hostParty,
+                        // ),
+                      ],
                     ),
-                  ),
+
+                    //""""""""""""自分の場合は、アイコンボタン（画像変更）。他人の場合は、友達になるボタン"""""""""""""""""""""""""""
+                    profileMode == ProfileMode.MYSELF
+                        ? ButtonWithIcon(
+                            onPressed: () => _openChangePhotoScreen(context),
+                            label: S.of(context).changePhoto,
+                            iconData: FontAwesomeIcons.portrait,
+                          )
+                        : ButtonWithIcon(
+                            onPressed: () {
+                              isFollowing
+                                  ? _unFollow(context)
+                                  : _follow(context);
+                            },
+                            label: isFollowing
+                                ? S.of(context).quitBeingFriends
+                                : S.of(context).becomeFriend,
+                            iconData: FontAwesomeIcons.handshake,
+                          ),
+
+                    //""""""""""""アイコンボタン（プロフィール変更）"""""""""""""""""""""""""""
+                    profileMode == ProfileMode.MYSELF
+                        ? ButtonWithIcon(
+                            onPressed: () => _openProfileEditScreen(context),
+                            label: S.of(context).editProfile,
+                            iconData: FontAwesomeIcons.edit,
+                          )
+                        : Container(),
+
+                    //""""""""""""（プロフィール詳細）"""""""""""""""""""""""""""
+
+                    ProfileDetailPart(),
+                    profileMode == ProfileMode.MYSELF
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Center(
+                                  child: Text(
+                                S.of(context).partyInSession,
+                                style: profileEditTitleTextStyle,
+                              )),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+
+                              //""""""""""""開催中合コンリスト"""""""""""""""""""""""""""
+
+                              ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: model.parties.length,
+                                  itemBuilder: (context, index) {
+                                    return ProfilePostTile(
+                                      profileMode: profileMode,
+                                      hostParty: model.parties[index],
+                                    );
+                                  }),
+                            ],
+                          )
+                        : Container(),
+                  ],
                 ),
               ),
-
-
-              //""""""""""""いいね表示パート"""""""""""""""""""""""""""
-              ProfileLikesPart(
-                hostParty: hostParty,
-              ),
-
-              //""""""""""""アイコンボタン（画像変更）"""""""""""""""""""""""""""
-              profileMode == ProfileMode.MYSELF
-                  ? ButtonWithIcon(
-                onPressed: () => _openChangePhotoScreen(context),
-                label: S.of(context).changePhoto,
-                iconData: FontAwesomeIcons.portrait,
-              )
-                  : Container(),
-
-
-              //""""""""""""アイコンボタン（プロフィール変更）"""""""""""""""""""""""""""
-              profileMode == ProfileMode.MYSELF
-                  ? ButtonWithIcon(
-                onPressed: () => _openProfileEditScreen(context),
-                label: S.of(context).editProfile,
-                iconData: FontAwesomeIcons.edit,
-              )
-                  : Container(),
-
-              //""""""""""""（プロフィール詳細）"""""""""""""""""""""""""""
-
-              ProfileDetailPart(),
-              profileMode == ProfileMode.MYSELF
-                  ? Column(
-                children: [
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Center(
-                      child: Text(
-                        S.of(context).partyInSession,
-                        style: profileEditTitleTextStyle,
-                      )),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-
-
-                  //""""""""""""開催中合コンリスト"""""""""""""""""""""""""""
-
-                  ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: model.parties.length,
-                      itemBuilder: (context, index) {
-                        return ProfilePostTile(
-                          profileMode: profileMode,
-                          hostParty: model.parties[index],
-                        );
-                      }),
-                ],
-              )
-                  : Container(),
-            ],
-          ),
-        ),
       );
     });
   }
@@ -145,15 +171,28 @@ class ProfilePage extends StatelessWidget {
         ));
   }
 
-
   _openChangePhotoScreen(BuildContext context) {
-
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ChangePhotoScreen(),
-      ),);
+      ),
+    );
+  }
+
+  //TODO
+  _unFollow(BuildContext context) {
+    final profileViewModel =
+    Provider.of<ProfileViewModel>(context, listen: false);
+
+    profileViewModel.unFollow();
 
   }
 
+  _follow(BuildContext context) {
+    final profileViewModel =
+    Provider.of<ProfileViewModel>(context, listen: false);
+
+    profileViewModel.follow();
+  }
 }

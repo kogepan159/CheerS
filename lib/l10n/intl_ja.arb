@@ -111,5 +111,7 @@
   "subPhoto_3": "サブ写真3",
   "subPhoto_4": "サブ写真4",
   "editPhotoConfirm": "写真を更新してもいいですか？",
-  "update": "更新"
+  "update": "更新",
+  "becomeFriend": "友達になる",
+  "quitBeingFriends": "友達を辞める"
 }
