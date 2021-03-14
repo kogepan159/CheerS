@@ -21,8 +21,10 @@ class ProfileViewModel extends ChangeNotifier {
   bool isImagePicked = false;
   File imageFile;
   bool isFollowingProfileUser = false;
+  bool isFriends = false;
 
   List<HostParty> parties = List();
+  List<User> appliedUser = List();
 
   String caption = "";
   String selectedPrefecture = "";
@@ -363,7 +365,7 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> unFollow()async {
+  Future<void> unFollow(User profileUser)async {
     await userRepository.unFollow(profileUser);
     isFollowingProfileUser = false;
     notifyListeners();
@@ -378,5 +380,21 @@ Future<void> checkIsFollowing() async{
     isFollowingProfileUser = await userRepository.checkIsFollowing(profileUser);
     notifyListeners();
  }
+
+ //誰に友達申請をされているのか表示用
+ Future<List<User>> getApplicationOfFriends() async{
+   return await userRepository.getApplicationOfFriends(profileUser.uId);
+
+
+ }
+
+ Future<void> becomeFriends(User appliedUser) async{
+
+    await userRepository.becomeFriends(appliedUser);
+    isFollowingProfileUser = true;
+    isFriends = true;
+    notifyListeners();
+
+  }
 
 }

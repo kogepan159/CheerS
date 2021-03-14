@@ -113,5 +113,8 @@
   "editPhotoConfirm": "写真を更新してもいいですか？",
   "update": "更新",
   "becomeFriend": "友達になる",
-  "quitBeingFriends": "友達を辞める"
+  "quitBeingFriends": "友達を辞める",
+  "cancelFriendRequest": "友達申請を取り消す",
+  "friendRequestToYou": "あなたへの友達申請",
+  "approval": "承認"
 }

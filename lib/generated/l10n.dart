@@ -1184,6 +1184,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Cancel friend Request`
+  String get cancelFriendRequest {
+    return Intl.message(
+      'Cancel friend Request',
+      name: 'cancelFriendRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friend request to you`
+  String get friendRequestToYou {
+    return Intl.message(
+      'Friend request to you',
+      name: 'friendRequestToYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ok`
+  String get approval {
+    return Intl.message(
+      'Ok',
+      name: 'approval',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

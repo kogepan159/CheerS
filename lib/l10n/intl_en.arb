@@ -113,7 +113,10 @@
   "editPhotoConfirm": "Are you sure to want to change your photo?",
   "update": "Update",
   "becomeFriend": "Become friend",
-  "quitBeingFriends": "Quit being friends"
+  "quitBeingFriends": "Quit being friends",
+  "cancelFriendRequest": "Cancel friend Request",
+  "friendRequestToYou": "Friend request to you",
+  "approval": "Ok"
 }
 
 

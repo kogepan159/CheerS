@@ -278,10 +278,8 @@ class DatabaseManager {
    //(currentUserがprofileUserをフォローする。profileUserのサブコレクション[followers]にcurrentUserのIDを登録)
    await _db.collection("users").doc(profileUser.uId).collection("followers").doc(currentUser.uId).set({"uId" : currentUser.uId});
 
-
-
-
  }
+
 
   Future<void>   unFollow(User profileUser, User currentUser) async{
 //(currentUserがprofileUserのフォロー辞める。currentUserのサブコレクション[followings]からprofileUserのIDを削除)
@@ -306,6 +304,58 @@ class DatabaseManager {
 
 
  }
+
+  //誰に友達申請されているのか確認
+  Future<List<String>> getFollowerUserIds(String uId) async{
+
+    final query = await _db.collection("users").doc(uId).collection("followers").get();
+
+    //フォロワーデータがあるか判定。ない場合には空リストを返す
+    if(query.docs.length == 0)
+      return List();
+
+    var uIds = List<String>();
+    query.docs.forEach((id) {
+      uIds.add(id.data()["uId"]);
+    });
+    return uIds;
+
+  }
+
+  //誰に友達申請をされているのか表示用（getFollowerUserIdsメソッドから、友達申請してきた人のIDを取得し、そのIDを元にユーザーデータ全体を取得する）
+ Future<List<User>> getApplicationOfFriends(String uId) async{
+    final followerUserIds = await getFollowerUserIds(uId);
+    print({"followerUserIds: $followerUserIds"});
+        var followerUsers = List<User>();
+    await Future.forEach(followerUserIds, (followerUserId)async {
+      final user = await getUserInfoFromDbById(followerUserId);
+      followerUsers.add(user);
+
+    });
+    return followerUsers;
+
+
+ }
+
+ Future<void> becomeFriends(User appliedUser, User currentUser)async {
+  //#######友達コレクションにID追加########
+   //(currentUserがappliedUserの友達申請を承認する。currentUserのサブコレクション[friends]にappliedUserのIDを登録)
+   await _db.collection("users").doc(currentUser.uId).collection("friends").doc(appliedUser.uId).set({"uId" : appliedUser.uId});
+
+   //(currentUserがappliedUserの友達申請を承認する。appliedUserのサブコレクション[friends]にcurrentUserのIDを登録)
+   await _db.collection("users").doc(appliedUser.uId).collection("friends").doc(currentUser.uId).set({"uId" : currentUser.uId});
+
+   //##########友達申請を受け入れたら、お互いのfollowings,followersコレクションからIDを削除する。それにより、申請待ち画面からユーザーが消える############
+
+   //currentUserのサブコレクション[followers]からappliedUserのIDを削除)
+   await _db.collection("users").doc(currentUser.uId).collection("followers").doc(appliedUser.uId).delete();
+
+   //appliedUserのサブコレクション[followings]からcurrentUserのIDを削除)
+   await _db.collection("users").doc(appliedUser.uId).collection("followings").doc(currentUser.uId).delete();
+
+
+ }
+
 
 
 
