@@ -116,5 +116,6 @@
   "quitBeingFriends": "友達を辞める",
   "cancelFriendRequest": "友達申請を取り消す",
   "friendRequestToYou": "あなたへの友達申請",
-  "approval": "承認"
+  "approval": "承認",
+  "noOneSentTheFriendRequest": "あなたへ友達申請しているユーザーはいません"
 }

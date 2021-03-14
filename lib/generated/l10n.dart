@@ -1214,6 +1214,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No one sent you the friend request`
+  String get noOneSentTheFriendRequest {
+    return Intl.message(
+      'No one sent you the friend request',
+      name: 'noOneSentTheFriendRequest',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

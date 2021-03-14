@@ -98,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mainPhoto" : MessageLookupByLibrary.simpleMessage("Main photo"),
     "nickName" : MessageLookupByLibrary.simpleMessage("Nickname"),
     "no" : MessageLookupByLibrary.simpleMessage("No"),
+    "noOneSentTheFriendRequest" : MessageLookupByLibrary.simpleMessage("No one sent you the friend request"),
     "noPrefectureIsSelected" : MessageLookupByLibrary.simpleMessage("No prefecture is selected"),
     "occupation" : MessageLookupByLibrary.simpleMessage("Occupation"),
     "offerParty" : MessageLookupByLibrary.simpleMessage("Offer party"),

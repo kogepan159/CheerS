@@ -116,7 +116,8 @@
   "quitBeingFriends": "Quit being friends",
   "cancelFriendRequest": "Cancel friend Request",
   "friendRequestToYou": "Friend request to you",
-  "approval": "Ok"
+  "approval": "Ok",
+  "noOneSentTheFriendRequest": "No one sent you the friend request"
 }
 
 

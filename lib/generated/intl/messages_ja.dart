@@ -98,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mainPhoto" : MessageLookupByLibrary.simpleMessage("メイン写真"),
     "nickName" : MessageLookupByLibrary.simpleMessage("ニックネーム"),
     "no" : MessageLookupByLibrary.simpleMessage("いいえ"),
+    "noOneSentTheFriendRequest" : MessageLookupByLibrary.simpleMessage("あなたへ友達申請しているユーザーはいません"),
     "noPrefectureIsSelected" : MessageLookupByLibrary.simpleMessage("都道府県が選択されていません"),
     "occupation" : MessageLookupByLibrary.simpleMessage("職業"),
     "offerParty" : MessageLookupByLibrary.simpleMessage("合コンする"),

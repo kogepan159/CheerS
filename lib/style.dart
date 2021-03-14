@@ -43,3 +43,6 @@ const SearchUserBarTextStyle = TextStyle(fontFamily: RegularFont, color: Colors.
 
 const userCardForSearchUserTitleTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 20.0,);
 const userCardForSearchUserTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 14.0,);
+
+//友達申請承認画面
+const profileApplicationOfFriendsTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 16.0,);
