@@ -16,12 +16,12 @@ import '../../home_screen.dart';
 class HostPartyConfirmationScreen extends StatelessWidget {
 
   final HostParty hostParty;
-  final PostCaptionOpenMode postCaptionOpenMode;
+  final PostCaptionOpenMode from;
   final FeedMode feedMode;
   final User hostPartyUser;
 
 
-  HostPartyConfirmationScreen({@required this.hostParty,@required this.postCaptionOpenMode, this.feedMode, @required this.hostPartyUser});
+  HostPartyConfirmationScreen({@required this.hostParty,@required this.from, this.feedMode, @required this.hostPartyUser});
 
 
   @override
@@ -35,7 +35,7 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        title: postCaptionOpenMode == PostCaptionOpenMode.FROM_POST
+        title: from == PostCaptionOpenMode.FROM_POST
 
         ? Text(S.of(context).confirmationPost)
         : Text(S.of(context).confirmationUpdates),
@@ -43,7 +43,7 @@ class HostPartyConfirmationScreen extends StatelessWidget {
 
           //投稿の更新処理と、新規投稿の条件分岐
 
-          postCaptionOpenMode == PostCaptionOpenMode.FROM_POST
+          from == PostCaptionOpenMode.FROM_POST
 
           //############新規投稿#############
           ? IconButton(icon: Icon(Icons.done),

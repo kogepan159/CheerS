@@ -114,8 +114,10 @@
   "update": "更新",
   "becomeFriend": "友達になる",
   "quitBeingFriends": "友達を辞める",
-  "cancelFriendRequest": "友達申請を取り消す",
+  "cancelFriendRequest": "取消",
   "friendRequestToYou": "あなたへの友達申請",
+  "friendRequestFromYou": "あなたから友達申請中",
   "approval": "承認",
-  "noOneSentTheFriendRequest": "あなたへ友達申請しているユーザーはいません"
+  "noOneSentTheFriendRequest": "あなたへ友達申請しているユーザーはいません",
+  "noUserYouAreApplyingForAFriend": "あなたが友達申請しているユーザーはいません"
 }

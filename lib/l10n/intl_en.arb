@@ -114,10 +114,12 @@
   "update": "Update",
   "becomeFriend": "Become friend",
   "quitBeingFriends": "Quit being friends",
-  "cancelFriendRequest": "Cancel friend Request",
+  "cancelFriendRequest": "Cancel",
   "friendRequestToYou": "Friend request to you",
+  "friendRequestFromYou": "あなたから友達申請中",
   "approval": "Ok",
-  "noOneSentTheFriendRequest": "No one sent you the friend request"
+  "noOneSentTheFriendRequest": "No one sent you the friend request",
+  "noUserYouAreApplyingForAFriend": "No user you are applying for a friend"
 }
 
 

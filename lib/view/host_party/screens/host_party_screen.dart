@@ -26,13 +26,15 @@ class HostPartyScreen extends StatelessWidget {
     final hostPartyViewModel =
         Provider.of<HostPartyViewModel>(context, listen: false);
 
-    // return Consumer<HostPartyViewModel>(builder: (context, model, child) {
+
+
     return FutureBuilder(
         future: hostPartyViewModel.getPartyForEdit(hostPartyId),
     builder: (context, AsyncSnapshot<HostParty> snapShot) {
     if (snapShot.hasData && snapShot.data != null) {
       final partyData = snapShot.data;
       print("hostPartyUser $partyData");
+
 
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -49,7 +51,7 @@ class HostPartyScreen extends StatelessWidget {
           children: [
             HostPartyCaptionPart(
               hostParty: hostParty,
-              from: PostCaptionOpenMode.FROM_POST,
+              from: from,
               partyData: partyData,
             ),
             ButtonWithIcon(
@@ -130,6 +132,7 @@ class HostPartyScreen extends StatelessWidget {
               HostPartyConfirmationScreen(
                 hostParty: hostParty,
                 hostPartyUser: hostPartyUser,
+                from: from,
               )),
     );
 

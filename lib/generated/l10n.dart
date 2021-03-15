@@ -1185,10 +1185,10 @@ class S {
     );
   }
 
-  /// `Cancel friend Request`
+  /// `Cancel`
   String get cancelFriendRequest {
     return Intl.message(
-      'Cancel friend Request',
+      'Cancel',
       name: 'cancelFriendRequest',
       desc: '',
       args: [],
@@ -1200,6 +1200,16 @@ class S {
     return Intl.message(
       'Friend request to you',
       name: 'friendRequestToYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `あなたから友達申請中`
+  String get friendRequestFromYou {
+    return Intl.message(
+      'あなたから友達申請中',
+      name: 'friendRequestFromYou',
       desc: '',
       args: [],
     );
@@ -1220,6 +1230,16 @@ class S {
     return Intl.message(
       'No one sent you the friend request',
       name: 'noOneSentTheFriendRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No user you are applying for a friend`
+  String get noUserYouAreApplyingForAFriend {
+    return Intl.message(
+      'No user you are applying for a friend',
+      name: 'noUserYouAreApplyingForAFriend',
       desc: '',
       args: [],
     );

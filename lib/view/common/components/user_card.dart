@@ -6,7 +6,6 @@ import 'package:cheers_app/style.dart';
 import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/view/common/components/circle_photo.dart';
 import 'package:cheers_app/view/common/dialog/confirm_dialog.dart';
-import 'package:cheers_app/view/host_party/screens/host_party_edit_screen.dart';
 import 'package:cheers_app/view/host_party/screens/host_party_screen.dart';
 import 'package:cheers_app/view_models/host_party_view_model.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';

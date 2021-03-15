@@ -71,6 +71,7 @@ class ProfileViewModel extends ChangeNotifier {
     } else {
       profileUser = selectedUser;
       checkIsFollowing();
+      checkIsFriends();
     }
   }
 
@@ -373,13 +374,16 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
 
-
-
-
 Future<void> checkIsFollowing() async{
     isFollowingProfileUser = await userRepository.checkIsFollowing(profileUser);
     notifyListeners();
  }
+
+  Future<void> checkIsFriends() async{
+    isFriends = await userRepository.checkIsFriends(profileUser);
+    notifyListeners();
+  }
+
 
  //誰に友達申請をされているのか表示用
  Future<List<User>> getApplicationOfFriends() async{
@@ -391,10 +395,27 @@ Future<void> checkIsFollowing() async{
  Future<void> becomeFriends(User appliedUser) async{
 
     await userRepository.becomeFriends(appliedUser);
-    isFollowingProfileUser = true;
+    isFollowingProfileUser = false;
     isFriends = true;
     notifyListeners();
 
   }
+
+  //自分が友達申請をしている人のリストを取ってくる
+  Future<List<User>> getFriendRequestByMe() async{
+    return await userRepository.getFriendRequestByMe(profileUser.uId);
+
+
+  }
+
+ Future<void> quitFriends()async {
+   await userRepository.quitFriends(profileUser);
+   isFollowingProfileUser = false;
+   isFriends = false;
+   notifyListeners();
+
+
+ }
+
 
 }

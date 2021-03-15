@@ -532,6 +532,10 @@ class UserRepository {
    return await dbManager.checkIsFollowing(profileUser, currentUser);
  }
 
+  Future<bool> checkIsFriends(User profileUser)async {
+    return await dbManager.checkIsFriends(profileUser, currentUser);
+  }
+
 
  // 誰に友達申請をされているのか表示用
  Future<List> getApplicationOfFriends(String uId) async{
@@ -547,8 +551,20 @@ class UserRepository {
    await dbManager.becomeFriends(appliedUser, currentUser);
  }
 
+//自分が友達申請をしている人のリストを取ってくる
+  Future<List> getFriendRequestByMe(String uId) async{
+    var results = List<User>();
 
+    results = await dbManager.getFriendRequestByMe(uId);
+    print("results: $results");
 
+    return results;
+  }
+
+  Future<void>  quitFriends(User profileUser) async{
+    await dbManager.quitFriends(profileUser,currentUser);
+
+  }
 
 
 }

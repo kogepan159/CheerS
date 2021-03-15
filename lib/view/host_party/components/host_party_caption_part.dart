@@ -56,12 +56,13 @@ class _HostPartyCaptionPartState extends State<HostPartyCaptionPart> {
     super.initState();
 
     if(widget.from == PostCaptionOpenMode.FROM_PROFILE ) {
-      getLastPartyInfo();
+      getLastPartyInfo(widget.hostParty.hostPartyId);
       //既にDbにあるデータを表示させる
       captionController.text = widget.hostParty.caption;
+    }else{
+      captionController.text = caption;
     }
-    captionController.text = widget.partyData.caption;
-    // caption = captionController.text;
+    // captionController.text = widget.partyData.caption;
     captionController.addListener(_onCaptionUpdated);
 
   }
@@ -204,12 +205,12 @@ class _HostPartyCaptionPartState extends State<HostPartyCaptionPart> {
     }
   }
 
-  Future<String> getLastPartyInfo()async{
+  Future<String> getLastPartyInfo(String hostPartyId)async{
 
     final hostPartyViewModel =
     Provider.of<HostPartyViewModel>(context, listen: false);
 
-   party =  (await hostPartyViewModel.getPartyForEdit(widget.hostPartyId));
+   party =  (await hostPartyViewModel.getPartyForEdit(hostPartyId));
    print("party: $party");
 
 
