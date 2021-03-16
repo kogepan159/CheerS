@@ -116,10 +116,15 @@
   "quitBeingFriends": "Quit being friends",
   "cancelFriendRequest": "Cancel",
   "friendRequestToYou": "Friend request to you",
-  "friendRequestFromYou": "あなたから友達申請中",
+  "friendRequestFromYou": "Friend request from you",
   "approval": "Ok",
   "noOneSentTheFriendRequest": "No one sent you the friend request",
-  "noUserYouAreApplyingForAFriend": "No user you are applying for a friend"
+  "noUserYouAreApplyingForAFriend": "No user you are applying for a friend",
+  "friends": "Friends",
+  "noFriends": "No friends",
+  "numberOfParty": "Party",
+  "requestFromYou": "Request to You",
+  "request": "Request from you"
 }
 
 

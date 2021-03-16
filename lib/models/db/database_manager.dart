@@ -153,6 +153,8 @@ class DatabaseManager {
     return results;
   }
 
+
+
   Future<void> updateProfile(User updateUser) async {
     final reference = _db.collection("users").doc(updateUser.uId);
     await reference.update(updateUser.toMap());
@@ -358,6 +360,27 @@ class DatabaseManager {
   }
 
 
+  //誰と友達になっているのか確認
+  Future<List<String>> getFriendUserIds(String uId) async{
+    //cloudfirestoreに入っている自分がフォローしている人のユーザーIDを読み込み
+    final query = await _db.collection("users").doc(uId).collection("friends").get();
+
+    //データベースにデータがなかった場合、空のLISTを返す
+    if(query.docs.length == 0)
+      return List();
+
+    //友達のユーザーIDを取得してくる（プログラムの詳細は分からん）
+    var userIds = List<String>();
+    query.docs.forEach((id) {
+      userIds.add(id.data()["uId"]);
+    });
+
+    print("userIds: $userIds");
+
+    return userIds;
+  }
+
+
   //誰から友達申請をされているのか表示用（getFollowerUserIdsメソッドから、友達申請してきた人のIDを取得し、そのIDを元にユーザーデータ全体を取得する）
  Future<List<User>> getApplicationOfFriends(String uId) async{
     final followerUserIds = await getFollowerUserIds(uId);
@@ -406,6 +429,22 @@ class DatabaseManager {
 
 
   }
+
+  //友達リストを取ってくる（getFollowingUserIdsメソッドから、自分が申請している人のIDを取得し、そのIDを元にユーザーデータ全体を取得する）
+  Future<List<User>> getFriends(String uId) async{
+    final friendUserIds = await getFriendUserIds(uId);
+    print({"friendUserIds: $friendUserIds"});
+    var friends = List<User>();
+    await Future.forEach(friendUserIds, (friendUserId)async {
+      final user = await getUserInfoFromDbById(friendUserId);
+      friends.add(user);
+
+    });
+    return friends;
+
+
+  }
+
 
 
   Future<void>   quitFriends(User profileUser, User currentUser) async{

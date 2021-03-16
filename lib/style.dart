@@ -46,3 +46,6 @@ const userCardForSearchUserTextStyle = TextStyle(fontFamily: RegularFont, fontSi
 
 //友達申請承認画面
 const profileApplicationOfFriendsTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 16.0,);
+
+//プロフィールページ　友達人数などの情報画面
+const profileNumberInfoTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 14.0,);

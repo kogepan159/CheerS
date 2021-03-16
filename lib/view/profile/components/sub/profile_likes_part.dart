@@ -1,4 +1,5 @@
 import 'package:cheers_app/data_models/host_party.dart';
+import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,12 +22,20 @@ class ProfileLikesPart extends StatelessWidget {
       builder: (context, AsyncSnapshot<int> snapshot) {
         if (snapshot.hasData && snapshot.data != null) {
           final numberOfOfferResult = snapshot.data;
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          return Column(
             children: [
-              FaIcon(FontAwesomeIcons.thumbsUp),
-              SizedBox(width: 5.0,),
-              Text(numberOfOfferResult.toString(), style: numberOfOfferTextStyle,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: 5.0,),
+                  Text(numberOfOfferResult.toString(), style: numberOfOfferTextStyle,),
+                ],
+              ),
+              Column(
+                children: [
+                  Text(S.of(context).numberOfParty, style: profileNumberInfoTextStyle,),
+                ],
+              ),
             ],
           );
         } else {

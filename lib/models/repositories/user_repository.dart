@@ -561,8 +561,36 @@ class UserRepository {
     return results;
   }
 
+  //友達リストを取ってくる
+  Future<List> getFriends(String uId) async{
+    var results = List<User>();
+
+    results = await dbManager.getFriends(uId);
+    print("results: $results");
+
+    return results;
+  }
+
   Future<void>  quitFriends(User profileUser) async{
     await dbManager.quitFriends(profileUser,currentUser);
+
+  }
+
+  //友達人数を取得
+  Future<int>  getNumberOfFriends(User profileUser) async{
+    return (await dbManager.getFriendUserIds(profileUser.uId)).length;
+
+  }
+
+  //友達申請中人数を取得
+  Future<int>  getNumberOfFriendRequestByMe(User profileUser) async{
+    return (await dbManager.getFollowingUserIds(profileUser.uId)).length;
+
+  }
+
+  //友達承認待ち人数を取得
+  Future<int>  getNumberOfApplicationOfFriends(User profileUser) async{
+    return (await dbManager.getFollowerUserIds(profileUser.uId)).length;
 
   }
 

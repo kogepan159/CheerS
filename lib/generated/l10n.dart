@@ -1205,10 +1205,10 @@ class S {
     );
   }
 
-  /// `あなたから友達申請中`
+  /// `Friend request from you`
   String get friendRequestFromYou {
     return Intl.message(
-      'あなたから友達申請中',
+      'Friend request from you',
       name: 'friendRequestFromYou',
       desc: '',
       args: [],
@@ -1240,6 +1240,56 @@ class S {
     return Intl.message(
       'No user you are applying for a friend',
       name: 'noUserYouAreApplyingForAFriend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friends`
+  String get friends {
+    return Intl.message(
+      'Friends',
+      name: 'friends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No friends`
+  String get noFriends {
+    return Intl.message(
+      'No friends',
+      name: 'noFriends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Party`
+  String get numberOfParty {
+    return Intl.message(
+      'Party',
+      name: 'numberOfParty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request to You`
+  String get requestFromYou {
+    return Intl.message(
+      'Request to You',
+      name: 'requestFromYou',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request from you`
+  String get request {
+    return Intl.message(
+      'Request from you',
+      name: 'request',
       desc: '',
       args: [],
     );

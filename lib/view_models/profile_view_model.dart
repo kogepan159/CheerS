@@ -91,8 +91,24 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  //合コン数取得
   Future<int> getNumberOfOffer() async {
     return await partyRepository.getNumberOfOffer(profileUser);
+  }
+
+  //友達人数取得
+  Future<int> getNumberOfFriends() async {
+    return await userRepository.getNumberOfFriends(profileUser);
+  }
+
+  //友達申請中人数取得
+  Future<int> getNumberOfFriendRequestByMe() async {
+    return await userRepository.getNumberOfFriendRequestByMe(profileUser);
+  }
+
+  //友達承認待ち人数取得
+  Future<int> getNumberOfApplicationOfFriends() async {
+    return await userRepository.getNumberOfApplicationOfFriends(profileUser);
   }
 
   void updateProfile() async {
@@ -404,6 +420,13 @@ Future<void> checkIsFollowing() async{
   //自分が友達申請をしている人のリストを取ってくる
   Future<List<User>> getFriendRequestByMe() async{
     return await userRepository.getFriendRequestByMe(profileUser.uId);
+
+
+  }
+
+  //友達リストを取ってくる
+  Future<List<User>> getFriends() async{
+    return await userRepository.getFriends(profileUser.uId);
 
 
   }

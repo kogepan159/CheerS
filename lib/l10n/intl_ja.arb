@@ -119,5 +119,10 @@
   "friendRequestFromYou": "あなたから友達申請中",
   "approval": "承認",
   "noOneSentTheFriendRequest": "あなたへ友達申請しているユーザーはいません",
-  "noUserYouAreApplyingForAFriend": "あなたが友達申請しているユーザーはいません"
+  "noUserYouAreApplyingForAFriend": "あなたが友達申請しているユーザーはいません",
+  "friends": "友達",
+  "noFriends": "友達がいません",
+  "numberOfParty": "開催実績",
+  "requestFromYou": "友達申請中",
+  "request": "承認待ち"
 }
