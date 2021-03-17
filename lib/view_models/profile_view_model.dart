@@ -22,6 +22,7 @@ class ProfileViewModel extends ChangeNotifier {
   File imageFile;
   bool isFollowingProfileUser = false;
   bool isFriends = false;
+  bool isFollowedProfileUser = false;
 
   List<HostParty> parties = List();
   List<User> appliedUser = List();
@@ -71,6 +72,7 @@ class ProfileViewModel extends ChangeNotifier {
     } else {
       profileUser = selectedUser;
       checkIsFollowing();
+      checkIsFollowed();
       checkIsFriends();
     }
   }
@@ -395,6 +397,11 @@ Future<void> checkIsFollowing() async{
     notifyListeners();
  }
 
+  Future<void> checkIsFollowed() async{
+    isFollowedProfileUser = await userRepository.checkIsFollowed(profileUser);
+    notifyListeners();
+  }
+
   Future<void> checkIsFriends() async{
     isFriends = await userRepository.checkIsFriends(profileUser);
     notifyListeners();
@@ -412,7 +419,6 @@ Future<void> checkIsFollowing() async{
 
     await userRepository.becomeFriends(appliedUser);
     isFollowingProfileUser = false;
-    isFriends = true;
     notifyListeners();
 
   }

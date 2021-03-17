@@ -1,6 +1,7 @@
 {
   "activities": "activities",
   "add": "add",
+  "added": "added",
   "addComment": "Add Comment..",
   "appTitle": "CheerS",
   "camera": "Camera",
@@ -118,6 +119,7 @@
   "friendRequestToYou": "Friend request to you",
   "friendRequestFromYou": "Friend request from you",
   "approval": "Ok",
+  "approved": "Approved",
   "noOneSentTheFriendRequest": "No one sent you the friend request",
   "noUserYouAreApplyingForAFriend": "No user you are applying for a friend",
   "friends": "Friends",

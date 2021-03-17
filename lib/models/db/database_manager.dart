@@ -308,6 +308,22 @@ class DatabaseManager {
 
  }
 
+  //友達申請されてるかどうかを確認
+  Future<bool> checkIsFollowed(User profileUser, User currentUser) async{
+    //followersにデータが入っているのかどうかを確認
+    final query = await _db.collection("users").doc(currentUser.uId).collection("followers").get();
+    if (query.docs.length == 0) return false;
+    //currentUserがprofileUserにフォローされているのかどうかを確認。currentUserのドキュメントを読み込み
+    final checkQuery = await _db.collection("users").doc(currentUser.uId).collection("followers").where("uId", isEqualTo: profileUser.uId).get();
+    if (checkQuery.docs.length > 0) {
+      return true;
+    }else{
+      return false;
+    }
+
+
+  }
+
  //友達かどうかを確認
   Future<bool> checkIsFriends(User profileUser, User currentUser) async{
     //friendsにデータが入っているのかどうかを確認

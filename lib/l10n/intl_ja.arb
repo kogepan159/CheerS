@@ -1,6 +1,7 @@
 {
   "activities": "アクティビティ",
   "add": "追加",
+  "added": "追加済み",
   "addComment": "コメントを追加..",
   "appTitle": "CheerS",
   "camera": "カメラ",
@@ -118,6 +119,7 @@
   "friendRequestToYou": "あなたへの友達申請",
   "friendRequestFromYou": "あなたから友達申請中",
   "approval": "承認",
+  "approved": "承認済み",
   "noOneSentTheFriendRequest": "あなたへ友達申請しているユーザーはいません",
   "noUserYouAreApplyingForAFriend": "あなたが友達申請しているユーザーはいません",
   "friends": "友達",

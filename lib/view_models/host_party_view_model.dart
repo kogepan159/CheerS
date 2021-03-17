@@ -13,6 +13,8 @@ class HostPartyViewModel extends ChangeNotifier{
   bool isProcessing = false;
   bool isImagePicked = false;
 
+  bool isFriendsInvited = false;
+
   //hostPartyCaptionPartのTextFieldとつなげる（_onCaptionUpdatedメソッド内）
   String caption = "";
 
@@ -24,6 +26,7 @@ class HostPartyViewModel extends ChangeNotifier{
   HostParty party = HostParty();
   User feedUser;
   HostParty hostParty;
+  List<User> friends = List();
 
   //合コン企画を投稿
   Future<void>postParty() async{
@@ -69,6 +72,8 @@ return await partyRepository.getPartyForEdit(hostPartyId);
       notifyListeners();
 
     }
+
+
 
   }
 

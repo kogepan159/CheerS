@@ -532,6 +532,10 @@ class UserRepository {
    return await dbManager.checkIsFollowing(profileUser, currentUser);
  }
 
+  Future<bool> checkIsFollowed(User profileUser)async {
+    return await dbManager.checkIsFollowed(profileUser, currentUser);
+  }
+
   Future<bool> checkIsFriends(User profileUser)async {
     return await dbManager.checkIsFriends(profileUser, currentUser);
   }

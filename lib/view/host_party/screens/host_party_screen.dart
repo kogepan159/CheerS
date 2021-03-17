@@ -8,6 +8,7 @@ import 'package:cheers_app/view/home_screen.dart';
 import 'package:cheers_app/view/host_party/components/host_party_caption_part.dart';
 import 'package:cheers_app/view/host_party/components/host_party_caption_part.dart';
 import 'package:cheers_app/view/host_party/screens/host_party_confirmation_screen.dart';
+import 'package:cheers_app/view/profile/screens/profile_number_of_friends_screen.dart';
 import 'package:cheers_app/view_models/host_party_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -60,7 +61,7 @@ class HostPartyScreen extends StatelessWidget {
               label: S
                   .of(context)
                   .inviteFriends,
-              onPressed: () => _openInviteFriendsScreen(context),
+              onPressed: () => _openProfileNumberOfFriendsScreen(context),
             ),
             (from == PostCaptionOpenMode.FROM_PROFILE)
                 ? ButtonWithIcon(
@@ -97,7 +98,9 @@ class HostPartyScreen extends StatelessWidget {
     );
   }
 
-  _openInviteFriendsScreen(BuildContext context) {}
+  _openProfileNumberOfFriendsScreen(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileNumberOfFriendsScreen(numberOfFriendsScreenOpenMode: NumberOfFriendsScreenOpenMode.FROM_HostParty,),),);
+  }
 
   _openHostPartyConfirmationScreen(BuildContext context) {
     final hostPartyViewModel =

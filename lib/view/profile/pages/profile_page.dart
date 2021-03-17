@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   final ProfileMode profileMode;
   final User selectedUser;
   final HostParty hostParty;
@@ -37,13 +37,18 @@ class ProfilePage extends StatelessWidget {
       this.index});
 
   @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
   Widget build(BuildContext context) {
     final profileViewModel =
         Provider.of<ProfileViewModel>(context, listen: false);
     //プロフィール画面がどこから開かれたかを判別
-    profileViewModel.setProfileUser(profileMode, selectedUser);
+    profileViewModel.setProfileUser(widget.profileMode, widget.selectedUser);
 
-    Future(() => profileViewModel.getParties(profileMode));
+    Future(() => profileViewModel.getParties(widget.profileMode));
 
     return Consumer<ProfileViewModel>(builder: (context, model, child) {
       final profileUser = model.profileUser;
@@ -55,7 +60,7 @@ class ProfilePage extends StatelessWidget {
           title: Text(profileUser.inAppUserName),
           actions: [
             ProfileSettingPart(
-              mode: profileMode,
+              mode: widget.profileMode,
             ),
           ],
         ),
@@ -76,7 +81,7 @@ class ProfilePage extends StatelessWidget {
                                 // onTap: () => _openProfilePhotoExpandedScreen(context,index),
                                 child: ProfilePhotoPart(
                                   profileImageFromFile: profileImageFromFile,
-                                  mode: profileMode,
+                                  mode: widget.profileMode,
                                   isImageFromFile: false,
                                 ),
                               ),
@@ -89,24 +94,24 @@ class ProfilePage extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: ProfileLikesPart(
-                            hostParty: hostParty,
+                            hostParty: widget.hostParty,
                           ),
                         ),
 
                         ///""""""""""""友達人数表示パート"""""""""""""""""""""""""""
                         Expanded(
                           flex: 1,
-                            child: GestureDetector(
-                              onTap: ()=> _openProfileNumberOfFriendsScreen(context),
-                              child: ProfileNumberOfFriendsPart(
-                              ),
-                            ),
+                          child: GestureDetector(
+                            onTap: () =>
+                                _openProfileNumberOfFriendsScreen(context),
+                            child: ProfileNumberOfFriendsPart(),
                           ),
+                        ),
 
                         ///""""""""""""友達申請中パート"""""""""""""""""""""""""""
-                        profileMode == ProfileMode.MYSELF
+                        widget.profileMode == ProfileMode.MYSELF
                             ? Expanded(
-                          flex: 1,
+                                flex: 1,
                                 child: GestureDetector(
                                     onTap: () =>
                                         _openProfileFriendRequestScreen(
@@ -116,9 +121,9 @@ class ProfilePage extends StatelessWidget {
                             : Container(),
 
                         ///""""""""""""友達承認待ちパート"""""""""""""""""""""""""""
-                        profileMode == ProfileMode.MYSELF
+                        widget.profileMode == ProfileMode.MYSELF
                             ? Expanded(
-                          flex: 1,
+                                flex: 1,
                                 child: GestureDetector(
                                     onTap: () =>
                                         _openProfileApplicationOfFriendsScreen(
@@ -130,43 +135,41 @@ class ProfilePage extends StatelessWidget {
                     ),
 
                     //""""""""""""自分の場合は、アイコンボタン（画像変更）。他人の場合は、友達になるボタン"""""""""""""""""""""""""""
-                    profileMode == ProfileMode.MYSELF
+                    widget.profileMode == ProfileMode.MYSELF
                         ? ButtonWithIcon(
                             onPressed: () => _openChangePhotoScreen(context),
                             label: S.of(context).changePhoto,
                             iconData: FontAwesomeIcons.portrait,
                           )
                         : profileViewModel.isFriends
-                    //既に友達だったら、友達を辞めるボタン。友達じゃなかったら、友達申請
+                            //既に友達だったら、友達を辞めるボタン。友達じゃなかったら、友達申請or申請中表示ボタン
                             ? ButtonWithIcon(
-                                onPressed: () => _quitFriends(context),
+                                onPressed: () {
+                                  setState(() {
+                                    _quitFriends(context);
+                                  });
+                                },
                                 label: S.of(context).quitBeingFriends,
                                 iconData: FontAwesomeIcons.heartBroken,
                               )
-                            : ButtonWithIcon(
-                                onPressed: () => _follow(context),
-                                label: S.of(context).becomeFriend,
-                                iconData: FontAwesomeIcons.handshake,
-                              ),
-
-                    // ButtonWithIcon(
-                    //         onPressed: () {
-                    //          if(isFollowing == true && isFriends == false){
-                    //            //友達申請を取り消す（A）
-                    //            _unFollow(context);
-                    //          } else if(isFriends == true && isFollowing == true){
-                    //            ///友達を辞める（B）
-                    //          }else if(isFriends == false && isFollowing == false) {
-                    //            ///友達を辞める（C）
-                    //            _follow(context);
-                    //          }
-                    //         },
-                    //         label:
-                    //         iconData: FontAwesomeIcons.handshake,
-                    //       ),
+                            : profileViewModel.isFollowingProfileUser
+                                ? ButtonWithIcon(
+                                    onPressed: null,
+                                    label: S.of(context).requestFromYou,
+                                    iconData: FontAwesomeIcons.handshake,
+                                  )
+                                : ButtonWithIcon(
+                                    onPressed: () {
+                                      setState(() {
+                                        _follow(context);
+                                      });
+                                    },
+                                    label: S.of(context).becomeFriend,
+                                    iconData: FontAwesomeIcons.handshake,
+                                  ),
 
                     //""""""""""""アイコンボタン（プロフィール変更）"""""""""""""""""""""""""""
-                    profileMode == ProfileMode.MYSELF
+                    widget.profileMode == ProfileMode.MYSELF
                         ? ButtonWithIcon(
                             onPressed: () => _openProfileEditScreen(context),
                             label: S.of(context).editProfile,
@@ -177,7 +180,7 @@ class ProfilePage extends StatelessWidget {
                     //""""""""""""（プロフィール詳細）"""""""""""""""""""""""""""
 
                     ProfileDetailPart(),
-                    profileMode == ProfileMode.MYSELF
+                    widget.profileMode == ProfileMode.MYSELF
                         ? Column(
                             children: [
                               SizedBox(
@@ -200,7 +203,7 @@ class ProfilePage extends StatelessWidget {
                                   itemCount: model.parties.length,
                                   itemBuilder: (context, index) {
                                     return ProfilePostTile(
-                                      profileMode: profileMode,
+                                      profileMode: widget.profileMode,
                                       hostParty: model.parties[index],
                                     );
                                   }),
@@ -231,15 +234,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  //TODO
-  // _unFollow(BuildContext context) {
-  //   final profileViewModel =
-  //       Provider.of<ProfileViewModel>(context, listen: false);
-  //
-  //   profileViewModel.unFollow();
-  // }
-
-  //友達申請をする
   _follow(BuildContext context) {
     final profileViewModel =
         Provider.of<ProfileViewModel>(context, listen: false);
@@ -247,7 +241,6 @@ class ProfilePage extends StatelessWidget {
     profileViewModel.follow();
   }
 
-  //自分に友達申請をしているユーザーリスト
   _openProfileApplicationOfFriendsScreen(BuildContext context) {
     Navigator.push(
       context,
@@ -257,17 +250,15 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  //友達リストスクリーン
   _openProfileNumberOfFriendsScreen(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ProfileNumberOfFriendsScreen(),
+        builder: (context) => ProfileNumberOfFriendsScreen(numberOfFriendsScreenOpenMode: NumberOfFriendsScreenOpenMode.FROM_PROFILE,),
       ),
     );
   }
 
-  //自分が友達申請中のユーザーリスト
   _openProfileFriendRequestScreen(BuildContext context) {
     Navigator.push(
       context,
@@ -277,10 +268,9 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  //友達を辞める
   _quitFriends(BuildContext context) {
     final profileViewModel =
-    Provider.of<ProfileViewModel>(context, listen: false);
+        Provider.of<ProfileViewModel>(context, listen: false);
 
     profileViewModel.quitFriends();
   }

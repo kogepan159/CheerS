@@ -26,3 +26,9 @@ enum ProfileSettingMenu{
   SIGN_OUT,
 
 }
+
+enum NumberOfFriendsScreenOpenMode{
+  FROM_HostParty,
+  FROM_PROFILE,
+
+}

@@ -55,6 +55,16 @@ class S {
     );
   }
 
+  /// `added`
+  String get added {
+    return Intl.message(
+      'added',
+      name: 'added',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add Comment..`
   String get addComment {
     return Intl.message(
@@ -1220,6 +1230,16 @@ class S {
     return Intl.message(
       'Ok',
       name: 'approval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Approved`
+  String get approved {
+    return Intl.message(
+      'Approved',
+      name: 'approved',
       desc: '',
       args: [],
     );
