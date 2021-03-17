@@ -73,6 +73,10 @@ return await partyRepository.getPartyForEdit(hostPartyId);
 
     }
 
+ Future<List<User>> getFriends(String uId)async {
+   return await userRepository.getFriends(uId);
+ }
+
 
 
   }
