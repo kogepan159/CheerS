@@ -5,10 +5,11 @@ import 'package:cheers_app/models/repositories/user_repository.dart';
 import 'package:cheers_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class HostPartyViewModel extends ChangeNotifier{
+class HostPartyViewModel extends ChangeNotifier {
   final PartyRepository partyRepository;
   final UserRepository userRepository;
-  HostPartyViewModel({this.partyRepository, this.userRepository });
+
+  HostPartyViewModel({this.partyRepository, this.userRepository});
 
   bool isProcessing = false;
   bool isImagePicked = false;
@@ -26,10 +27,10 @@ class HostPartyViewModel extends ChangeNotifier{
   HostParty party = HostParty();
   User feedUser;
   HostParty hostParty;
-  List<User> friends = List();
+  List<User> selectedFriends = List();
 
   //合コン企画を投稿
-  Future<void>postParty() async{
+  Future<void> postParty() async {
     isProcessing = true;
     notifyListeners();
     print("HostPartyConfirmationScreen# partyRepository.hostParty invoked");
@@ -40,44 +41,32 @@ class HostPartyViewModel extends ChangeNotifier{
     );
     isProcessing = false;
     notifyListeners();
-
   }
 
   //プロフィール画面から来た場合に、編集用に既にデータベースにある合コンデータをとってくる
- Future<HostParty> getPartyForEdit(String hostPartyId) async{
-
-
-return await partyRepository.getPartyForEdit(hostPartyId);
-
-
-
+  Future<HostParty> getPartyForEdit(String hostPartyId) async {
+    return await partyRepository.getPartyForEdit(hostPartyId);
   }
-
 
   //投稿内容を更新
-  Future<void> updateHostParty(HostParty hostParty, FeedMode feedMode) async{
+  Future<void> updateHostParty(HostParty hostParty, FeedMode feedMode) async {
+    isProcessing = true;
+    notifyListeners();
 
-      isProcessing = true;
-      notifyListeners();
+    await partyRepository.updateHostParty(hostParty.copyWith(
+      selectedPrefecture: selectedPrefecture,
+      caption: caption,
+    ));
+    print("hostPartyViewModel# partyRepository.updateHostParty invoked");
 
-      await partyRepository.updateHostParty(
-        hostParty.copyWith(
-          selectedPrefecture: selectedPrefecture,
-          caption: caption,
-        )
-      );
-      print("hostPartyViewModel# partyRepository.updateHostParty invoked");
-
-      isProcessing = false;
-      notifyListeners();
-
-    }
-
- Future<List<User>> getFriends(String uId)async {
-   return await userRepository.getFriends(uId);
- }
-
-
-
+    isProcessing = false;
+    notifyListeners();
   }
 
+  Future<List<User>> getFriends(String uId) async {
+    return await userRepository.getFriends(uId);
+  }
+
+
+
+}

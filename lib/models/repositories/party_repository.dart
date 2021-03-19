@@ -4,7 +4,7 @@ import 'package:cheers_app/data_models/user.dart';
 import 'package:cheers_app/models/db/database_manager.dart';
 import 'package:cheers_app/models/repositories/user_repository.dart';
 import 'package:cheers_app/utils/constants.dart';
-import 'package:cheers_app/view/host_party/components/host_party_caption_part.dart';
+import 'package:cheers_app/view/host_party/pages/sub/host_party_caption_part.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
