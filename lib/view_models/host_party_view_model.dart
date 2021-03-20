@@ -30,7 +30,17 @@ class HostPartyViewModel extends ChangeNotifier {
   List<User> selectedFriends = List();
 
   //合コン企画を投稿
-  Future<void> postParty() async {
+  Future<void> postParty(
+      String  member2Id,
+      String  member3Id,
+      String  member4Id,
+      String  member5Id,
+      String  member6Id,
+      String   member7Id,
+      String   member8Id,
+      String   member9Id,
+      String   member10Id
+  ) async {
     isProcessing = true;
     notifyListeners();
     print("HostPartyConfirmationScreen# partyRepository.hostParty invoked");
@@ -38,6 +48,16 @@ class HostPartyViewModel extends ChangeNotifier {
       UserRepository.currentUser,
       selectedPrefecture,
       caption,
+        member2Id,
+        member3Id,
+        member4Id,
+        member5Id,
+        member6Id,
+        member7Id,
+        member8Id,
+        member9Id,
+        member10Id
+
     );
     isProcessing = false;
     notifyListeners();
@@ -66,7 +86,4 @@ class HostPartyViewModel extends ChangeNotifier {
   Future<List<User>> getFriends(String uId) async {
     return await userRepository.getFriends(uId);
   }
-
-
-
 }

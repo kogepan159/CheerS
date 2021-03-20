@@ -24,7 +24,7 @@ class HostPartyCaptionPart extends StatefulWidget {
 
 
   HostPartyCaptionPart(
-      {@required this.hostPartyId, @required this.from, @required this.hostParty, this.profileUser,@required this.partyData});
+      {this.hostPartyId, @required this.from, @required this.hostParty, this.profileUser,@required this.partyData});
 
 
   @override
@@ -98,7 +98,7 @@ class _HostPartyCaptionPartState extends State<HostPartyCaptionPart> {
                             .hostLocation,
                           style: coloredHostPartyCaptionPartTextStyle,),
                         SizedBox(width: 30.0,),
-                        Divider(),
+                        Divider(thickness: 1.0,),
                         DropdownButton(
                             items:
                             [
@@ -164,7 +164,7 @@ class _HostPartyCaptionPartState extends State<HostPartyCaptionPart> {
                         .of(context)
                         .selfIntroductionToHostParty,
                       style: coloredHostPartyCaptionPartTextStyle,),
-                    Divider(),
+                    Divider(thickness: 1.0,),
                     Container(
                       height: 200,
                       child: TextField(
@@ -183,6 +183,7 @@ class _HostPartyCaptionPartState extends State<HostPartyCaptionPart> {
                         ),
                       ),
                     ),
+                    Divider(thickness: 1.0,),
                   ],
                 );
               }),

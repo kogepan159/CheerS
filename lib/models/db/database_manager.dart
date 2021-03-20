@@ -39,12 +39,15 @@ class DatabaseManager {
     return User.fromMap(query.docs[0].data());
   }
 
-  Future<void> insertPostParty(HostParty hostParty) async {
+  Future<void> insertPostParty(HostParty hostParty,) async {
     await _db
         .collection("hostParties")
         .doc(hostParty.hostPartyId)
         .set(hostParty.toMap());
   }
+
+  // //(currentUserがprofileUserをフォローする。currentUserのサブコレクション[followings]にprofileUserのIDを登録)
+  // await _db.collection("users").doc(currentUser.uId).collection("followings").doc(profileUser.uId).set({"uId" : profileUser.uId});
 
   //フィード画面にフィードを表示させるために投稿データを読み込み
   Future<List<HostParty>> getAllParty(String uId) async {

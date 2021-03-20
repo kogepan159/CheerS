@@ -2,7 +2,6 @@ import 'package:cheers_app/data_models/host_party.dart';
 import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/view/common/components/button_with_icon.dart';
-import 'package:cheers_app/view/host_party/screens/host_party_screen.dart';
 import 'package:cheers_app/view/profile/screens/profile_number_of_friends_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,7 +33,7 @@ class HostPartyPage extends StatelessWidget {
   _openHostPartyScreen(BuildContext context) {
 
     Navigator.push(context, MaterialPageRoute(
-            builder: (context) => ProfileNumberOfFriendsScreen(numberOfFriendsScreenOpenMode: NumberOfFriendsScreenOpenMode.FROM_HostParty,),));
+            builder: (context) => ProfileNumberOfFriendsScreen(numberOfFriendsScreenOpenMode: NumberOfFriendsScreenOpenMode.FROM_HostParty,from: PostCaptionOpenMode.FROM_POST,),));
 
   }
 }

@@ -126,5 +126,6 @@
   "noFriends": "友達がいません",
   "numberOfParty": "開催実績",
   "requestFromYou": "友達申請中",
-  "request": "承認待ち"
+  "request": "承認待ち",
+  "member": "メンバー"
 }

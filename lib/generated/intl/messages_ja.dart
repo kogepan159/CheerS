@@ -100,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "locationName" : MessageLookupByLibrary.simpleMessage("地名"),
     "longitude" : MessageLookupByLibrary.simpleMessage("経度"),
     "mainPhoto" : MessageLookupByLibrary.simpleMessage("メイン写真"),
+    "member" : MessageLookupByLibrary.simpleMessage("メンバー"),
     "nickName" : MessageLookupByLibrary.simpleMessage("ニックネーム"),
     "no" : MessageLookupByLibrary.simpleMessage("いいえ"),
     "noFriends" : MessageLookupByLibrary.simpleMessage("友達がいません"),

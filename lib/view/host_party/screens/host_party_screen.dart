@@ -3,18 +3,15 @@ import 'package:cheers_app/data_models/user.dart';
 import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/view/common/components/button_with_icon.dart';
-import 'package:cheers_app/view/common/dialog/confirm_dialog.dart';
 import 'package:cheers_app/view/home_screen.dart';
-import 'package:cheers_app/view/host_party/pages/sub/host_party_caption_part.dart';
 import 'package:cheers_app/view/host_party/pages/sub/host_party_caption_part.dart';
 import 'package:cheers_app/view/host_party/pages/sub/inveted_friends_part.dart';
 import 'package:cheers_app/view/host_party/screens/host_party_confirmation_screen.dart';
-import 'package:cheers_app/view/profile/components/sub/user_card_for_applied_and_applying_user_and_friends.dart';
-import 'package:cheers_app/view/profile/screens/profile_number_of_friends_screen.dart';
 import 'package:cheers_app/view_models/host_party_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
 
 class HostPartyScreen extends StatelessWidget {
   final HostParty hostParty;
@@ -22,15 +19,15 @@ class HostPartyScreen extends StatelessWidget {
   final PostCaptionOpenMode from;
   final User hostPartyUser;
   final int index;
-  final  List<User> selectedFriends;
+  final List<User> selectedFriends;
 
-  HostPartyScreen(
-      {this.hostParty,
-      this.hostPartyId,
-     @required this.from,
-      this.hostPartyUser,
-      this.index,
-        this.selectedFriends,
+  HostPartyScreen({
+    this.hostParty,
+    this.hostPartyId,
+    @required this.from,
+    this.hostPartyUser,
+    this.index,
+    this.selectedFriends,
   });
 
   @override
@@ -63,10 +60,10 @@ class HostPartyScreen extends StatelessWidget {
                       partyData: partyData,
                     ),
 
-                    ///招待した友達を表示
-                    InvitedFriendsPart(selectedFriends: selectedFriends,),
-
-
+                    //"""""""""""""""""""招待した友達を表示"""""""""""""""""""""""
+                    InvitedFriendsPart(
+                      selectedFriends: selectedFriends,
+                    ),
 
                     (from == PostCaptionOpenMode.FROM_PROFILE)
                         ? ButtonWithIcon(
@@ -101,7 +98,6 @@ class HostPartyScreen extends StatelessWidget {
     );
   }
 
-
   _openHostPartyConfirmationScreen(BuildContext context) {
     final hostPartyViewModel =
         Provider.of<HostPartyViewModel>(context, listen: false);
@@ -127,6 +123,7 @@ class HostPartyScreen extends StatelessWidget {
                       hostParty: hostParty,
                       hostPartyUser: hostPartyUser,
                       from: from,
+                      selectedFriends: selectedFriends,
                     )),
           );
   }
