@@ -127,5 +127,7 @@
   "numberOfParty": "開催実績",
   "requestFromYou": "友達申請中",
   "request": "承認待ち",
-  "member": "メンバー"
+  "member": "メンバー",
+  "numberOfPeopleLimit": "１〜９名までの間で招待してください",
+  "numberOfPeopleLimitAppBar": "友達１名〜９名を招待"
 }

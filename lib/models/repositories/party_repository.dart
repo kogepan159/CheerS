@@ -45,7 +45,6 @@ class PartyRepository {
     );
     print("dbManager.hostParty invoked");
     await dbManager.insertPostParty(hostParty);
-    // caption = "";
   }
 
   //合コンデータを取得（フィード画面に表示）

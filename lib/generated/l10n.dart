@@ -1324,6 +1324,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Please invite between from 1 to 9 people`
+  String get numberOfPeopleLimit {
+    return Intl.message(
+      'Please invite between from 1 to 9 people',
+      name: 'numberOfPeopleLimit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invite 1 to 9 people`
+  String get numberOfPeopleLimitAppBar {
+    return Intl.message(
+      'Invite 1 to 9 people',
+      name: 'numberOfPeopleLimitAppBar',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

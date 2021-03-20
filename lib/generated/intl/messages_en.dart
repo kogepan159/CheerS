@@ -108,6 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "noPrefectureIsSelected" : MessageLookupByLibrary.simpleMessage("No prefecture is selected"),
     "noUserYouAreApplyingForAFriend" : MessageLookupByLibrary.simpleMessage("No user you are applying for a friend"),
     "numberOfParty" : MessageLookupByLibrary.simpleMessage("Party"),
+    "numberOfPeopleLimit" : MessageLookupByLibrary.simpleMessage("Please invite between from 1 to 9 people"),
+    "numberOfPeopleLimitAppBar" : MessageLookupByLibrary.simpleMessage("Invite 1 to 9 people"),
     "occupation" : MessageLookupByLibrary.simpleMessage("Occupation"),
     "offerParty" : MessageLookupByLibrary.simpleMessage("Offer party"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),

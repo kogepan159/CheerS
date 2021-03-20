@@ -39,15 +39,18 @@ class FeedPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: model.parties.length,
-                itemBuilder: (context, index) {
-                  return FeedPostTile(
-                    feedMode: feedMode,
-                    hostParty: model.parties[index],
-                  );
-                });
+            return SingleChildScrollView(
+              child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: model.parties.length,
+                  itemBuilder: (context, index) {
+                    return FeedPostTile(
+                      feedMode: feedMode,
+                      hostParty: model.parties[index],
+                    );
+                  }),
+            );
           }
         },
       ),

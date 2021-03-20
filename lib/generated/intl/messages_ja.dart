@@ -108,6 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "noPrefectureIsSelected" : MessageLookupByLibrary.simpleMessage("都道府県が選択されていません"),
     "noUserYouAreApplyingForAFriend" : MessageLookupByLibrary.simpleMessage("あなたが友達申請しているユーザーはいません"),
     "numberOfParty" : MessageLookupByLibrary.simpleMessage("開催実績"),
+    "numberOfPeopleLimit" : MessageLookupByLibrary.simpleMessage("１〜９名までの間で招待してください"),
+    "numberOfPeopleLimitAppBar" : MessageLookupByLibrary.simpleMessage("友達１名〜９名を招待"),
     "occupation" : MessageLookupByLibrary.simpleMessage("職業"),
     "offerParty" : MessageLookupByLibrary.simpleMessage("合コンする"),
     "ok" : MessageLookupByLibrary.simpleMessage("OK"),

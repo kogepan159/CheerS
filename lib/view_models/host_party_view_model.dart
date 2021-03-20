@@ -84,6 +84,10 @@ class HostPartyViewModel extends ChangeNotifier {
   }
 
   Future<List<User>> getFriends(String uId) async {
-    return await userRepository.getFriends(uId);
+    isProcessing = true;
+    //ProfileNumberOfFriendsScreenで値が取れたら、falseに戻している
+   return await userRepository.getFriends(uId);
+
+
   }
 }

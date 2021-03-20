@@ -128,39 +128,258 @@ class HostPartyConfirmationScreen extends StatelessWidget {
   //新規投稿
   void _postParty(
       BuildContext context, List<User> selectedFriends, int index) async {
-
-
-    String member2Id = selectedFriends[0].uId;
-    String member3Id = selectedFriends[1].uId;
-    String member4Id = selectedFriends[2].uId;
-    String member5Id = selectedFriends[3].uId;
-    String member6Id = selectedFriends[4].uId;
-    String member7Id = selectedFriends[5].uId;
-    String member8Id = selectedFriends[6].uId;
-    String member9Id = selectedFriends[7].uId;
-    String member10Id = selectedFriends[8].uId;
-
-
-    //member1は、currentUser
     final hostPartyViewModel =
-        Provider.of<HostPartyViewModel>(context, listen: false);
-    await hostPartyViewModel.postParty(
-        member2Id,
-        member3Id,
-        member4Id,
-        member5Id,
-        member6Id,
-        member7Id,
-        member8Id,
-        member9Id,
-        member10Id
-    );
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HomeScreen(),
-      ),
-    );
+    Provider.of<HostPartyViewModel>(context, listen: false);
+
+
+
+    //""""""""招待者１名"""""""""""""
+    if(selectedFriends.length == 1){
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = "";
+      String member4Id = "";
+      String member5Id = "";
+      String member6Id = "";
+      String member7Id = "";
+      String member8Id = "";
+      String member9Id = "";
+      String member10Id = "";
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("１名");
+      _openHomeScreen(context);
+      return;
+    }
+
+    //""""""""招待者２名"""""""""""""
+    if(selectedFriends.length == 2){
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = selectedFriends[1].uId;
+      String member4Id = "";
+      String member5Id = "";
+      String member6Id = "";
+      String member7Id = "";
+      String member8Id = "";
+      String member9Id = "";
+      String member10Id = "";
+
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("２名");
+      _openHomeScreen(context);
+      return;
+    }
+
+    //""""""""招待者３名"""""""""""""
+    if(selectedFriends.length == 3){
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = selectedFriends[1].uId;
+      String member4Id = selectedFriends[2].uId;
+      String member5Id = "";
+      String member6Id = "";
+      String member7Id = "";
+      String member8Id = "";
+      String member9Id = "";
+      String member10Id = "";
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("３名");
+      _openHomeScreen(context);
+      return;
+    }
+
+    //""""""""招待4名"""""""""""""
+    if(selectedFriends.length == 4){
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = selectedFriends[1].uId;
+      String member4Id = selectedFriends[2].uId;
+      String member5Id = selectedFriends[3].uId;
+      String member6Id = "";
+      String member7Id = "";
+      String member8Id = "";
+      String member9Id = "";
+      String member10Id = "";
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("4名");
+      _openHomeScreen(context);
+      return;
+    }
+
+
+    //""""""""招待5名"""""""""""""
+    if(selectedFriends.length == 5){
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = selectedFriends[1].uId;
+      String member4Id = selectedFriends[2].uId;
+      String member5Id = selectedFriends[3].uId;
+      String member6Id = selectedFriends[4].uId;
+      String member7Id = "";
+      String member8Id = "";
+      String member9Id = "";
+      String member10Id = "";
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("5名");
+      _openHomeScreen(context);
+      return;
+    }
+
+    //""""""""招待6名"""""""""""""
+    if(selectedFriends.length == 6) {
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = selectedFriends[1].uId;
+      String member4Id = selectedFriends[2].uId;
+      String member5Id = selectedFriends[3].uId;
+      String member6Id = selectedFriends[4].uId;
+      String member7Id = selectedFriends[5].uId;
+      String member8Id = "";
+      String member9Id = "";
+      String member10Id = "";
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("6名");
+      _openHomeScreen(context);
+      return;
+    }
+
+    //""""""""招待7名"""""""""""""
+    if(selectedFriends.length == 7) {
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = selectedFriends[1].uId;
+      String member4Id = selectedFriends[2].uId;
+      String member5Id = selectedFriends[3].uId;
+      String member6Id = selectedFriends[4].uId;
+      String member7Id = selectedFriends[5].uId;
+      String member8Id = selectedFriends[6].uId;
+      String member9Id = "";
+      String member10Id = "";
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("7名");
+      _openHomeScreen(context);
+      return;
+    }
+
+    //""""""""招待8名"""""""""""""
+    if(selectedFriends.length == 8) {
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = selectedFriends[1].uId;
+      String member4Id = selectedFriends[2].uId;
+      String member5Id = selectedFriends[3].uId;
+      String member6Id = selectedFriends[4].uId;
+      String member7Id = selectedFriends[5].uId;
+      String member8Id = selectedFriends[6].uId;
+      String member9Id = selectedFriends[7].uId;
+      String member10Id = "";
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("8名");
+      _openHomeScreen(context);
+      return;
+    }
+
+    //""""""""招待9名"""""""""""""
+    if(selectedFriends.length == 9) {
+      String member2Id = selectedFriends[0].uId;
+      String member3Id = selectedFriends[1].uId;
+      String member4Id = selectedFriends[2].uId;
+      String member5Id = selectedFriends[3].uId;
+      String member6Id = selectedFriends[4].uId;
+      String member7Id = selectedFriends[5].uId;
+      String member8Id = selectedFriends[6].uId;
+      String member9Id = selectedFriends[7].uId;
+      String member10Id = selectedFriends[8].uId;
+      await hostPartyViewModel.postParty(
+          member2Id,
+          member3Id,
+          member4Id,
+          member5Id,
+          member6Id,
+          member7Id,
+          member8Id,
+          member9Id,
+          member10Id
+      );
+      print("9名");
+      _openHomeScreen(context);
+      return;
+    }
+
+
+
   }
 
 //投稿を更新
@@ -178,5 +397,16 @@ class HostPartyConfirmationScreen extends StatelessWidget {
         builder: (context) => HomeScreen(),
       ),
     );
+  }
+
+  void _openHomeScreen(BuildContext context) {
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ),
+    );
+
   }
 }
