@@ -129,5 +129,7 @@
   "request": "承認待ち",
   "member": "メンバー",
   "numberOfPeopleLimit": "１〜９名までの間で招待してください",
-  "numberOfPeopleLimitAppBar": "友達１名〜９名を招待"
+  "numberOfPeopleLimitAppBar": "友達１名〜９名を招待",
+  "plus": "他",
+  "people": "人"
 }

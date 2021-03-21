@@ -153,7 +153,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("１名");
       _openHomeScreen(context);
@@ -181,7 +182,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("２名");
       _openHomeScreen(context);
@@ -208,7 +210,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("３名");
       _openHomeScreen(context);
@@ -235,7 +238,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("4名");
       _openHomeScreen(context);
@@ -263,7 +267,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("5名");
       _openHomeScreen(context);
@@ -290,7 +295,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("6名");
       _openHomeScreen(context);
@@ -317,7 +323,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("7名");
       _openHomeScreen(context);
@@ -344,7 +351,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("8名");
       _openHomeScreen(context);
@@ -371,7 +379,8 @@ class HostPartyConfirmationScreen extends StatelessWidget {
           member7Id,
           member8Id,
           member9Id,
-          member10Id
+          member10Id,
+          selectedFriends
       );
       print("9名");
       _openHomeScreen(context);

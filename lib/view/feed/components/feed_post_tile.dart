@@ -14,44 +14,49 @@ class FeedPostTile extends StatelessWidget {
   final HostParty hostParty;
   final User currentUser;
 
-  FeedPostTile({this.feedMode, this.hostParty, this.currentUser});
+  FeedPostTile({this.feedMode, this.hostParty, this.currentUser });
 
   @override
   Widget build(BuildContext context) {
     final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
 
-    return FutureBuilder(
-        future: feedViewModel.getPartyUserInfo(hostParty.uId),
-        builder: (context, AsyncSnapshot<User> snapShot) {
-          if (snapShot.hasData && snapShot.data != null) {
-            final hostPartyUser = snapShot.data;
-            final currentUser = feedViewModel.currentUser;
-            print("hostPartyUser $hostPartyUser");
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: UserCard(
-                    feedMode: FeedMode.FROM_FEED,
-                    postDateTime: createTimeAgoString(hostParty.postDateTime),
-                    titleLeft: (S.of(context).hostLocation),
-                    titleRight: hostParty.selectedPrefecture,
-                    subTitleLeft: (S.of(context).host),
-                    photoUrl: hostPartyUser.photoUrl_1,
-                    subTitleRight: hostPartyUser.inAppUserName,
-                    currentUser: currentUser,
-                    hostPartyUser: hostPartyUser,
-                    caption: hostParty.caption,
-                    onTap: () => _openFeedPostDetailScreen(
-                        context, hostParty, hostPartyUser),
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return Container();
-          }
-        });
+    return  FutureBuilder(
+            future: feedViewModel.getPartyUserInfo(hostParty.uId),
+            builder: (context, AsyncSnapshot<User> snapShot) {
+              if (snapShot.hasData && snapShot.data != null) {
+                final hostPartyUser = snapShot.data;
+                final currentUser = feedViewModel.currentUser;
+
+
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: UserCard(
+                        feedMode: FeedMode.FROM_FEED,
+                        postDateTime:
+                            createTimeAgoString(hostParty.postDateTime),
+                        titleLeft: (S.of(context).hostLocation),
+                        titleRight: hostParty.selectedPrefecture,
+                        subTitleLeft: (S.of(context).member),
+                        photoUrl: hostPartyUser.photoUrl_1,
+                        subTitleRight: hostPartyUser.inAppUserName,
+                        currentUser: currentUser,
+                        hostPartyUser: hostPartyUser,
+                        caption: hostParty.caption,
+                        hostParty: hostParty,
+                        numberOfInvitedMembers:
+                            hostParty.numberOfInvitedMember.toString(),
+                        onTap: () => _openFeedPostDetailScreen(
+                            context, hostParty, hostPartyUser),
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Container();
+              }
+            });
   }
 
   _openFeedPostDetailScreen(

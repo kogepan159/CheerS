@@ -24,6 +24,7 @@ class FeedPage extends StatelessWidget {
     //feedに投稿を表示させる
     Future(() => feedViewModel.getParty(feedMode));
 
+
     return Scaffold(
       appBar: AppBar(
         title: Text(

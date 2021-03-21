@@ -1,4 +1,3 @@
-import 'package:bubble/bubble.dart';
 import 'package:cheers_app/data_models/host_party.dart';
 import 'package:cheers_app/data_models/user.dart';
 import 'package:cheers_app/generated/l10n.dart';
@@ -7,7 +6,7 @@ import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/view/common/components/circle_photo.dart';
 import 'package:cheers_app/view/common/dialog/confirm_dialog.dart';
 import 'package:cheers_app/view/host_party/screens/host_party_screen.dart';
-import 'package:cheers_app/view_models/host_party_view_model.dart';
+import 'package:cheers_app/view_models/feed_view_model.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,10 +27,11 @@ class UserCard extends StatelessWidget {
   final String caption;
   final HostParty hostParty;
   final String hostPartyId;
+  final String numberOfInvitedMembers;
 
   UserCard(
       {@required this.feedMode,
-                this.profileMode,
+      this.profileMode,
       @required this.postDateTime,
       @required this.photoUrl,
       @required this.titleLeft,
@@ -43,11 +43,17 @@ class UserCard extends StatelessWidget {
       this.currentUser,
       @required this.hostPartyUser,
       @required this.caption,
-      this.hostParty,
-      this.hostPartyId});
+      @required this.hostParty,
+      this.hostPartyId,
+        @required this.numberOfInvitedMembers,
+
+      });
 
   @override
+
   Widget build(BuildContext context) {
+
+    
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 2),
@@ -61,7 +67,6 @@ class UserCard extends StatelessWidget {
             ListTile(
               //リストビューの右上の三点ボタン
               trailing: feedMode == FeedMode.FROM_PROFILE
-
                   ? PopupMenuButton(
                       icon: Icon(Icons.more_vert),
                       onSelected: (value) =>
@@ -83,7 +88,6 @@ class UserCard extends StatelessWidget {
                           return null;
                         }
                       })
-
                   : null,
 
               title: Row(
@@ -118,18 +122,23 @@ class UserCard extends StatelessWidget {
                   SizedBox(
                     width: 10.0,
                   ),
+                  Row(
+                    children: [
+                      Text(S.of(context).plus,style: userCardTitleRightTextStyle,),
+                      Text(numberOfInvitedMembers,style: userCardTitleRightTextStyle,),
+                      Text(S.of(context).people,style: userCardTitleRightTextStyle,),
+                    ],
+                  ),
                 ],
               ),
             ),
             SizedBox(
               height: 5.0,
             ),
-
             Text(
               subTitleRight,
               style: userCardSubTitleRightTextStyle,
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
@@ -184,19 +193,16 @@ class UserCard extends StatelessWidget {
             context: context,
             title: S.of(context).deletePost,
             content: S.of(context).deletePostConfirm,
-            onConfirmed: (isConfirmed){
-              if (isConfirmed) _deleteHostParty(context,hostPartyId);
-            }
-        );
+            onConfirmed: (isConfirmed) {
+              if (isConfirmed) _deleteHostParty(context, hostPartyId);
+            });
     }
   }
 
-  void _deleteHostParty(BuildContext context, String  hostPartyId) async{
-
-      final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+  void _deleteHostParty(BuildContext context, String hostPartyId) async {
+    final profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
 
     await profileViewModel.deleteHostParty(hostPartyId, profileMode);
-
-
   }
 }

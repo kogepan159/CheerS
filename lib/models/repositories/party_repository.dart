@@ -15,16 +15,16 @@ class PartyRepository {
       User currentUser,
       String selectedPrefecture,
       String caption,
-      String  member2Id,
-      String  member3Id,
-      String  member4Id,
-      String  member5Id,
-      String  member6Id,
-      String   member7Id,
-      String   member8Id,
-      String   member9Id,
-      String   member10Id
-
+      String member2Id,
+      String member3Id,
+      String member4Id,
+      String member5Id,
+      String member6Id,
+      String member7Id,
+      String member8Id,
+      String member9Id,
+      String member10Id,
+      List<User> selectedFriends
       ) async {
     final hostParty = HostParty(
       hostPartyId: Uuid().v1(),
@@ -42,9 +42,26 @@ class PartyRepository {
       member8Id: member8Id,
       member9Id: member9Id,
       member10Id: member10Id,
+      numberOfInvitedMember: selectedFriends.length
     );
     print("dbManager.hostParty invoked");
+
     await dbManager.insertPostParty(hostParty);
+
+    await dbManager.insertMemberInParty(
+        hostParty,
+        currentUser.uId,
+        member2Id,
+        member3Id,
+        member4Id,
+        member5Id,
+        member6Id,
+        member7Id,
+        member8Id,
+        member9Id,
+        member10Id,
+        selectedFriends
+    );
   }
 
   //合コンデータを取得（フィード画面に表示）
@@ -118,4 +135,21 @@ class PartyRepository {
 
     return dbManager.updateHostParty(updateHostParty);
   }
+
+  //合コン参加メンバーのリストを取ってくる
+  Future<List> getPartyMemberInfo(String hostPartyId) async {
+    var results = List<User>();
+
+    results = await dbManager.getPartyMemberInfo(hostPartyId);
+    print("results: $results");
+
+    return results;
+  }
+
+ Future<int> getNumberOfInvitedMembers(String hostPartyId)async {
+
+   print("dbManager.getNumberOfInvitedMembers Invoked");
+   return (await dbManager.getNumberOfInvitedMembers(hostPartyId)).length;
+
+ }
 }

@@ -13,8 +13,10 @@ class FeedViewModel extends ChangeNotifier{
   final UserRepository userRepository;
   FeedViewModel({this.partyRepository, this.userRepository});
 
+  int numberOfInvitedMembers;
   bool isProcessing = false ;
   List<HostParty> parties = List();
+  List<User> partyMembers = List();
 
   User feedUser;
   //UserRepository.currentUserの値をcurrentUserに入れる
@@ -47,8 +49,25 @@ class FeedViewModel extends ChangeNotifier{
 
  }
 
+  Future<void> getPartyMemberInfo(String hostPartyId)async {
+    isProcessing = true;
+    notifyListeners();
+
+    partyMembers = await partyRepository.getPartyMemberInfo(hostPartyId);
+    print("partyMembers: $partyMembers");
+
+    isProcessing = false;
+    notifyListeners();
+
+
+  }
+
+
+
  //フィード画面に表示するユーザー情報を取得
  Future<User> getPartyUserInfo(String uId) async{
+
+
    return await userRepository.getUserById(uId);
  }
 
@@ -61,6 +80,15 @@ class FeedViewModel extends ChangeNotifier{
     return await partyRepository.getOfferResult(hostPartyId, currentUser);
  }
 
+  // 合コンに招待されたメンバーの人数を取得
+  Future<void> getNumberOfInvitedMembers(String hostPartyId) async{
+
+    isProcessing = true;
+    numberOfInvitedMembers = await partyRepository.getNumberOfInvitedMembers(hostPartyId);
+    print("feedViewModel numberOfInvitedMembers: $partyMembers");
+    isProcessing = false;
+
+  }
 
 
 }

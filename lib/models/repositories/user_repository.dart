@@ -334,27 +334,6 @@ class UserRepository {
       await dbManager.updateProfilePhoto_2(updatedProfilePhoto);
     }
 
-    // if (isImageFromFile_2) {
-    //
-    //   final updatePhotoFile = File(photoUrl_2);
-    //
-    //   final storagePath = Uuid().v1();
-    //
-    //   updatePhotoUrl = await dbManager.uploadImageToStorage(
-    //     updatePhotoFile,
-    //     storagePath,
-    //   );
-    //
-    //   final userBeforeUpdate =
-    //   await dbManager.getUserInfoFromDbById(profileUser.uId);
-    //
-    //
-    //   final updatedProfilePhoto = userBeforeUpdate.copyWith(
-    //     photoUrl_2: isImageFromFile_2 ? updatePhotoUrl : userBeforeUpdate.photoUrl_2,
-    //   );
-    //
-    //   await dbManager.updateProfilePhoto_2(updatedProfilePhoto);
-    // }
   }
 
   Future<void> updateProfilePhoto_3(
@@ -482,35 +461,6 @@ class UserRepository {
     }
   }
 
-  // Future<void> addProfilePhoto_2(
-  //   User profileUser,
-  //   String photoUrl_2,
-  //   bool isImageFromFile,
-  // ) async {
-  //   var updatePhotoUrl;
-  //
-  //   if (isImageFromFile) {
-  //     final updatePhotoFile = File(photoUrl_2);
-  //
-  //     final storagePath = Uuid().v1();
-  //
-  //     updatePhotoUrl = await dbManager.uploadImageToStorage(
-  //       updatePhotoFile,
-  //       storagePath,
-  //     );
-  //
-  //     // final userBeforeUpdate =
-  //     // await dbManager.getUserInfoFromDbById(profileUser.uId);
-  //
-  //     final addedPhotoUrl_2 = User(
-  //       uId: currentUser.uId,
-  //       photoUrl_2: photoUrl_2,
-  //       imageStoragePath_2: storagePath,
-  //     );
-  //
-  //     await dbManager.addProfilePhoto_2(addedPhotoUrl_2);
-  //   }
-  // }
 
  Future<List<User>> searchUsers(String query)async {
     return dbManager.searchUsers(query);

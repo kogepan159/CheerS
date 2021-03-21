@@ -20,6 +20,8 @@ class FeedPostDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
+    // 合コンメンバーのデータを取ってくる
+    Future(() => feedViewModel.getPartyMemberInfo(hostParty.hostPartyId));
 
     return Scaffold(
         appBar: AppBar(),

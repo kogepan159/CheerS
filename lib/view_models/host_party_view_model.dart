@@ -39,7 +39,8 @@ class HostPartyViewModel extends ChangeNotifier {
       String   member7Id,
       String   member8Id,
       String   member9Id,
-      String   member10Id
+      String   member10Id,
+      List<User> selectedFriends
   ) async {
     isProcessing = true;
     notifyListeners();
@@ -56,7 +57,8 @@ class HostPartyViewModel extends ChangeNotifier {
         member7Id,
         member8Id,
         member9Id,
-        member10Id
+        member10Id,
+        selectedFriends
 
     );
     isProcessing = false;

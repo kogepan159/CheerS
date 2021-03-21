@@ -44,6 +44,126 @@ class DatabaseManager {
         .collection("hostParties")
         .doc(hostParty.hostPartyId)
         .set(hostParty.toMap());
+
+  }
+
+  //HostPartyデータに、サブコレクション（members）を追加
+  Future<void> insertMemberInParty(
+      HostParty hostParty,
+      String uId,
+      String member2Id,
+      String member3Id,
+      String member4Id,
+      String member5Id,
+      String member6Id,
+      String member7Id,
+      String member8Id,
+      String member9Id,
+      String member10Id,
+      List<User> selectedFriends
+      ) async{
+
+    //hostPartyのサブコレクション[members]に参加メンバーのIDを登録)
+
+    //""""""""""招待メンバーが１名の場合"""""""""""""""
+   if (selectedFriends.length == 1 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     return;
+   }
+
+   //""""""""""招待メンバーが２名の場合"""""""""""""""
+   if (selectedFriends.length == 2 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member3Id).set({"uId" : member3Id});
+     return;
+   }
+
+   //""""""""""招待メンバーが3名の場合"""""""""""""""
+   if (selectedFriends.length == 3 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member3Id).set({"uId" : member3Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member4Id).set({"uId" : member4Id});
+     return;
+   }
+
+   //""""""""""招待メンバーが4名の場合"""""""""""""""
+   if (selectedFriends.length == 4 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member3Id).set({"uId" : member3Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member4Id).set({"uId" : member4Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member5Id).set({"uId" : member5Id});
+     return;
+   }
+
+   //""""""""""招待メンバーが5名の場合"""""""""""""""
+   if (selectedFriends.length == 5 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member3Id).set({"uId" : member3Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member4Id).set({"uId" : member4Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member5Id).set({"uId" : member5Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member6Id).set({"uId" : member6Id});
+     return;
+   }
+
+   //""""""""""招待メンバーが6名の場合"""""""""""""""
+   if (selectedFriends.length == 6 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member3Id).set({"uId" : member3Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member4Id).set({"uId" : member4Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member5Id).set({"uId" : member5Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member6Id).set({"uId" : member6Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member7Id).set({"uId" : member7Id});
+     return;
+   }
+
+   //""""""""""招待メンバーが7名の場合"""""""""""""""
+   if (selectedFriends.length == 7 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member3Id).set({"uId" : member3Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member4Id).set({"uId" : member4Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member5Id).set({"uId" : member5Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member6Id).set({"uId" : member6Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member7Id).set({"uId" : member7Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member8Id).set({"uId" : member8Id});
+     return;
+   }
+
+   //""""""""""招待メンバーが8名の場合"""""""""""""""
+   if (selectedFriends.length == 8 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member3Id).set({"uId" : member3Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member4Id).set({"uId" : member4Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member5Id).set({"uId" : member5Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member6Id).set({"uId" : member6Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member7Id).set({"uId" : member7Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member8Id).set({"uId" : member8Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member9Id).set({"uId" : member9Id});
+     return;
+   }
+
+   //""""""""""招待メンバーが9名の場合"""""""""""""""
+   if (selectedFriends.length == 9 ){
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(uId).set({"uId" : uId});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member2Id).set({"uId" : member2Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member3Id).set({"uId" : member3Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member4Id).set({"uId" : member4Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member5Id).set({"uId" : member5Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member6Id).set({"uId" : member6Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member7Id).set({"uId" : member7Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member8Id).set({"uId" : member8Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member9Id).set({"uId" : member9Id});
+     await _db.collection("hostParties").doc(hostParty.hostPartyId).collection("members").doc(member10Id).set({"uId" : member10Id});
+     return;
+   }
+
   }
 
   // //(currentUserがprofileUserをフォローする。currentUserのサブコレクション[followings]にprofileUserのIDを登録)
@@ -474,5 +594,58 @@ class DatabaseManager {
     await _db.collection("users").doc(profileUser.uId).collection("friends").doc(currentUser.uId).delete();
 
   }
+
+  //誰が合コンに参加しているのか確認
+  Future<List<String>> getMemberUserIds(String hostPartyId) async{
+
+    final query = await _db.collection("hostParties").doc(hostPartyId).collection("members").get();
+
+    //データがあるか判定。ない場合には空リストを返す
+    if(query.docs.length == 0)
+      return List();
+
+    var memberIds = List<String>();
+    query.docs.forEach((id) {
+      memberIds.add(id.data()["uId"]);
+    });
+    return memberIds;
+
+  }
+
+  //getMemberUserIdsメソッドから、合コン参加者のIDを取得し、そのIDを元にユーザーデータ全体を取得する）
+  Future<List<User>> getPartyMemberInfo(String hostPartyId) async{
+    final memberUserIds = await getMemberUserIds(hostPartyId);
+    print({"memberUserIds: $memberUserIds"});
+    var members = List<User>();
+    await Future.forEach(memberUserIds, (memberUserId)async {
+      final user = await getUserInfoFromDbById(memberUserId);
+      members.add(user);
+
+    });
+    return members;
+
+
+  }
+
+//合コンに招待された人数を取得
+  Future<List<String>> getNumberOfInvitedMembers(String hostPartyId) async{
+    //cloudfirestoreに入っているmemberのユーザーIDを読み込み
+    final query = await _db.collection("hostParties").doc(hostPartyId).collection("members").get();
+
+    //データベースにデータがなかった場合、空のLISTを返す
+    if(query.docs.length == 0)
+      return List();
+
+    //友達のユーザーIDを取得してくる（プログラムの詳細は分からん）
+    var memberIds = List<String>();
+    query.docs.forEach((id) {
+      memberIds.add(id.data()["uId"]);
+    });
+
+    print("memberIds: $memberIds");
+
+    return memberIds;
+  }
+
 
 }

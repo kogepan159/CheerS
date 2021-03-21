@@ -17,6 +17,7 @@ class HostParty {
   String member8Id;
   String member9Id;
   String member10Id;
+  int    numberOfInvitedMember;
   DateTime postDateTime;
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
@@ -36,6 +37,7 @@ class HostParty {
     @required this.member8Id,
     @required this.member9Id,
     @required this.member10Id,
+    @required this.numberOfInvitedMember,
     @required this.postDateTime,
   });
 
@@ -54,6 +56,7 @@ class HostParty {
     String member8Id,
     String member9Id,
     String member10Id,
+    int numberOfInvitedMember,
     DateTime postDateTime,
   }) {
     return new HostParty(
@@ -71,13 +74,15 @@ class HostParty {
       member8Id: member8Id ?? this.member8Id,
       member9Id: member9Id ?? this.member9Id,
       member10Id: member10Id ?? this.member10Id,
+      numberOfInvitedMember:
+          numberOfInvitedMember ?? this.numberOfInvitedMember,
       postDateTime: postDateTime ?? this.postDateTime,
     );
   }
 
   @override
   String toString() {
-    return 'HostParty{hostPartyId: $hostPartyId, uId: $uId, selectedPrefecture: $selectedPrefecture, caption: $caption, member1Id: $member1Id, member2Id: $member2Id, member3Id: $member3Id, member4Id: $member4Id, member5Id: $member5Id, member6Id: $member6Id, member7Id: $member7Id, member8Id: $member8Id, member9Id: $member9Id, member10Id: $member10Id, postDateTime: $postDateTime}';
+    return 'HostParty{hostPartyId: $hostPartyId, uId: $uId, selectedPrefecture: $selectedPrefecture, caption: $caption, member1Id: $member1Id, member2Id: $member2Id, member3Id: $member3Id, member4Id: $member4Id, member5Id: $member5Id, member6Id: $member6Id, member7Id: $member7Id, member8Id: $member8Id, member9Id: $member9Id, member10Id: $member10Id, numberOfInvitedMember: $numberOfInvitedMember, postDateTime: $postDateTime}';
   }
 
   @override
@@ -99,6 +104,7 @@ class HostParty {
           member8Id == other.member8Id &&
           member9Id == other.member9Id &&
           member10Id == other.member10Id &&
+          numberOfInvitedMember == other.numberOfInvitedMember &&
           postDateTime == other.postDateTime);
 
   @override
@@ -117,6 +123,7 @@ class HostParty {
       member8Id.hashCode ^
       member9Id.hashCode ^
       member10Id.hashCode ^
+      numberOfInvitedMember.hashCode ^
       postDateTime.hashCode;
 
   factory HostParty.fromMap(Map<String, dynamic> map) {
@@ -135,6 +142,7 @@ class HostParty {
       member8Id: map['member8Id'] as String,
       member9Id: map['member9Id'] as String,
       member10Id: map['member10Id'] as String,
+      numberOfInvitedMember: map['numberOfInvitedMember'] as int,
       postDateTime: map['postDateTime'] ==null
           ? null
           : DateTime.parse(map['postDateTime'] as String),
@@ -158,6 +166,7 @@ class HostParty {
       'member8Id': this.member8Id,
       'member9Id': this.member9Id,
       'member10Id': this.member10Id,
+      'numberOfInvitedMember': this.numberOfInvitedMember,
       'postDateTime': this.postDateTime.toIso8601String(),
     } as Map<String, dynamic>;
   }
