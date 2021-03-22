@@ -239,6 +239,21 @@ class DatabaseManager {
     await _db.collection("offers").doc(offer.offerId).set(offer.toMap());
   }
 
+//合コンを申し込みをキャンセル
+  Future<void> cancelOfferParty(HostParty hostParty, User currentUser) async{
+
+    //offerIdをキーにしてドキュメントを指定する事ができない。
+    // なので、hostPartyIdと、offerUserId=currentUser。この２つの条件を指定。
+  final offerRef = await _db.collection("offers").where("hostPartyId", isEqualTo: hostParty.hostPartyId).where("offerUserId",isEqualTo: currentUser.uId).get();
+
+  //forEachを使い、コレクション「offers」に上記条件のドキュメントがないか検索
+  offerRef.docs.forEach((element)async {
+    final ref = _db.collection("offers").doc(element.id);
+    await ref.delete();
+  });
+
+  }
+
   //合コンのオファー（いいね）数を取得（feedViewModel経由、合コン申し込みボタン消す用）
   Future<List<Offer>> getOffers(String hostPartyId) async {
     //いいねデータがあるか判定
@@ -646,6 +661,22 @@ class DatabaseManager {
 
     return memberIds;
   }
+
+  //合コン申込したか確認
+ Future <bool> checkIsOffer(String hostPartyId, String uId)async {
+   //offerIdをキーにしてドキュメントを指定する事ができない。
+   // なので、hostPartyIdと、offerUserId=currentUser。この２つの条件を指定。
+   final offerRef = await _db.collection("offers").where("hostPartyId", isEqualTo: hostPartyId).where("offerUserId",isEqualTo: uId).get();
+
+   if(offerRef.docs.length == 0) {
+     return false;
+   }else{
+     return true;
+   }
+
+
+ }
+
 
 
 }

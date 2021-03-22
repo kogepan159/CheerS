@@ -86,6 +86,11 @@ class PartyRepository {
     await dbManager.offerParty(offer);
   }
 
+  Future<void>  cancelOfferParty(HostParty hostParty, User currentUser) async{
+    await dbManager.cancelOfferParty(hostParty, currentUser);
+
+  }
+
   Future<OfferResult> getOfferResult(
       String hostPartyId, User currentUser) async {
     //合コンオファー（いいね）の取得
@@ -152,4 +157,10 @@ class PartyRepository {
    return (await dbManager.getNumberOfInvitedMembers(hostPartyId)).length;
 
  }
+
+  Future<bool>  checkIsOffer(String hostPartyId , String uId)async {
+
+    return await dbManager.checkIsOffer(hostPartyId,uId);
+  }
+
 }

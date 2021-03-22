@@ -3,7 +3,8 @@ import 'package:cheers_app/data_models/user.dart';
 import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/view/common/dialog/confirm_dialog.dart';
-import 'package:cheers_app/view/host_party/pages/sub/inveted_friends_part.dart';
+import 'package:cheers_app/view/host_party/pages/sub/invited_friends_part.dart';
+import 'package:cheers_app/view/profile/screens/profile_screen.dart';
 import 'package:cheers_app/view_models/host_party_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -418,4 +419,6 @@ class HostPartyConfirmationScreen extends StatelessWidget {
     );
 
   }
+
+
 }

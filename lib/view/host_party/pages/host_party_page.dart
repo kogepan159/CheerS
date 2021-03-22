@@ -22,7 +22,7 @@ class HostPartyPage extends StatelessWidget {
               iconData: FontAwesomeIcons.glassCheers,
               label: S.of(context).hostParty,
               //TODO
-              onPressed: () => _openHostPartyScreen(context),
+              onPressed: () => _openProfileNumberOfFriendsScreen(context),
             ),
           ],
         ),
@@ -30,7 +30,7 @@ class HostPartyPage extends StatelessWidget {
     );
   }
 
-  _openHostPartyScreen(BuildContext context) {
+  _openProfileNumberOfFriendsScreen(BuildContext context) {
 
     Navigator.push(context, MaterialPageRoute(
             builder: (context) => ProfileNumberOfFriendsScreen(numberOfFriendsScreenOpenMode: NumberOfFriendsScreenOpenMode.FROM_HostParty,from: PostCaptionOpenMode.FROM_POST,),));

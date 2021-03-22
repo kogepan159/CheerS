@@ -16,6 +16,9 @@ class HostPartyViewModel extends ChangeNotifier {
 
   bool isFriendsInvited = false;
 
+  //UserRepository.currentUserの値をcurrentUserに入れる
+  User get currentUser => UserRepository.currentUser;
+
   //hostPartyCaptionPartのTextFieldとつなげる（_onCaptionUpdatedメソッド内）
   String caption = "";
 

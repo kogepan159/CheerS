@@ -5,7 +5,7 @@ import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/view/common/components/button_with_icon.dart';
 import 'package:cheers_app/view/home_screen.dart';
 import 'package:cheers_app/view/host_party/pages/sub/host_party_caption_part.dart';
-import 'package:cheers_app/view/host_party/pages/sub/inveted_friends_part.dart';
+import 'package:cheers_app/view/host_party/pages/sub/invited_friends_part.dart';
 import 'package:cheers_app/view/host_party/screens/host_party_confirmation_screen.dart';
 import 'package:cheers_app/view_models/host_party_view_model.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,7 @@ class HostPartyScreen extends StatelessWidget {
               appBar: AppBar(
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
-                  onPressed: () => cancelPost(context),
+                  onPressed: () => Navigator.pop(context),
                 ),
                 title: Text(S.of(context).post),
               ),

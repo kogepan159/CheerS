@@ -5,54 +5,70 @@ import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/style.dart';
 import 'package:cheers_app/view/common/components/button_with_icon.dart';
 import 'package:cheers_app/view/common/components/user_card.dart';
-import 'package:cheers_app/view/feed/components/user_card_for_feed_post_detail_screen.dart';
+import 'package:cheers_app/view/feed/components/feed_post_detail_part.dart';
 import 'package:cheers_app/view_models/feed_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class FeedPostDetailScreen extends StatelessWidget {
+class FeedPostDetailScreen extends StatefulWidget {
   final HostParty hostParty;
   final User hostPartyUser;
 
   FeedPostDetailScreen({this.hostParty, this.hostPartyUser});
 
   @override
+  _FeedPostDetailScreenState createState() => _FeedPostDetailScreenState();
+}
+
+class _FeedPostDetailScreenState extends State<FeedPostDetailScreen> {
+  @override
   Widget build(BuildContext context) {
     final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
-    // 合コンメンバーのデータを取ってくる
-    Future(() => feedViewModel.getPartyMemberInfo(hostParty.hostPartyId));
+    //自分がこの合コンに申し込み済かどうか判定
+    Future(() => feedViewModel.checkIsOffer(widget.hostParty.hostPartyId));
 
     return Scaffold(
         appBar: AppBar(),
         body: FutureBuilder(
-            future: feedViewModel.getOfferResult(hostParty.hostPartyId),
-            builder: (context, AsyncSnapshot<OfferResult> snapshot) {
+            future: feedViewModel.getPartyMemberInfo(widget.hostParty.hostPartyId),
+            builder: (context, AsyncSnapshot<List<User>> snapshot) {
               if (snapshot.hasData && snapshot.data != null) {
-                final offerResult = snapshot.data;
-
+                final partyMembers = snapshot.data;
                 return Column(children: [
-                  UserCardForFeedPostDetailScreen(
+                  FeedPostDetailPart(
                     titleLeft: (S.of(context).hostLocation),
-                    titleRight: hostParty.selectedPrefecture,
+                    titleRight: widget.hostParty.selectedPrefecture,
                     subTitleLeft: (S.of(context).host),
-                    photoUrl: hostPartyUser.photoUrl_1,
-                    subTitleRight: hostPartyUser.inAppUserName,
-                    hostPartyUser: hostPartyUser,
-                    caption: hostParty.caption,
-                    hostParty: hostParty,
+                    photoUrl: widget.hostPartyUser.photoUrl_1,
+                    subTitleRight: widget.hostPartyUser.inAppUserName,
+                    hostPartyUser: widget.hostPartyUser,
+                    caption: widget.hostParty.caption,
+                    hostParty: widget.hostParty,
+                    partyMembers: partyMembers,
                   ),
-                  offerResult.isOfferedToThisParty
-                      ? ButtonWithIcon(
-                          onPressed: null,
-                          iconData: FontAwesomeIcons.angleDoubleRight,
-                          label: S.of(context).underOffer,
-                        )
-                      : ButtonWithIcon(
-                          onPressed: () => _offerParty(context, hostParty),
-                          iconData: FontAwesomeIcons.solidThumbsUp,
-                          label: S.of(context).offerParty,
-                        ),
+                  widget.hostPartyUser.uId == feedViewModel.currentUser.uId
+                      ? Container()
+                      : feedViewModel.isOffered == true
+                          ? ButtonWithIcon(
+                                onPressed: () {
+                                  setState(() {
+                                    _cancelOfferParty(context, widget.hostParty);
+                                    feedViewModel.isOffered = false;
+                                  });
+                                },
+                              iconData: FontAwesomeIcons.angleDoubleRight,
+                              label: S.of(context).cancel,
+                            )
+                          : ButtonWithIcon(
+                              onPressed: () {
+                                setState(() {
+                                  _offerParty(context, widget.hostParty);
+                                });
+                              },
+                              iconData: FontAwesomeIcons.solidThumbsUp,
+                              label: S.of(context).offerParty,
+                            ),
                 ]);
               } else {
                 return Container();
@@ -63,5 +79,11 @@ class FeedPostDetailScreen extends StatelessWidget {
   _offerParty(BuildContext context, HostParty hostParty) async {
     final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
     await feedViewModel.offerParty(hostParty);
+  }
+
+  void _cancelOfferParty(BuildContext context, HostParty hostParty) async{
+    final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
+    await feedViewModel.cancelOfferParty(hostParty);
+
   }
 }

@@ -83,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "holiday" : MessageLookupByLibrary.simpleMessage("休日"),
     "home" : MessageLookupByLibrary.simpleMessage("ホーム"),
     "host" : MessageLookupByLibrary.simpleMessage("ホスト"),
-    "hostComment" : MessageLookupByLibrary.simpleMessage("ホストからひとこと"),
+    "hostComment" : MessageLookupByLibrary.simpleMessage("ホストから自己紹介"),
     "hostLocation" : MessageLookupByLibrary.simpleMessage("開催地域"),
     "hostParty" : MessageLookupByLibrary.simpleMessage("合コンを企画する"),
     "idealNumberOfParty" : MessageLookupByLibrary.simpleMessage("理想の合コン人数"),

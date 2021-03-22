@@ -15,8 +15,11 @@ class FeedViewModel extends ChangeNotifier{
 
   int numberOfInvitedMembers;
   bool isProcessing = false ;
+  bool isOffered = false ;
+
   List<HostParty> parties = List();
   List<User> partyMembers = List();
+  OfferResult  offerResult;
 
   User feedUser;
   //UserRepository.currentUserの値をcurrentUserに入れる
@@ -49,15 +52,9 @@ class FeedViewModel extends ChangeNotifier{
 
  }
 
-  Future<void> getPartyMemberInfo(String hostPartyId)async {
-    isProcessing = true;
-    notifyListeners();
+  Future<List<User>> getPartyMemberInfo(String hostPartyId)async {
 
-    partyMembers = await partyRepository.getPartyMemberInfo(hostPartyId);
-    print("partyMembers: $partyMembers");
-
-    isProcessing = false;
-    notifyListeners();
+   return await partyRepository.getPartyMemberInfo(hostPartyId);
 
 
   }
@@ -73,12 +70,15 @@ class FeedViewModel extends ChangeNotifier{
 
  Future<void> offerParty(HostParty hostParty) async{
     await partyRepository.offerParty(hostParty, currentUser);
-    notifyListeners();
  }
 
- Future<OfferResult> getOfferResult(String hostPartyId) async{
-    return await partyRepository.getOfferResult(hostPartyId, currentUser);
- }
+  Future<void> cancelOfferParty(HostParty hostParty)async {
+    await partyRepository.cancelOfferParty(hostParty, currentUser);
+  }
+
+ // Future<void> getOfferResult(String hostPartyId) async{
+ //   offerResult =  await partyRepository.getOfferResult(hostPartyId, currentUser);
+ // }
 
   // 合コンに招待されたメンバーの人数を取得
   Future<void> getNumberOfInvitedMembers(String hostPartyId) async{
@@ -89,6 +89,14 @@ class FeedViewModel extends ChangeNotifier{
     isProcessing = false;
 
   }
+
+  // 合コンに申し込み済みかどうか確認
+  Future<void>  checkIsOffer(String hostPartyId)async {
+    isOffered = await partyRepository.checkIsOffer(hostPartyId,currentUser.uId);
+    notifyListeners();
+
+  }
+
 
 
 }
