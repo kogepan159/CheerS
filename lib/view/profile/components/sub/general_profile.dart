@@ -115,18 +115,16 @@ class _GeneralProfileState extends State<GeneralProfile> {
         Divider(
           thickness: 1.0,
         ),
-        Container(
-          height: 40.0,
-          child: TextField(
-            keyboardType: TextInputType.text,
-            maxLengthEnforced: true,
-            maxLines: 1,
-            minLines: 1,
-            controller: captionInAppUserNameController,
-            style: profileEditTextStyle,
-            autofocus: true,
-            decoration: InputDecoration(border: InputBorder.none, hintText: S.of(context).hintForNickName),
-          ),
+        TextField(
+          keyboardType: TextInputType.text,
+          maxLengthEnforced: true,
+          maxLength: 8,
+          maxLines: 1,
+          minLines: 1,
+          controller: captionInAppUserNameController,
+          style: profileEditTextStyle,
+          autofocus: true,
+          decoration: InputDecoration(border: InputBorder.none, hintText: S.of(context).hintForNickName),
         ),
         Divider(
           thickness: 1.0,

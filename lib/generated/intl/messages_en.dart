@@ -117,7 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "partyInSession" : MessageLookupByLibrary.simpleMessage("The party you are holding"),
     "people" : MessageLookupByLibrary.simpleMessage("People"),
     "personality" : MessageLookupByLibrary.simpleMessage("Personality"),
-    "pleaseSelectPrefecture" : MessageLookupByLibrary.simpleMessage("Please select prefecture"),
+    "pleaseSelectPrefecture" : MessageLookupByLibrary.simpleMessage("Please select location"),
     "plus" : MessageLookupByLibrary.simpleMessage("Plus"),
     "post" : MessageLookupByLibrary.simpleMessage("Post"),
     "postConfirm" : MessageLookupByLibrary.simpleMessage("Are you sure you want to post?"),

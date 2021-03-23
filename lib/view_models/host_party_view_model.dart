@@ -23,7 +23,7 @@ class HostPartyViewModel extends ChangeNotifier {
   String caption = "";
 
   //host_Partyデータクラスのインスタンス
-  String selectedPrefecture;
+  String selectedPrefecture ;
 
   List<HostParty> parties = List();
 
@@ -68,9 +68,13 @@ class HostPartyViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  //プロフィール画面から来た場合に、編集用に既にデータベースにある合コンデータをとってくる
+  //プロフィール画面から合コン編集画面に来た場合に、編集用に既にデータベースにある合コンデータをとってくる
   Future<HostParty> getPartyForEdit(String hostPartyId) async {
-    return await partyRepository.getPartyForEdit(hostPartyId);
+   final hostParty =  await partyRepository.getPartyForEdit(hostPartyId);
+
+   selectedPrefecture = hostParty.selectedPrefecture;
+
+    return hostParty;
   }
 
   //投稿内容を更新

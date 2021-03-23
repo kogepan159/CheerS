@@ -99,7 +99,7 @@
   "hintForNickName": "10文字以内",
   "select": "選択(5つまで)",
   "partyInSession": "あなたが主催の合コン",
-  "pleaseSelectPrefecture": "都道府県を選択してください",
+  "pleaseSelectPrefecture": "選択して下さい",
   "ok": "OK",
   "error": "エラー",
   "noPrefectureIsSelected": "都道府県が選択されていません",

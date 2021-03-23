@@ -44,7 +44,7 @@ class FeedPostDetailPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
+
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -52,21 +52,18 @@ class FeedPostDetailPart extends StatelessWidget {
         children: [
 
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Text(
-                    titleLeft.toString(),
-                    style: userCardTitleLeftTextStyle,
-                  ),
+                Text(
+                  titleLeft.toString(),
+                  style: userCardTitleLeftTextStyle,
                 ),
-                // SizedBox(
-                //   width: 30.0,
-                // ),
-                Expanded(
-                  child: Text(
-                    titleRight.toString(),
-                    style: userCardTitleRightTextStyle,
-                  ),
+                SizedBox(
+                  width: 60.0,
+                ),
+                Text(
+                  titleRight.toString(),
+                  style: userCardTitleRightTextStyle,
                 ),
               ],
             ),
@@ -76,32 +73,35 @@ class FeedPostDetailPart extends StatelessWidget {
             ),
 
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   subTitleLeft,
                   style: userCardSubTitleLeftTextStyle,
                 ),
-                // SizedBox(
-                //   width: 30.0,
-                // ),
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () => _openProfile(context, hostPartyUser),
-                      child: CirclePhoto(
-                        photoUrl: photoUrl,
-                        radius: 50.0,
-                        isImageFromFile: false,
+                SizedBox(
+                  width: 60.0,
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () => _openProfile(context, hostPartyUser),
+                        child: CirclePhoto(
+                          photoUrl: photoUrl,
+                          radius: 50.0,
+                          isImageFromFile: false,
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () => _openProfile(context, hostPartyUser),
-                      child: Text(
-                        subTitleRight,
-                        style: userCardSubTitleRightTextStyle,
+                      GestureDetector(
+                        onTap: () => _openProfile(context, hostPartyUser),
+                        child: Text(
+                          subTitleRight,
+                          style: userCardSubTitleRightTextStyle,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

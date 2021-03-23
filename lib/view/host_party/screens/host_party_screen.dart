@@ -33,59 +33,73 @@ class HostPartyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hostPartyViewModel =
-        Provider.of<HostPartyViewModel>(context, listen: false);
+    Provider.of<HostPartyViewModel>(context, listen: false);
+
 
     return FutureBuilder(
-        future: hostPartyViewModel.getPartyForEdit(hostPartyId),
-        builder: (context, AsyncSnapshot<HostParty> snapShot) {
-          if (snapShot.hasData && snapShot.data != null) {
-            final partyData = snapShot.data;
-            print("hostPartyUser $partyData");
+          future: hostPartyViewModel.getPartyForEdit(hostPartyId),
+          builder: (context, AsyncSnapshot<HostParty> snapShot) {
+            if (snapShot.hasData && snapShot.data != null) {
+              final partyData = snapShot.data;
+              print("hostPartyUser $partyData");
 
-            return Scaffold(
-              resizeToAvoidBottomInset: false,
-              appBar: AppBar(
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.pop(context),
+
+              return Scaffold(
+                resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  title: Text(S
+                      .of(context)
+                      .post),
                 ),
-                title: Text(S.of(context).post),
-              ),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    HostPartyCaptionPart(
-                      hostParty: hostParty,
-                      from: from,
-                      partyData: partyData,
-                    ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      HostPartyCaptionPart(
+                        hostParty: hostParty,
+                        from: from,
+                        hostPartyId: hostPartyId,
+                      ),
 
-                    //"""""""""""""""""""招待した友達を表示"""""""""""""""""""""""
-                    InvitedFriendsPart(
-                      selectedFriends: selectedFriends,
-                    ),
+                      //"""""""""""""""""""招待した友達を表示"""""""""""""""""""""""
+                      InvitedFriendsPart(
+                        selectedFriends: selectedFriends,
+                      ),
 
-                    (from == PostCaptionOpenMode.FROM_PROFILE)
-                        ? ButtonWithIcon(
-                            iconData: FontAwesomeIcons.check,
-                            label: S.of(context).confirmationUpdates,
-                            onPressed: () =>
-                                _openHostPartyConfirmationScreen(context),
-                          )
-                        : ButtonWithIcon(
-                            iconData: FontAwesomeIcons.check,
-                            label: S.of(context).confirmation,
-                            onPressed: () =>
-                                _openHostPartyConfirmationScreen(context),
-                          ),
-                  ],
+                      (from == PostCaptionOpenMode.FROM_PROFILE)
+                          ? ButtonWithIcon(
+                        iconData: FontAwesomeIcons.check,
+                        label: S
+                            .of(context)
+                            .confirmationUpdates,
+                        onPressed: () =>
+                            _openHostPartyConfirmationScreen(
+                                context, hostParty, hostPartyUser,
+                                selectedFriends, from),
+                      )
+                          : ButtonWithIcon(
+                        iconData: FontAwesomeIcons.check,
+                        label: S
+                            .of(context)
+                            .confirmation,
+                        onPressed: () =>
+                            _openHostPartyConfirmationScreen(
+                                context, hostParty, hostPartyUser,
+                                selectedFriends, from),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        });
+              );
+            }
+
+            else {
+              return Center(child: CircularProgressIndicator());
+            }
+          });
   }
 
   cancelPost(BuildContext context) {
@@ -98,33 +112,46 @@ class HostPartyScreen extends StatelessWidget {
     );
   }
 
-  _openHostPartyConfirmationScreen(BuildContext context) {
+  _openHostPartyConfirmationScreen(BuildContext context,
+      HostParty hostParty,
+      User hostPartyUser,
+      List<User> selectedFriends,
+      PostCaptionOpenMode from,) {
     final hostPartyViewModel =
-        Provider.of<HostPartyViewModel>(context, listen: false);
+    Provider.of<HostPartyViewModel>(context, listen: false);
 
     hostPartyViewModel.selectedPrefecture == null
         ? showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (context) => AlertDialog(
-                  title: Text(S.of(context).error),
-                  content: Text(S.of(context).noPrefectureIsSelected),
-                  actions: [
-                    FlatButton(
-                      child: Text(S.of(context).ok),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ],
-                ))
+        barrierDismissible: true,
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+              title: Text(S
+                  .of(context)
+                  .error),
+              content: Text(S
+                  .of(context)
+                  .noPrefectureIsSelected),
+              actions: [
+                FlatButton(
+                  child: Text(S
+                      .of(context)
+                      .ok),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ))
         : Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HostPartyConfirmationScreen(
-                      hostParty: hostParty,
-                      hostPartyUser: hostPartyUser,
-                      from: from,
-                      selectedFriends: selectedFriends,
-                    )),
-          );
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              HostPartyConfirmationScreen(
+                hostParty: hostParty,
+                hostPartyUser: hostPartyUser,
+                from: from,
+                selectedFriends: selectedFriends,
+              )),
+    );
   }
 }
+

@@ -4,6 +4,7 @@ import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/utils/functions.dart';
 import 'package:cheers_app/view/common/components/user_card.dart';
+import 'package:cheers_app/view/feed/screen/feed_post_detail_screen.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,9 +42,11 @@ class ProfilePostTile extends StatelessWidget {
                     currentUser: currentUser,
                     hostPartyUser: hostPartyUser,
                     caption: hostParty.caption,
+                    numberOfInvitedMembers: hostParty.numberOfInvitedMember.toString(),
                     hostPartyId: hostParty.hostPartyId,
                     hostParty: hostParty,
-                    // onTap: () => null,
+                    onTap: () => _openFeedPostDetailScreen(
+                        context, hostParty, hostPartyUser),
                   ),
                 ),
               ],
@@ -53,5 +56,17 @@ class ProfilePostTile extends StatelessWidget {
           }
         });
   }
+
+  _openFeedPostDetailScreen(
+      BuildContext context, HostParty hostParty, User hostPartyUser) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FeedPostDetailScreen(
+            hostParty: hostParty, hostPartyUser: hostPartyUser),
+      ),
+    );
+  }
+
   }
 

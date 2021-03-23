@@ -99,7 +99,7 @@
   "hintForNickName": "Within 10 characters",
   "select": "Select(Within 5 items)",
   "partyInSession": "The party you are holding",
-  "pleaseSelectPrefecture": "Please select prefecture",
+  "pleaseSelectPrefecture": "Please select location",
   "ok": "OK",
   "error": "Error",
   "noPrefectureIsSelected": "No prefecture is selected",

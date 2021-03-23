@@ -1035,10 +1035,10 @@ class S {
     );
   }
 
-  /// `Please select prefecture`
+  /// `Please select location`
   String get pleaseSelectPrefecture {
     return Intl.message(
-      'Please select prefecture',
+      'Please select location',
       name: 'pleaseSelectPrefecture',
       desc: '',
       args: [],

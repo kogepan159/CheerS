@@ -117,7 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "partyInSession" : MessageLookupByLibrary.simpleMessage("あなたが主催の合コン"),
     "people" : MessageLookupByLibrary.simpleMessage("人"),
     "personality" : MessageLookupByLibrary.simpleMessage("社交性"),
-    "pleaseSelectPrefecture" : MessageLookupByLibrary.simpleMessage("都道府県を選択してください"),
+    "pleaseSelectPrefecture" : MessageLookupByLibrary.simpleMessage("選択して下さい"),
     "plus" : MessageLookupByLibrary.simpleMessage("他"),
     "post" : MessageLookupByLibrary.simpleMessage("投稿"),
     "postConfirm" : MessageLookupByLibrary.simpleMessage("投稿してもいいですか？"),

@@ -54,8 +54,9 @@ class FeedViewModel extends ChangeNotifier{
 
   Future<List<User>> getPartyMemberInfo(String hostPartyId)async {
 
-   return await partyRepository.getPartyMemberInfo(hostPartyId);
+    isProcessing = true;
 
+   return  await partyRepository.getPartyMemberInfo(hostPartyId);
 
   }
 
