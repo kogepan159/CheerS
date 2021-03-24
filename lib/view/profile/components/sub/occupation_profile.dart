@@ -5,22 +5,38 @@ import 'package:provider/provider.dart';
 
 import '../../../../style.dart';
 
-class OccupationProfile extends StatelessWidget {
+class OccupationProfile extends StatefulWidget {
+  @override
+  _OccupationProfileState createState() => _OccupationProfileState();
+}
+
+class _OccupationProfileState extends State<OccupationProfile> {
+  String selectedOccupation = "";
+  String selectedHoliday = "";
+  String selectedEducationalBackground = "";
   @override
   Widget build(BuildContext context) {
-    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+
+
+    final _profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //################################学歴###############################
         Row(
           children: [
-            Text(S.of(context).educationalBackground, style: profileEditTitleTextStyle),
+            Text(S.of(context).educationalBackground,
+                style: profileEditTitleTextStyle),
             SizedBox(
               width: 30.0,
             ),
             DropdownButton(
                 items: [
+                  DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
                   DropdownMenuItem(
                     value: "高校卒",
                     child: Text("高校卒"),
@@ -42,9 +58,19 @@ class OccupationProfile extends StatelessWidget {
                     child: Text("その他"),
                   ),
                 ],
-                value: _profileViewModel.selectedEducationalBackground,
+                value:
+                    _profileViewModel.selectedEducationalBackground.length == 0
+                        ? selectedEducationalBackground
+                        : _profileViewModel.selectedEducationalBackground,
                 onChanged: (selectedValue) {
-                  _profileViewModel.selectedEducationalBackground = selectedValue;
+                  if(  _profileViewModel.selectedEducationalBackground.length == 0){
+                    selectedEducationalBackground = selectedValue ;
+                        _onUpdate();
+                  }else{
+                   _profileViewModel.selectedEducationalBackground = selectedValue;
+                  }
+
+
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -63,6 +89,10 @@ class OccupationProfile extends StatelessWidget {
             ),
             DropdownButton(
                 items: [
+                  DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
                   DropdownMenuItem(
                     value: "会社員",
                     child: Text("会社員"),
@@ -324,9 +354,16 @@ class OccupationProfile extends StatelessWidget {
                     child: Text("その他"),
                   ),
                 ],
-                value: _profileViewModel.selectedOccupation,
+                value: _profileViewModel.selectedOccupation.length == 0
+                    ? selectedOccupation
+                    : _profileViewModel.selectedOccupation,
                 onChanged: (selectedValue) {
+                  if ( _profileViewModel.selectedOccupation.length == 0){
+                   selectedOccupation = selectedValue ;
+                   _onUpdate();
+                  }else{
                   _profileViewModel.selectedOccupation = selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -346,6 +383,10 @@ class OccupationProfile extends StatelessWidget {
             DropdownButton(
                 items: [
                   DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
+                  DropdownMenuItem(
                     value: "土日祝",
                     child: Text("土日祝"),
                   ),
@@ -358,9 +399,16 @@ class OccupationProfile extends StatelessWidget {
                     child: Text("その他"),
                   ),
                 ],
-                value: _profileViewModel.selectedHoliday,
+                value: _profileViewModel.selectedHoliday.length == 0
+                    ? selectedHoliday
+                    : _profileViewModel.selectedHoliday,
                 onChanged: (selectedValue) {
-                  _profileViewModel.selectedHoliday = selectedValue;
+                  if( _profileViewModel.selectedHoliday.length == 0){
+                   selectedHoliday = selectedValue ;
+                   _onUpdate();
+                  }else{
+                   _profileViewModel.selectedHoliday = selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -372,4 +420,15 @@ class OccupationProfile extends StatelessWidget {
       ],
     );
   }
+
+  void _onUpdate() {
+    final profileViewModel =
+    Provider.of<ProfileViewModel>(context, listen: false);
+
+    profileViewModel.selectedOccupation = selectedOccupation;
+    profileViewModel.selectedHoliday = selectedHoliday;
+    profileViewModel.selectedEducationalBackground = selectedEducationalBackground;
+
+  }
+
 }

@@ -27,8 +27,9 @@ class ProfileViewModel extends ChangeNotifier {
   List<HostParty> parties = List();
   List<User> appliedUser = List();
 
-  String caption = "";
   String selectedPrefecture = "";
+
+  String caption = "";
   String updateBio = "";
   String updateInAppUserName = "";
   String selectedGender = "";
@@ -38,23 +39,7 @@ class ProfileViewModel extends ChangeNotifier {
   String selectedBloodType = "";
   String selectedLivingStatus = "";
   int selectedHeight = 0;
-
-  // //"""""""外のクラスから、selectedHeightでアクセス。getterを使うことで、_selectedHeightにアクセスできる"""""""""""""""""""""""""""""""
-  // int get selectedHeight => _selectedHeight;
-  // //"""""""setterとnotifyListenersを使い、値の変更をウィジェットに通知できる"""""""""""""""""""""""""""""""
-  // set selectedHeight(int value) {
-  //   _selectedHeight = value;
-  //   notifyListeners();
-  // }
-
   String selectedBodyShape = "";
-
-  // String get selectedBodyShape => _selectedBodyShape;
-  // set selectedBodyShape(String value) {
-  //   _selectedBodyShape = value;
-  //   notifyListeners();
-  // }
-
   String selectedEducationalBackground = "";
   String selectedOccupation = "";
   String selectedHoliday = "";

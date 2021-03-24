@@ -5,10 +5,20 @@ import 'package:provider/provider.dart';
 
 import '../../../../style.dart';
 
-class AppearanceProfile extends StatelessWidget {
+class AppearanceProfile extends StatefulWidget {
+  @override
+  _AppearanceProfileState createState() => _AppearanceProfileState();
+}
+
+class _AppearanceProfileState extends State<AppearanceProfile> {
+  int selectedHeight = 0;
+  String selectedBodyShape = "";
+
   @override
   Widget build(BuildContext context) {
-    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+
+    final _profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -270,10 +280,18 @@ class AppearanceProfile extends StatelessWidget {
                     child: Text("200cm以上"),
                   ),
                 ],
-                value: _profileViewModel.selectedHeight,
+                value: _profileViewModel.selectedHeight.toString().length == 0
+                    ? selectedHeight
+                    : _profileViewModel.selectedHeight,
                 onChanged: (selectedValue) {
-                  _profileViewModel.selectedHeight = selectedValue;
-                  // _onUpdated(context);
+                  if(_profileViewModel.selectedHeight.toString().length == 0){
+                    selectedHeight = selectedValue;
+                    _onUpdate();
+                  }else{
+                    _profileViewModel.selectedHeight = selectedValue;
+                  }
+
+
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -325,10 +343,16 @@ class AppearanceProfile extends StatelessWidget {
                     child: Text("太め"),
                   ),
                 ],
-                value: _profileViewModel.selectedBodyShape,
+                value: _profileViewModel.selectedBodyShape.length == 0
+                    ? selectedBodyShape
+                    : _profileViewModel.selectedBodyShape,
                 onChanged: (selectedValue) {
-                  _profileViewModel.selectedBodyShape = selectedValue;
-                  // _onUpdated(context);
+                  if(_profileViewModel.selectedBodyShape.length == 0 ){
+                    selectedBodyShape = selectedValue;
+                    _onUpdate();
+                  }else{
+                   _profileViewModel.selectedBodyShape = selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -341,7 +365,13 @@ class AppearanceProfile extends StatelessWidget {
     );
   }
 
+  void _onUpdate() {
+    final profileViewModel =
+    Provider.of<ProfileViewModel>(context, listen: false);
+
+    profileViewModel.selectedHeight = selectedHeight;
+    profileViewModel.selectedBodyShape = selectedBodyShape;
 
 
-
+  }
 }

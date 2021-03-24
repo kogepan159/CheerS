@@ -5,22 +5,40 @@ import 'package:provider/provider.dart';
 
 import '../../../../style.dart';
 
-class ConditionsProfile extends StatelessWidget {
+class ConditionsProfile extends StatefulWidget {
+  @override
+  _ConditionsProfileState createState() => _ConditionsProfileState();
+}
+
+class _ConditionsProfileState extends State<ConditionsProfile> {
+  String selectedIdealNumberOfParty = "";
+  String selectedIdealPartyAtmosphere = "";
+  String selectedKaraoke = "";
+  String selectedPartyFee = "";
+
   @override
   Widget build(BuildContext context) {
-    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+
+
+    final _profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //###########################理想の合コン人数##############################
         Row(
           children: [
-            Text(S.of(context).idealNumberOfParty, style: profileEditTitleTextStyle),
+            Text(S.of(context).idealNumberOfParty,
+                style: profileEditTitleTextStyle),
             SizedBox(
               width: 30.0,
             ),
             DropdownButton(
                 items: [
+                  DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
                   DropdownMenuItem(
                     value: "2:2",
                     child: Text("2:2"),
@@ -42,9 +60,17 @@ class ConditionsProfile extends StatelessWidget {
                     child: Text("それ以上"),
                   ),
                 ],
-                value: _profileViewModel.selectedIdealNumberOfParty,
+                value: _profileViewModel.selectedIdealNumberOfParty.length == 0
+                    ? selectedIdealNumberOfParty
+                    : _profileViewModel.selectedIdealNumberOfParty,
                 onChanged: (selectedValue) {
-                  _profileViewModel.selectedIdealNumberOfParty = selectedValue;
+                  if( _profileViewModel.selectedIdealNumberOfParty.length == 0){
+                  selectedIdealNumberOfParty = selectedValue;
+                  _onUpdate();
+                  }else{
+                   _profileViewModel.selectedIdealNumberOfParty =
+                  selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -57,12 +83,17 @@ class ConditionsProfile extends StatelessWidget {
         //#################################好きな合コンの雰囲気##############################
         Row(
           children: [
-            Text(S.of(context).idealPartyAtmosphere, style: profileEditTitleTextStyle),
+            Text(S.of(context).idealPartyAtmosphere,
+                style: profileEditTitleTextStyle),
             SizedBox(
               width: 30.0,
             ),
             DropdownButton(
                 items: [
+                  DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
                   DropdownMenuItem(
                     value: "賑やか",
                     child: Text("賑やか"),
@@ -80,9 +111,17 @@ class ConditionsProfile extends StatelessWidget {
                     child: Text("リラックス"),
                   ),
                 ],
-                value: _profileViewModel.selectedIdealPartyAtmosphere,
+                value:
+                    _profileViewModel.selectedIdealPartyAtmosphere.length == 0
+                        ? selectedIdealPartyAtmosphere
+                        : _profileViewModel.selectedIdealPartyAtmosphere,
                 onChanged: (selectedValue) {
+                  if(_profileViewModel.selectedIdealPartyAtmosphere.length == 0){
+                  selectedIdealPartyAtmosphere = selectedValue;
+                  _onUpdate();
+                  }else{
                   _profileViewModel.selectedIdealPartyAtmosphere = selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -102,6 +141,10 @@ class ConditionsProfile extends StatelessWidget {
             DropdownButton(
                 items: [
                   DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
+                  DropdownMenuItem(
                     value: "好き",
                     child: Text("好き"),
                   ),
@@ -114,9 +157,16 @@ class ConditionsProfile extends StatelessWidget {
                     child: Text("苦手"),
                   ),
                 ],
-                value: _profileViewModel.selectedKaraoke,
+                value: _profileViewModel.selectedKaraoke.length == 0
+                    ? selectedKaraoke
+                    : _profileViewModel.selectedKaraoke,
                 onChanged: (selectedValue) {
+                  if(_profileViewModel.selectedKaraoke.length == 0 ){
+                  selectedKaraoke = selectedValue;
+                  _onUpdate();
+                  }else{
                   _profileViewModel.selectedKaraoke = selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -136,6 +186,10 @@ class ConditionsProfile extends StatelessWidget {
             DropdownButton(
                 autofocus: false,
                 items: [
+                  DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
                   DropdownMenuItem(
                     value: "男性陣が全て払う",
                     child: Text("男性陣が全て払う"),
@@ -161,9 +215,16 @@ class ConditionsProfile extends StatelessWidget {
                     child: Text("女性陣が全て払う"),
                   ),
                 ],
-                value: _profileViewModel.selectedPartyFee,
+                value: _profileViewModel.selectedPartyFee.length == 0
+                    ? selectedPartyFee
+                    : _profileViewModel.selectedPartyFee,
                 onChanged: (selectedValue) {
+                  if( _profileViewModel.selectedPartyFee.length == 0){
+                   selectedPartyFee = selectedValue;
+                   _onUpdate();
+                  }else{
                   _profileViewModel.selectedPartyFee = selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -174,5 +235,15 @@ class ConditionsProfile extends StatelessWidget {
         ),
       ],
     );
+  }
+  void _onUpdate() {
+    final profileViewModel =
+    Provider.of<ProfileViewModel>(context, listen: false);
+
+    profileViewModel.selectedIdealNumberOfParty = selectedIdealNumberOfParty;
+    profileViewModel.selectedIdealPartyAtmosphere = selectedIdealPartyAtmosphere;
+    profileViewModel.selectedKaraoke = selectedKaraoke;
+    profileViewModel.selectedPartyFee = selectedPartyFee;
+
   }
 }

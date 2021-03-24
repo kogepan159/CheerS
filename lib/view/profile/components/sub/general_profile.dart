@@ -16,14 +16,20 @@ class GeneralProfile extends StatefulWidget {
 
 class _GeneralProfileState extends State<GeneralProfile> {
   TextEditingController bioController = TextEditingController();
-  TextEditingController captionInAppUserNameController = TextEditingController();
+  TextEditingController captionInAppUserNameController =
+      TextEditingController();
 
   String updateBio = "";
   String updateInAppUserName = "";
+  String selectedResidence = "";
+  String selectedBirthPlace = "";
+  String selectedBloodType = "";
+  String selectedLivingStatus = "";
 
   @override
   void initState() {
     //既にDbにあるデータを表示させる
+
     bioController.text = widget.profileData.bio;
     captionInAppUserNameController.text = widget.profileData.inAppUserName;
 
@@ -43,7 +49,8 @@ class _GeneralProfileState extends State<GeneralProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+    final _profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -104,7 +111,8 @@ class _GeneralProfileState extends State<GeneralProfile> {
             SizedBox(
               width: 30.0,
             ),
-            Text(widget.profileData.age.toString(), style: profileEditTextStyle),
+            Text(widget.profileData.age.toString(),
+                style: profileEditTextStyle),
           ],
         ),
         Divider(
@@ -124,7 +132,9 @@ class _GeneralProfileState extends State<GeneralProfile> {
           controller: captionInAppUserNameController,
           style: profileEditTextStyle,
           autofocus: true,
-          decoration: InputDecoration(border: InputBorder.none, hintText: S.of(context).hintForNickName),
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: S.of(context).hintForNickName),
         ),
         Divider(
           thickness: 1.0,
@@ -138,7 +148,12 @@ class _GeneralProfileState extends State<GeneralProfile> {
               width: 30.0,
             ),
             DropdownButton(
+
                 items: [
+                  DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
                   DropdownMenuItem(
                     value: "北海道",
                     child: Text("北海道"),
@@ -328,10 +343,19 @@ class _GeneralProfileState extends State<GeneralProfile> {
                     child: Text("沖縄県"),
                   ),
                 ],
-                value: _profileViewModel.selectedResidence,
+                value: _profileViewModel.selectedResidence.length == 0
+                    ? selectedResidence
+                    : _profileViewModel.selectedResidence,
                 onChanged: (selectedValue) {
                   setState(() {
-                    _profileViewModel.selectedResidence = selectedValue;
+
+                    if(_profileViewModel.selectedResidence.length == 0){
+                      selectedResidence = selectedValue;
+                      _onUpdate();
+                    }else{
+                     _profileViewModel.selectedResidence = selectedValue;
+                    }
+
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
@@ -352,6 +376,10 @@ class _GeneralProfileState extends State<GeneralProfile> {
             DropdownButton(
                 items: [
                   DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
+                  DropdownMenuItem(
                     value: "北海道",
                     child: Text("北海道"),
                   ),
@@ -540,10 +568,17 @@ class _GeneralProfileState extends State<GeneralProfile> {
                     child: Text("沖縄県"),
                   ),
                 ],
-                value: _profileViewModel.selectedBirthPlace,
+                value: _profileViewModel.selectedBirthPlace.length == 0
+                    ? selectedBirthPlace
+                    : _profileViewModel.selectedBirthPlace,
                 onChanged: (selectedValue) {
                   setState(() {
-                    _profileViewModel.selectedBirthPlace = selectedValue;
+                    if(_profileViewModel.selectedBirthPlace.length == 0 ){
+                      selectedBirthPlace = selectedValue;
+                      _onUpdate();
+                    }else{
+                     _profileViewModel.selectedBirthPlace = selectedValue;
+                    }
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
@@ -564,6 +599,10 @@ class _GeneralProfileState extends State<GeneralProfile> {
             DropdownButton(
                 items: [
                   DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
+                  DropdownMenuItem(
                     value: "A型",
                     child: Text("A型"),
                   ),
@@ -580,10 +619,17 @@ class _GeneralProfileState extends State<GeneralProfile> {
                     child: Text("AB型"),
                   ),
                 ],
-                value: _profileViewModel.selectedBloodType,
+                value: _profileViewModel.selectedBloodType.length == 0
+                    ? selectedBloodType
+                    : _profileViewModel.selectedBloodType,
                 onChanged: (selectedValue) {
                   setState(() {
-                    _profileViewModel.selectedBloodType = selectedValue;
+                    if( _profileViewModel.selectedBloodType.length == 0 ){
+                      selectedBloodType = selectedValue;
+                      _onUpdate();
+                    }else{
+                      _profileViewModel.selectedBloodType = selectedValue;
+                    }
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
@@ -604,6 +650,10 @@ class _GeneralProfileState extends State<GeneralProfile> {
             DropdownButton(
                 items: [
                   DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
+                  DropdownMenuItem(
                     value: "一人暮らし",
                     child: Text("一人暮らし"),
                   ),
@@ -620,10 +670,17 @@ class _GeneralProfileState extends State<GeneralProfile> {
                     child: Text("その他"),
                   ),
                 ],
-                value: _profileViewModel.selectedLivingStatus,
+                value: _profileViewModel.selectedLivingStatus.length == 0
+                ? selectedLivingStatus
+                : _profileViewModel.selectedLivingStatus ,
                 onChanged: (selectedValue) {
                   setState(() {
+                    if( _profileViewModel.selectedLivingStatus.length == 0){
+                      selectedLivingStatus = selectedValue;
+                      _onUpdate();
+                    }else{
                     _profileViewModel.selectedLivingStatus = selectedValue;
+                    }
                     //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
@@ -638,9 +695,21 @@ class _GeneralProfileState extends State<GeneralProfile> {
   }
 
   _onCaptionUpdated() {
-    final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+    final profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
 
     profileViewModel.updateBio = bioController.text;
     profileViewModel.updateInAppUserName = captionInAppUserNameController.text;
+  }
+
+  void _onUpdate() {
+    final profileViewModel =
+    Provider.of<ProfileViewModel>(context, listen: false);
+
+    profileViewModel.selectedResidence = selectedResidence ;
+    profileViewModel.selectedBirthPlace = selectedBirthPlace;
+    profileViewModel.selectedBloodType = selectedBloodType;
+    profileViewModel.selectedLivingStatus = selectedLivingStatus;
+
   }
 }

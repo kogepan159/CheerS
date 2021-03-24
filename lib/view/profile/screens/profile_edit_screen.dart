@@ -71,11 +71,8 @@ class ProfileEditScreen extends StatelessWidget {
   showAlertOrConfirmDialog(BuildContext context) {
     final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
 
-    if (profileViewModel.selectedPrefecture == null ||
-        profileViewModel.updateBio.length == 0 ||
+    if (profileViewModel.updateBio.length == 0 ||
         profileViewModel.updateInAppUserName.length == 0 ||
-        // profileViewModel.selectedGender == null ||
-        // profileViewModel.selectedAge == null||
         profileViewModel.selectedResidence == null ||
         profileViewModel.selectedBirthPlace == null ||
         profileViewModel.selectedBloodType == null ||

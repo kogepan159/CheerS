@@ -5,9 +5,16 @@ import 'package:provider/provider.dart';
 
 import '../../../../style.dart';
 
-class SociabilityProfile extends StatelessWidget {
+class SociabilityProfile extends StatefulWidget {
+  @override
+  _SociabilityProfileState createState() => _SociabilityProfileState();
+}
+
+class _SociabilityProfileState extends State<SociabilityProfile> {
+  String selectedSociability = "";
   @override
   Widget build(BuildContext context) {
+
     final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,6 +29,10 @@ class SociabilityProfile extends StatelessWidget {
             DropdownButton(
                 items: [
                   DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
+                  DropdownMenuItem(
                     value: "大人数が好き",
                     child: Text("大人数が好き"),
                   ),
@@ -30,9 +41,16 @@ class SociabilityProfile extends StatelessWidget {
                     child: Text("少人数が好き"),
                   ),
                 ],
-                value: _profileViewModel.selectedSociability,
+                value: _profileViewModel.selectedSociability.length == 0
+                ? selectedSociability
+                :  _profileViewModel.selectedSociability,
                 onChanged: (selectedValue) {
+                  if( _profileViewModel.selectedSociability.length == 0 ){
+                  selectedSociability = selectedValue;
+                  _onUpdate();
+                  }else{
                   _profileViewModel.selectedSociability = selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -43,5 +61,12 @@ class SociabilityProfile extends StatelessWidget {
         ),
       ],
     );
+  }
+  void _onUpdate() {
+    final profileViewModel =
+    Provider.of<ProfileViewModel>(context, listen: false);
+
+    profileViewModel.selectedSociability = selectedSociability;
+
   }
 }

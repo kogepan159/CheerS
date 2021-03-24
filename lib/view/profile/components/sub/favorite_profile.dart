@@ -5,10 +5,23 @@ import 'package:provider/provider.dart';
 
 import '../../../../style.dart';
 
-class FavoriteProfile extends StatelessWidget {
+class FavoriteProfile extends StatefulWidget {
+
+
+  @override
+  _FavoriteProfileState createState() => _FavoriteProfileState();
+}
+
+class _FavoriteProfileState extends State<FavoriteProfile> {
+  String selectedAlcohol = "";
+  String selectedTobacco = "";
   @override
   Widget build(BuildContext context) {
-    final _profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+
+
+    final _profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,6 +35,10 @@ class FavoriteProfile extends StatelessWidget {
             DropdownButton(
                 items: [
                   DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
+                  DropdownMenuItem(
                     value: "飲まない",
                     child: Text("飲まない"),
                   ),
@@ -34,9 +51,18 @@ class FavoriteProfile extends StatelessWidget {
                     child: Text("飲む"),
                   ),
                 ],
-                value: _profileViewModel.selectedAlcohol,
+                value: _profileViewModel.selectedAlcohol.length == 0
+                    ? selectedAlcohol
+                    : _profileViewModel.selectedAlcohol,
                 onChanged: (selectedValue) {
-                  _profileViewModel.selectedAlcohol = selectedValue;
+
+                  if( _profileViewModel.selectedAlcohol.length == 0){
+                  selectedAlcohol = selectedValue;
+                  _onUpdate();
+                  }else{
+                   _profileViewModel.selectedAlcohol = selectedValue;
+                  }
+
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -56,6 +82,10 @@ class FavoriteProfile extends StatelessWidget {
             DropdownButton(
                 items: [
                   DropdownMenuItem(
+                    value: "",
+                    child: Text(""),
+                  ),
+                  DropdownMenuItem(
                     value: "吸わない",
                     child: Text("吸わない"),
                   ),
@@ -68,9 +98,16 @@ class FavoriteProfile extends StatelessWidget {
                     child: Text("吸う"),
                   ),
                 ],
-                value: _profileViewModel.selectedTobacco,
+                value: _profileViewModel.selectedTobacco.length == 0
+                ? selectedTobacco
+                : _profileViewModel.selectedTobacco,
                 onChanged: (selectedValue) {
-                  _profileViewModel.selectedTobacco = selectedValue;
+                  if(_profileViewModel.selectedTobacco.length == 0 ){
+                   selectedTobacco = selectedValue ;
+                   _onUpdate();
+                  }else{
+                   _profileViewModel.selectedTobacco = selectedValue;
+                  }
                   //#############ドロップダウンを選択するとTextFieldにフォーカスしてしまうのを解決##############
                   FocusScope.of(context).requestFocus(new FocusNode());
                 }),
@@ -81,5 +118,14 @@ class FavoriteProfile extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _onUpdate() {
+    final profileViewModel =
+    Provider.of<ProfileViewModel>(context, listen: false);
+
+    profileViewModel.selectedAlcohol = selectedAlcohol;
+    profileViewModel.selectedTobacco = selectedTobacco;
+
   }
 }
