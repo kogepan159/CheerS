@@ -17,6 +17,11 @@ class FeedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
+
     final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
 
     feedViewModel.setFeedUser(feedMode, feedUser);
@@ -40,17 +45,26 @@ class FeedPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return SingleChildScrollView(
-              child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: model.parties.length,
-                  itemBuilder: (context, index) {
-                    return FeedPostTile(
-                      feedMode: feedMode,
-                      hostParty: model.parties[index],
-                    );
-                  }),
+            return RefreshIndicator(
+              onRefresh: () => feedViewModel.getParty(feedMode),
+              child: SingleChildScrollView(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: (itemWidth / itemHeight),
+                  ),
+                    controller: ScrollController(keepScrollOffset: false),
+                    scrollDirection: Axis.vertical,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: model.parties.length,
+                    itemBuilder: (context, index) {
+                      return FeedPostTile(
+                        feedMode: feedMode,
+                        hostParty: model.parties[index],
+                      );
+                    }),
+              ),
             );
           }
         },

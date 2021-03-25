@@ -52,7 +52,7 @@ class ProfilePostTile extends StatelessWidget {
               ],
             );
           } else {
-            return Container();
+            return CircularProgressIndicator();
           }
         });
   }

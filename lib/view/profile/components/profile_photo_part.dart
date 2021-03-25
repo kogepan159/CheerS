@@ -37,16 +37,14 @@ class ProfilePhotoPart extends StatelessWidget {
                   context, profileUser.photoUrl_1, profileUser.inAppUserName),
               child: Hero(
                 tag: profileUser.photoUrl_1,
-                child: Material(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
-                      imageUrl: profileUser.photoUrl_1,
-                      placeholder: (context, url) => CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      //プロフィール画像の投稿画像一覧の各画像を、正方形一杯一杯に画像を広げる（統一感のある表示に）
-                      fit: BoxFit.cover,
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: CachedNetworkImage(
+                    imageUrl: profileUser.photoUrl_1,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    //プロフィール画像の投稿画像一覧の各画像を、正方形一杯一杯に画像を広げる（統一感のある表示に）
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

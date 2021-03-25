@@ -202,14 +202,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                   shrinkWrap: true,
                                   itemCount: model.parties.length,
                                   itemBuilder: (context, index) {
-                                    return ProfilePostTile(
-                                      profileMode: widget.profileMode,
-                                      hostParty: model.parties[index],
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                                      child: ProfilePostTile(
+                                        profileMode: widget.profileMode,
+                                        hostParty: model.parties[index],
+                                      ),
                                     );
                                   }),
+
                             ],
                           )
-                        : Container(),
+                        : CircularProgressIndicator(),
                   ],
                 ),
               ),
