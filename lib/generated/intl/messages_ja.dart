@@ -153,6 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "update" : MessageLookupByLibrary.simpleMessage("更新"),
     "user" : MessageLookupByLibrary.simpleMessage("ユーザー"),
     "userCancel" : MessageLookupByLibrary.simpleMessage("ユーザーによってキャンセルされました。"),
+    "yearsOld" : MessageLookupByLibrary.simpleMessage("才"),
     "yes" : MessageLookupByLibrary.simpleMessage("はい")
   };
 }

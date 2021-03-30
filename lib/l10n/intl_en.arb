@@ -131,7 +131,8 @@
   "numberOfPeopleLimit": "Please invite between from 1 to 9 people",
   "numberOfPeopleLimitAppBar": "Invite 1 to 9 people",
   "plus": "Plus",
-  "people": "People"
+  "people": "People",
+  "yearsOld": ""
 }
 
 

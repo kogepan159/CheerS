@@ -1364,6 +1364,16 @@ class S {
       args: [],
     );
   }
+
+  /// ``
+  String get yearsOld {
+    return Intl.message(
+      '',
+      name: 'yearsOld',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

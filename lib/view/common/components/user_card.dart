@@ -29,6 +29,7 @@ class UserCard extends StatelessWidget {
   final HostParty hostParty;
   final String hostPartyId;
   final String numberOfInvitedMembers;
+  final int age;
 
   UserCard({
     @required this.feedMode,
@@ -47,6 +48,7 @@ class UserCard extends StatelessWidget {
     @required this.hostParty,
     this.hostPartyId,
     @required this.numberOfInvitedMembers,
+    @required this.age,
   });
 
   @override
@@ -57,97 +59,101 @@ class UserCard extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.blueAccent,
           onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ListTile(
-                  //リストビューの右上の三点ボタン
-                  trailing: feedMode == FeedMode.FROM_PROFILE
-                      ? PopupMenuButton(
-                          icon: Icon(Icons.more_vert),
-                          onSelected: (value) =>
-                              _onPopUpMenuSelected(context, value),
-                          itemBuilder: (context) {
-                            //投稿者が自分の場合に表示する。
-                            if (hostPartyUser.uId == currentUser.uId) {
-                              return [
-                                PopupMenuItem(
-                                  value: HostPartyMenu.EDIT,
-                                  child: Text(S.of(context).edit),
-                                ),
-                                PopupMenuItem(
-                                  value: HostPartyMenu.DELETE,
-                                  child: Text(S.of(context).delete),
-                                ),
-                              ];
-                            } else {
-                              return null;
-                            }
-                          })
-                      : null,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ListTile(
+                //リストビューの右上の三点ボタン
+                trailing: feedMode == FeedMode.FROM_PROFILE
+                    ? PopupMenuButton(
+                        icon: Icon(Icons.more_vert),
+                        onSelected: (value) =>
+                            _onPopUpMenuSelected(context, value),
+                        itemBuilder: (context) {
+                          //投稿者が自分の場合に表示する。
+                          if (hostPartyUser.uId == currentUser.uId) {
+                            return [
+                              PopupMenuItem(
+                                value: HostPartyMenu.EDIT,
+                                child: Text(S.of(context).edit),
+                              ),
+                              PopupMenuItem(
+                                value: HostPartyMenu.DELETE,
+                                child: Text(S.of(context).delete),
+                              ),
+                            ];
+                          } else {
+                            return null;
+                          }
+                        })
+                    : null,
 
-                  title: Center(
-                    child: Text(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
                       titleRight.toString(),
                       style: userCardTitleRightTextStyle,
                     ),
-                  ),
-
-                  subtitle: Center(
-                    child: Column(
-                      children: [
-                        CirclePhoto(
-                          photoUrl: hostPartyUser.photoUrl_1,
-                          radius: 70.0,
-                          isImageFromFile: false,
-                        ),
-                        Text(
-                          subTitleRight,
-                          style: userCardSubTitleRightTextStyle,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              S.of(context).plus,
-                              style: userCardNumberOfMemberTextStyle,
-                            ),
-                            Text(
-                              numberOfInvitedMembers,
-                              style: userCardNumberOfMemberTextStyle,
-                            ),
-                            Text(
-                              S.of(context).people,
-                              style: userCardNumberOfMemberTextStyle,
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: double.infinity,
-                          child: Text(
-                            caption,
-                            style: userCardCaptionTextStyle,
-                            textAlign: TextAlign.left,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          child: Text(
-                            postDateTime.toString(),
-                            textAlign: TextAlign.left,
-                            style: userCardTimeAgoTextStyle,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      "　"
                     ),
+                    Text(
+                      numberOfInvitedMembers + S.of(context).people,
+                      style: userCardNumberOfMemberTextStyle,
+                    ),
+                  ],
+                ),
+
+                subtitle: Center(
+                  child: Column(
+                    children: [
+                      CirclePhoto(
+                        photoUrl: hostPartyUser.photoUrl_1,
+                        radius: 70.0,
+                        isImageFromFile: false,
+                      ),
+
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            subTitleRight ,
+                            style: userCardSubTitleRightTextStyle,
+                          ),
+                          Text(
+                            "(" + age.toString()  + ")",
+                            style: userCardSubTitleRightTextStyle,
+                          ),
+
+                        ],
+                      ),
+
+
+                      Container(
+                        width: double.infinity,
+                        child: Text(
+                          caption,
+                          style: userCardCaptionTextStyle,
+                          textAlign: TextAlign.left,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: Text(
+                          postDateTime.toString(),
+                          textAlign: TextAlign.left,
+                          style: userCardTimeAgoTextStyle,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

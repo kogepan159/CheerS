@@ -21,7 +21,7 @@ const userCardTitleLeftTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 18.
 const userCardTitleRightTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 20.0,);
 
 const userCardSubTitleLeftTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 18.0, color: Colors.deepOrange);
-const userCardSubTitleRightTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 14.0,);
+const userCardSubTitleRightTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 12.0,);
 
 const userCardNumberOfMemberTextStyle = TextStyle(fontFamily: BoldFont, fontSize: 18.0,);
 
@@ -51,3 +51,6 @@ const profileApplicationOfFriendsTextStyle = TextStyle(fontFamily: RegularFont, 
 
 //プロフィールページ　友達人数などの情報画面
 const profileNumberInfoTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 14.0,);
+
+//プロフィールページ　友達人数などの情報画面
+const userCardForInvitedFriendsTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 10.0,);

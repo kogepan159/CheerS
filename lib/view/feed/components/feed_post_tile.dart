@@ -46,7 +46,8 @@ class FeedPostTile extends StatelessWidget {
                         caption: hostParty.caption,
                         hostParty: hostParty,
                         numberOfInvitedMembers:
-                            hostParty.numberOfInvitedMember.toString(),
+              (hostParty.numberOfInvitedMember + 1 ).toString(),
+                        age: hostPartyUser.age,
                         onTap: () => _openFeedPostDetailScreen(
                             context, hostParty, hostPartyUser),
                       ),

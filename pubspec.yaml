@@ -52,6 +52,7 @@ dependencies:
   multi_select_flutter: ^3.1.6
   http: ^0.12.2
   scrollable_positioned_list: ^0.1.10
+  page_indicator: ^0.3.0
 
 dev_dependencies:
   flutter_test:
@@ -70,8 +71,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/ic_launcher.png
-    - assets/images/no_image.png
+      - assets/images/ic_launcher.png
+      - assets/images/no_image.png
+      - assets/images/no_image_2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
