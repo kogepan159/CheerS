@@ -132,7 +132,8 @@
   "numberOfPeopleLimitAppBar": "Invite 1 to 9 people",
   "plus": "Plus",
   "people": "People",
-  "yearsOld": ""
+  "yearsOld": "",
+  "message": "Direct message"
 }
 
 

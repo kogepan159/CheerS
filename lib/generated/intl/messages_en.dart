@@ -101,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "longitude" : MessageLookupByLibrary.simpleMessage("Longitude"),
     "mainPhoto" : MessageLookupByLibrary.simpleMessage("Main photo"),
     "member" : MessageLookupByLibrary.simpleMessage("members"),
+    "message" : MessageLookupByLibrary.simpleMessage("Direct message"),
     "nickName" : MessageLookupByLibrary.simpleMessage("Nickname"),
     "no" : MessageLookupByLibrary.simpleMessage("No"),
     "noFriends" : MessageLookupByLibrary.simpleMessage("No friends"),

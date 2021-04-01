@@ -7,6 +7,7 @@ import 'package:cheers_app/view/common/components/button_with_icon.dart';
 import 'package:cheers_app/view/common/components/user_card.dart';
 import 'package:cheers_app/view/feed/components/feed_post_detail_part.dart';
 import 'package:cheers_app/view/home_screen.dart';
+import 'package:cheers_app/view_models/chat_view_model.dart';
 import 'package:cheers_app/view_models/feed_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -85,9 +86,13 @@ class _FeedPostDetailScreenState extends State<FeedPostDetailScreen> {
             }));
   }
 
+  //合コンを申し込むと同時に、トークルームを作成
   _offerParty(BuildContext context, HostParty hostParty) async {
     final feedViewModel = Provider.of<FeedViewModel>(context, listen: false);
+    final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
+
     await feedViewModel.offerParty(hostParty);
+    await chatViewModel.insertChat(hostParty);
   }
 
   void _cancelOfferParty(BuildContext context, HostParty hostParty) async {

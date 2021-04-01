@@ -1,7 +1,9 @@
 
 import 'package:cheers_app/models/db/database_manager.dart';
+import 'package:cheers_app/models/repositories/chat_repository.dart';
 import 'package:cheers_app/models/repositories/party_repository.dart';
 import 'package:cheers_app/models/repositories/user_repository.dart';
+import 'package:cheers_app/view_models/chat_view_model.dart';
 import 'package:cheers_app/view_models/feed_view_model.dart';
 import 'package:cheers_app/view_models/host_party_view_model.dart';
 import 'package:cheers_app/view_models/login_view_model.dart';
@@ -34,22 +36,19 @@ List<SingleChildWidget> dependentModels = [
   ProxyProvider<DatabaseManager, UserRepository>(
     update: (context, dbManager, repo) => UserRepository(dbManager: dbManager ),
   ),
+
   // PartyRepository => DatabaseManager
   ProxyProvider<DatabaseManager, PartyRepository>(
-    update: (context, dbManager, repo) => PartyRepository(dbManager: dbManager),//TODO
+    update: (context, dbManager, repo) => PartyRepository(dbManager: dbManager),
+  ),
+
+  // ChatRepository => DatabaseManager
+  ProxyProvider<DatabaseManager, ChatRepository>(
+    update: (context, dbManager, repo) => ChatRepository(dbManager: dbManager),
   ),
 
 
 
-
-  //
-  // //PostRepository => DatabaseManager＆locationManager
-  // ProxyProvider2<DatabaseManager,LocationManager, PostRepository>(
-  //   update: (context, dbManager,locationManager , repo) => PostRepository(
-  //     dbManager: dbManager,
-  //     locationManager: locationManager,
-  //   ),
-  // ),
 ];
 
 //３．ViewModelで依存しているもの
@@ -89,6 +88,13 @@ List<SingleChildWidget> viewModels = [
   ChangeNotifierProvider<SearchViewModel>(
     create: (context) => SearchViewModel(
       userRepository: Provider.of<UserRepository>(context, listen: false),
+    ),
+  ),
+
+  // ChatViewModel => ChatRepository
+  ChangeNotifierProvider<ChatViewModel>(
+    create: (context) => ChatViewModel(
+      chatRepository: Provider.of<ChatRepository>(context, listen: false),
     ),
   ),
 

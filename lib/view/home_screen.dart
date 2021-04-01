@@ -6,7 +6,7 @@ import 'package:cheers_app/view/search_user/pages/search_user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'dm/pages/dm_page.dart';
+import 'chat/pages/chat_page.dart';
 import 'feed/feed_page.dart';
 import 'host_party/pages/host_party_page.dart';
 
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       FeedPage(feedMode: FeedMode.FROM_FEED,),
       HostPartyPage(),
       SearchUserPage(),
-      DmPage(),
+      ChatPage(),
       ProfilePage(profileMode: ProfileMode.MYSELF),
     ];
   }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cheers_app/data_models/chat.dart';
 import 'package:cheers_app/data_models/host_party.dart';
 import 'package:cheers_app/data_models/offer.dart';
 import 'package:cheers_app/data_models/user.dart';
@@ -676,6 +677,43 @@ class DatabaseManager {
 
 
  }
+
+ //トークルームを作成
+ Future<void> insertChat(Chat chat) async{
+
+    //トークルームを作成し、サブコレクション(User1)を作成
+   await _db
+       .collection("chats")
+       .doc(chat.chatRoomId)
+       .set(chat.toMap());
+
+ }
+
+ //自分が関与しているチャット情報を取得してくる
+  Future<List<Chat>> getChats(String uId)async {
+
+    final query = await _db.collection("chats").get();
+    if (query.docs.length == 0) return List();
+
+    var results = List<Chat>();
+
+    await _db
+        .collection("chats")
+        .where("currentUserId", isEqualTo: uId)
+        .where("chatUserId", isEqualTo: uId)
+        .orderBy("chatMadeDateTime", descending: true)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        results.add(Chat.fromMap(element.data()));
+      });
+    });
+
+
+    print("posts: $results");
+
+    return results;
+  }
 
 
 
