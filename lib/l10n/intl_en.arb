@@ -133,7 +133,8 @@
   "plus": "Plus",
   "people": "People",
   "yearsOld": "",
-  "message": "Direct message"
+  "message": "Direct message",
+  "noMessage": "No message"
 }
 
 

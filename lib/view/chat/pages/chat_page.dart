@@ -9,9 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ChatPage extends StatelessWidget {
+
+
+
   @override
   Widget build(BuildContext context) {
     final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
+
+    // //chatUserが誰なのかを判別
+    // chatViewModel.setChatUser(widget.profileMode, widget.selectedUser);
 
     return Scaffold(
       backgroundColor: Colors.black12,
@@ -44,28 +50,34 @@ class ChatPage extends StatelessWidget {
                             onTap: null,
 
                             ///メッセージ画面へ（コンポーネンツ）
-                            child: ListTile(
-                              leading: CirclePhoto(
-                                photoUrl: chat.chatUserPhotoUrl,
-                                radius: 30.0,
-                                isImageFromFile: false,
-                                onTap: () => _openProfileScreen(
-                                    context, chat.chatUserId),
-                              ),
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(chat.chatUserInAppUserName),
-                                  Text(chat.chatUserPrefecture),
-                                ],
-                              ),
+                            child: Container(
+                              // leading: CirclePhoto(
+                              //   photoUrl: chat.chatUserPhotoUrl,
+                              //   radius: 30.0,
+                              //   isImageFromFile: false,
+                              //   onTap: () => _openProfileScreen(
+                              //       context, chat.chatUserId),
+                              // ),
+                              // title: Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceAround,
+                              //   children: [
+                              //     Text(chat.chatUserInAppUserName),
+                              //     Text(chat.chatUserPrefecture),
+                              //   ],
+                              // ),
                             ),
                           ),
                         ),
                       );
                     });
-              } else {
+              }
+              else if(!snapshot.hasData ||
+                  snapshot.data.length == 0 ||
+                  snapshot.data == null){
+                return Center(child: Text(S.of(context).noMessage));
+              }
+              else {
                 return Center(child: CircularProgressIndicator());
               }
             }));

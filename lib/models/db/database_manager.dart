@@ -167,8 +167,6 @@ class DatabaseManager {
 
   }
 
-  // //(currentUserがprofileUserをフォローする。currentUserのサブコレクション[followings]にprofileUserのIDを登録)
-  // await _db.collection("users").doc(currentUser.uId).collection("followings").doc(profileUser.uId).set({"uId" : profileUser.uId});
 
   //フィード画面にフィードを表示させるために投稿データを読み込み
   Future<List<HostParty>> getAllParty(String uId) async {
@@ -681,7 +679,7 @@ class DatabaseManager {
  //トークルームを作成
  Future<void> insertChat(Chat chat) async{
 
-    //トークルームを作成し、サブコレクション(User1)を作成
+    //トークルームを作成
    await _db
        .collection("chats")
        .doc(chat.chatRoomId)
@@ -693,15 +691,14 @@ class DatabaseManager {
   Future<List<Chat>> getChats(String uId)async {
 
     final query = await _db.collection("chats").get();
-    if (query.docs.length == 0) return List();
+    if (query.docs.length == 0) return [];
 
-    var results = List<Chat>();
+    var results = <Chat>[];
 
     await _db
         .collection("chats")
-        .where("currentUserId", isEqualTo: uId)
-        .where("chatUserId", isEqualTo: uId)
-        .orderBy("chatMadeDateTime", descending: true)
+        .where("chatUserIds", arrayContains: uId)
+        // .orderBy("sendDateTime", descending: true)
         .get()
         .then((value) {
       value.docs.forEach((element) {
@@ -709,9 +706,7 @@ class DatabaseManager {
       });
     });
 
-
-    print("posts: $results");
-
+    print("chatResults $results");
     return results;
   }
 

@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:cheers_app/data_models/user.dart';
@@ -43,8 +44,13 @@ class UserRepository {
     final FacebookAccessToken accessToken = result.accessToken;
     final String token = accessToken.token;
     print('accessToken: $token');
+
     final graphResponse = await http.get(
-        'https://graph.facebook.com/v2.12/me?fields=id,name,birthday,gender,friends&access_token=$token');
+        Uri.parse('https://graph.facebook.com/v2.12/me?fields=id,name,birthday,gender,friends&access_token=$token'));
+
+    // final graphResponse = await http.get(
+    //     'https://graph.facebook.com/v2.12/me?fields=id,name,birthday,gender,friends&access_token=$token');
+
     final profile = json.decode(graphResponse.body);
     print('profile: $profile');
 

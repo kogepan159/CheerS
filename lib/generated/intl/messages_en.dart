@@ -105,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "nickName" : MessageLookupByLibrary.simpleMessage("Nickname"),
     "no" : MessageLookupByLibrary.simpleMessage("No"),
     "noFriends" : MessageLookupByLibrary.simpleMessage("No friends"),
+    "noMessage" : MessageLookupByLibrary.simpleMessage("No message"),
     "noOneSentTheFriendRequest" : MessageLookupByLibrary.simpleMessage("No one sent you the friend request"),
     "noPrefectureIsSelected" : MessageLookupByLibrary.simpleMessage("No prefecture is selected"),
     "noUserYouAreApplyingForAFriend" : MessageLookupByLibrary.simpleMessage("No user you are applying for a friend"),

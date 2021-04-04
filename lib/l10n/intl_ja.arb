@@ -133,5 +133,6 @@
   "plus": "他",
   "people": "人",
   "yearsOld": "才",
-  "message": "メッセージ"
+  "message": "メッセージ",
+  "noMessage": "メッセージがありません"
 }

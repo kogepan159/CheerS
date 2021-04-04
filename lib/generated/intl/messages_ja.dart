@@ -105,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "nickName" : MessageLookupByLibrary.simpleMessage("ニックネーム"),
     "no" : MessageLookupByLibrary.simpleMessage("いいえ"),
     "noFriends" : MessageLookupByLibrary.simpleMessage("友達がいません"),
+    "noMessage" : MessageLookupByLibrary.simpleMessage("メッセージがありません"),
     "noOneSentTheFriendRequest" : MessageLookupByLibrary.simpleMessage("あなたへ友達申請しているユーザーはいません"),
     "noPrefectureIsSelected" : MessageLookupByLibrary.simpleMessage("都道府県が選択されていません"),
     "noUserYouAreApplyingForAFriend" : MessageLookupByLibrary.simpleMessage("あなたが友達申請しているユーザーはいません"),

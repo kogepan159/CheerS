@@ -32,10 +32,10 @@ dependencies:
   cupertino_icons: ^1.0.0
 
   #firebase
-  firebase_core: ^0.7.0
-  cloud_firestore: ^0.16.0
-  firebase_storage: ^7.0.0
-  firebase_auth: ^0.20.0
+  firebase_core: ^1.0.2
+  cloud_firestore: ^1.0.3
+  firebase_storage: ^8.0.1
+  firebase_auth: ^1.0.1
   firebase_analytics: ^7.0.1
   google_sign_in: ^4.5.9
   flutter_facebook_login: ^3.0.0
@@ -43,14 +43,14 @@ dependencies:
   provider: ^4.3.2+4
   font_awesome_flutter: ^8.11.0
   fluttertoast: ^7.1.6
-  image_picker: ^0.6.7+1
+  image_picker: ^0.7.4
   direct_select: ^1.1.0
   uuid: ^2.2.2
   cached_network_image: ^2.5.0
   bubble: ^1.1.9+1
   timeago: ^2.0.29
   multi_select_flutter: ^3.1.6
-  http: ^0.12.2
+  http: ^0.13.1
   scrollable_positioned_list: ^0.1.10
   page_indicator: ^0.3.0
 
