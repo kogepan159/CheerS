@@ -1,6 +1,7 @@
 import 'package:cheers_app/data_models/chat.dart';
 import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/utils/constants.dart';
+import 'package:cheers_app/view/chat/screens/chat_screen.dart';
 import 'package:cheers_app/view/common/components/circle_photo.dart';
 import 'package:cheers_app/view/profile/screens/profile_screen.dart';
 import 'package:cheers_app/view_models/chat_view_model.dart';
@@ -15,9 +16,6 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
-
-    // //chatUserが誰なのかを判別
-    // chatViewModel.setChatUser(widget.profileMode, widget.selectedUser);
 
     return Scaffold(
       backgroundColor: Colors.black12,
@@ -37,6 +35,15 @@ class ChatPage extends StatelessWidget {
                     itemCount: chats.length,
                     itemBuilder: (context, int index) {
                       final chat = chats[index];
+
+                      final offerUserId = chat.offerUserId;
+                      final offerUserInAppUserName = chat.offerUserInAppUserName;
+                      final offerUserPhotoUrl = chat.offerUserPhotoUrl;
+
+                      final offeredUserId = chat.offeredUserId;
+                      final offeredUserInAppUserName = chat.offeredUserInAppUserName;
+                      final offeredUserPhotoUrl = chat.offeredUserPhotoUrl;
+
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
@@ -49,59 +56,101 @@ class ChatPage extends StatelessWidget {
                             splashColor: Colors.blueAccent,
                             onTap: null,
 
-                            ///メッセージ画面へ（コンポーネンツ）
-                            child: Container(
-                              // leading: CirclePhoto(
-                              //   photoUrl: chat.chatUserPhotoUrl,
-                              //   radius: 30.0,
-                              //   isImageFromFile: false,
-                              //   onTap: () => _openProfileScreen(
-                              //       context, chat.chatUserId),
-                              // ),
-                              // title: Row(
-                              //   mainAxisAlignment:
-                              //       MainAxisAlignment.spaceAround,
-                              //   children: [
-                              //     Text(chat.chatUserInAppUserName),
-                              //     Text(chat.chatUserPrefecture),
-                              //   ],
-                              // ),
+                            //メッセージ画面へ（コンポーネンツ）
+                            child: GestureDetector(
+                              onTap: () =>  _openChatScreen(context,chat),
+                              child: ListTile(
+                                leading: CirclePhoto(
+                                  photoUrl: _checkPhotoUrl(context,offerUserPhotoUrl , offeredUserPhotoUrl),
+                                  radius: 30.0,
+                                  isImageFromFile: false,
+                                ),
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(_checkName(context,offerUserInAppUserName,offeredUserInAppUserName )),
+                                  ],
+                                ),
+                                subtitle: Text(chat.sendDateTime.toString()),
+                              ),
                             ),
                           ),
                         ),
                       );
                     });
               }
-              else if(!snapshot.hasData ||
-                  snapshot.data.length == 0 ||
+              else if(
+                  !snapshot.hasData ||
                   snapshot.data == null){
                 return Center(child: Text(S.of(context).noMessage));
               }
               else {
                 return Center(child: CircularProgressIndicator());
               }
-            }));
+            }
+            )
+    );
   }
 
-  _openProfileScreen(BuildContext context, String chatUserId) {
-    final profileViewModel =
-        Provider.of<ProfileViewModel>(context, listen: false);
+  // _openProfileScreen(BuildContext context, Chat chat) {
+  //   final profileViewModel =
+  //       Provider.of<ProfileViewModel>(context, listen: false);
+  //
+  //   final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
+  //
+  //
+  //   //チャット相手のデータを取ってくる
+  //   Future(() => chatViewModel.getChatUserInfo();));
+  //
+  //
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => ProfileScreen(
+  //         profileMode: chatUserId == profileViewModel.currentUser.uId
+  //             ? ProfileMode.MYSELF
+  //             : ProfileMode.OTHER,
+  //         selectedUser: chatViewModel.chatUser,
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  //チャット相手の写真を特定する
+  _checkPhotoUrl(BuildContext context, String offerUserPhotoUrl, String offeredUserPhotoUrl) {
+    final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
+
+    if(offerUserPhotoUrl == chatViewModel.currentUser.photoUrl_1){
+      return offeredUserPhotoUrl;
+    }else if (offeredUserPhotoUrl == chatViewModel.currentUser.photoUrl_1){
+      return offerUserPhotoUrl;
+    }
+
+  }
+
+  //チャット相手の名前を特定する
+  _checkName(BuildContext context, String offerUserInAppUserName, String offeredUserInAppUserName) {
 
     final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
 
-    //チャット相手のデータを取ってくる
-    Future(() => chatViewModel.getChatUserInfo(chatUserId));
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfileScreen(
-          profileMode: chatUserId == profileViewModel.currentUser.uId
-              ? ProfileMode.MYSELF
-              : ProfileMode.OTHER,
-          selectedUser: chatViewModel.chatUser,
-        ),
-      ),
-    );
+    if(offerUserInAppUserName == chatViewModel.currentUser.inAppUserName){
+      return offeredUserInAppUserName;
+    }else if (offeredUserInAppUserName == chatViewModel.currentUser.inAppUserName){
+      return offerUserInAppUserName;
+    }
   }
+
+  _openChatScreen(BuildContext context, Chat chat) {
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(chat: chat,),),);
+
+  }
+
+
+
+
+
+
+
 }

@@ -368,10 +368,7 @@ class DatabaseManager {
     await reference.update(updatedProfilePhoto.toMap());
   }
 
-  //firebaseへプロフィール画像を追加
-  // Future<void> addProfilePhoto_2(User addedPhotoUrl_2) async{
-  //   await _db.collection("users").doc(addedPhotoUrl_2.uId).set(addedPhotoUrl_2.toMap());
-  // }
+
 
   //合コン企画を削除
  Future<void> deleteHostParty(String hostPartyId) async{
@@ -690,15 +687,17 @@ class DatabaseManager {
  //自分が関与しているチャット情報を取得してくる
   Future<List<Chat>> getChats(String uId)async {
 
+    //データの有無を判定（これをしないとアプリ落ちる）
     final query = await _db.collection("chats").get();
-    if (query.docs.length == 0) return [];
+    if (query.docs.length == 0) return List();
 
-    var results = <Chat>[];
+    var results = List<Chat>();
 
+    print("getChats db");
+    //offerUserIdが自分のチャット取得（他人の合コンにいいねした場合）
     await _db
         .collection("chats")
-        .where("chatUserIds", arrayContains: uId)
-        // .orderBy("sendDateTime", descending: true)
+        .where("offerUserId", isEqualTo: uId)
         .get()
         .then((value) {
       value.docs.forEach((element) {
@@ -706,10 +705,43 @@ class DatabaseManager {
       });
     });
 
-    print("chatResults $results");
+
+    //offeredUserIdが自分のチャット取得（自分の合コンにいいねされた場合）
+    await _db
+        .collection("chats")
+        .where("offeredUserId", isEqualTo: uId)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        results.add(Chat.fromMap(element.data()));
+      });
+    });
+
+    results.sort((a,b) => b.sendDateTime.compareTo(a.sendDateTime));
+
     return results;
+
   }
 
+ Future <void> sendMessage(String message, String chatRoomId, String uId, Chat updateChat)async {
 
+   await _db.collection("chats").doc(chatRoomId).collection("messages").doc().set({"uId" : uId, "message": message, "sendDataTime": DateTime.now()});
+
+   final document =  _db.collection("chats").doc(chatRoomId);
+   await document.update(updateChat.toMap());
+
+
+ }
+
+  Stream getChat(Chat chat) {
+
+    final results =  _db.collection("chats").doc(chat.chatRoomId)
+        .collection("messages")
+        .orderBy("sendDataTime", descending: true)
+        .snapshots();
+
+    return results;
+
+  }
 
 }

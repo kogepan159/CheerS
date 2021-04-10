@@ -136,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectLocation" : MessageLookupByLibrary.simpleMessage("場所情報を以下から選択.."),
     "selectPlace" : MessageLookupByLibrary.simpleMessage("場所を選択"),
     "selfIntroductionToHostParty" : MessageLookupByLibrary.simpleMessage("合コン開催の為に、自己紹介をしましょう！"),
+    "sendMessage" : MessageLookupByLibrary.simpleMessage("メッセージの送信"),
     "share" : MessageLookupByLibrary.simpleMessage("シェア"),
     "signIn" : MessageLookupByLibrary.simpleMessage("サインイン"),
     "signInFailed" : MessageLookupByLibrary.simpleMessage("サインインに失敗しました。"),

@@ -43,43 +43,45 @@ class _FeedPostDetailScreenState extends State<FeedPostDetailScreen> {
             builder: (context, AsyncSnapshot<List<User>> snapshot) {
               if (snapshot.hasData && snapshot.data != null) {
                 final partyMembers = snapshot.data;
-                return  Column(children: [
-                        FeedPostDetailPart(
-                          titleLeft: (S.of(context).hostLocation),
-                          titleRight: widget.hostParty.selectedPrefecture,
-                          subTitleLeft: (S.of(context).host),
-                          photoUrl: widget.hostPartyUser.photoUrl_1,
-                          subTitleRight: widget.hostPartyUser.inAppUserName,
-                          hostPartyUser: widget.hostPartyUser,
-                          caption: widget.hostParty.caption,
-                          hostParty: widget.hostParty,
-                          partyMembers: partyMembers,
-                        ),
-                        widget.hostPartyUser.uId ==
-                                feedViewModel.currentUser.uId
-                            ? Container()
-                            : feedViewModel.isOffered == true
-                                ? ButtonWithIcon(
-                                    onPressed: () {
-                                      setState(() {
-                                        _cancelOfferParty(
-                                            context, widget.hostParty);
-                                        feedViewModel.isOffered = false;
-                                      });
-                                    },
-                                    iconData: FontAwesomeIcons.angleDoubleRight,
-                                    label: S.of(context).cancel,
-                                  )
-                                : ButtonWithIcon(
-                                    onPressed: () {
-                                      setState(() {
-                                        _offerParty(context, widget.hostParty);
-                                      });
-                                    },
-                                    iconData: FontAwesomeIcons.solidThumbsUp,
-                                    label: S.of(context).offerParty,
-                                  ),
-                      ]);
+                return  SingleChildScrollView(
+                  child: Column(children: [
+                          FeedPostDetailPart(
+                            titleLeft: (S.of(context).hostLocation),
+                            titleRight: widget.hostParty.selectedPrefecture,
+                            subTitleLeft: (S.of(context).host),
+                            photoUrl: widget.hostPartyUser.photoUrl_1,
+                            subTitleRight: widget.hostPartyUser.inAppUserName,
+                            hostPartyUser: widget.hostPartyUser,
+                            caption: widget.hostParty.caption,
+                            hostParty: widget.hostParty,
+                            partyMembers: partyMembers,
+                          ),
+                          widget.hostPartyUser.uId ==
+                                  feedViewModel.currentUser.uId
+                              ? Container()
+                              : feedViewModel.isOffered == true
+                                  ? ButtonWithIcon(
+                                      onPressed: () {
+                                        setState(() {
+                                          _cancelOfferParty(
+                                              context, widget.hostParty);
+                                          feedViewModel.isOffered = false;
+                                        });
+                                      },
+                                      iconData: FontAwesomeIcons.angleDoubleRight,
+                                      label: S.of(context).cancel,
+                                    )
+                                  : ButtonWithIcon(
+                                      onPressed: () {
+                                        setState(() {
+                                          _offerParty(context, widget.hostParty);
+                                        });
+                                      },
+                                      iconData: FontAwesomeIcons.solidThumbsUp,
+                                      label: S.of(context).offerParty,
+                                    ),
+                        ]),
+                );
               } else {
                 return Center(child: CircularProgressIndicator());
               }

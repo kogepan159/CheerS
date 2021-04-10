@@ -134,7 +134,8 @@
   "people": "People",
   "yearsOld": "",
   "message": "Direct message",
-  "noMessage": "No message"
+  "noMessage": "No message",
+  "sendMessage": "Send message"
 }
 
 

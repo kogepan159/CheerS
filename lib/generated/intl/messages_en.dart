@@ -136,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectLocation" : MessageLookupByLibrary.simpleMessage("Select location info from below.."),
     "selectPlace" : MessageLookupByLibrary.simpleMessage("Select Place"),
     "selfIntroductionToHostParty" : MessageLookupByLibrary.simpleMessage("Introduce yourself to host the party!"),
+    "sendMessage" : MessageLookupByLibrary.simpleMessage("Send message"),
     "share" : MessageLookupByLibrary.simpleMessage("Share"),
     "signIn" : MessageLookupByLibrary.simpleMessage("Sing In"),
     "signInFailed" : MessageLookupByLibrary.simpleMessage("Sign in failed."),
