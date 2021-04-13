@@ -7,6 +7,7 @@ import 'package:cheers_app/view_models/host_party_view_model.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class HostPartyCaptionPart extends StatefulWidget {
@@ -305,7 +306,7 @@ class _HostPartyCaptionPartState extends State<HostPartyCaptionPart> {
               child: TextField(
                 keyboardType: TextInputType.multiline,
                 maxLength: 800,
-                maxLengthEnforced: true,
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 maxLines: null,
                 controller: captionController,
                 style: hostPartyCaptionPartTextStyle,

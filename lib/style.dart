@@ -54,3 +54,6 @@ const profileNumberInfoTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 
 
 //プロフィールページ　友達人数などの情報画面
 const userCardForInvitedFriendsTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 10.0,);
+
+//チャットの送信時間
+const chatTimeTextStyle = TextStyle(fontFamily: RegularFont, fontSize: 10.0,);

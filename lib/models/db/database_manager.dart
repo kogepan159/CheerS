@@ -8,6 +8,7 @@ import 'package:cheers_app/models/repositories/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import "package:intl/intl.dart";
 
 class DatabaseManager {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -725,7 +726,8 @@ class DatabaseManager {
 
  Future <void> sendMessage(String message, String chatRoomId, String uId, Chat updateChat)async {
 
-   await _db.collection("chats").doc(chatRoomId).collection("messages").doc().set({"uId" : uId, "message": message, "sendDataTime": DateTime.now()});
+
+   await _db.collection("chats").doc(chatRoomId).collection("messages").doc().set({"uId" : uId, "message": message, "sendDateTime": DateTime.now().toString()});
 
    final document =  _db.collection("chats").doc(chatRoomId);
    await document.update(updateChat.toMap());
@@ -733,15 +735,16 @@ class DatabaseManager {
 
  }
 
-  Stream getChat(Chat chat) {
+  Stream<List<Chat>>  getChat(Chat chat) {
 
-    final results =  _db.collection("chats").doc(chat.chatRoomId)
-        .collection("messages")
-        .orderBy("sendDataTime", descending: true)
-        .snapshots();
-
-    return results;
-
+    print("getChat db");
+      return _db.collection("chats")
+      .doc(chat.chatRoomId)
+      .collection("messages")
+      .orderBy("sendDataTime", descending: true)
+      .snapshots()
+      .map<List<Chat>>((QuerySnapshot event) => event.docs.map((e) => Chat.fromMap(e.data())));
+    }
   }
 
-}
+
