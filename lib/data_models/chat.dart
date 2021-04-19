@@ -10,7 +10,6 @@ class Chat {
   String offeredUserId;
   String offeredUserInAppUserName;
   String offeredUserPhotoUrl;
-  String message;
   String messageSenderId;
   DateTime lastSendDateTime;
   DateTime sendDateTime;
@@ -25,7 +24,6 @@ class Chat {
     @required this.offeredUserId,
     @required this.offeredUserInAppUserName,
     @required this.offeredUserPhotoUrl,
-    @required this.message,
     @required this.messageSenderId,
     @required this.lastSendDateTime,
     @required this.sendDateTime,
@@ -39,7 +37,6 @@ class Chat {
     String offeredUserId,
     String offeredUserInAppUserName,
     String offeredUserPhotoUrl,
-    String message,
     String messageSenderId,
     DateTime lastSendDateTime,
     DateTime sendDateTime,
@@ -54,7 +51,6 @@ class Chat {
       offeredUserInAppUserName:
           offeredUserInAppUserName ?? this.offeredUserInAppUserName,
       offeredUserPhotoUrl: offeredUserPhotoUrl ?? this.offeredUserPhotoUrl,
-      message: message ?? this.message,
       messageSenderId: messageSenderId ?? this.messageSenderId,
       lastSendDateTime: lastSendDateTime ?? this.lastSendDateTime,
       sendDateTime: sendDateTime ?? this.sendDateTime,
@@ -63,7 +59,7 @@ class Chat {
 
   @override
   String toString() {
-    return 'Chat{chatRoomId: $chatRoomId, offerUserId: $offerUserId, offerUserInAppUserName: $offerUserInAppUserName, offerUserPhotoUrl: $offerUserPhotoUrl, offeredUserId: $offeredUserId, offeredUserInAppUserName: $offeredUserInAppUserName, offeredUserPhotoUrl: $offeredUserPhotoUrl, message: $message, messageSenderId: $messageSenderId, lastSendDateTime: $lastSendDateTime, sendDateTime: $sendDateTime}';
+    return 'Chat{chatRoomId: $chatRoomId, offerUserId: $offerUserId, offerUserInAppUserName: $offerUserInAppUserName, offerUserPhotoUrl: $offerUserPhotoUrl, offeredUserId: $offeredUserId, offeredUserInAppUserName: $offeredUserInAppUserName, offeredUserPhotoUrl: $offeredUserPhotoUrl, messageSenderId: $messageSenderId, lastSendDateTime: $lastSendDateTime, sendDateTime: $sendDateTime}';
   }
 
   @override
@@ -78,7 +74,6 @@ class Chat {
           offeredUserId == other.offeredUserId &&
           offeredUserInAppUserName == other.offeredUserInAppUserName &&
           offeredUserPhotoUrl == other.offeredUserPhotoUrl &&
-          message == other.message &&
           messageSenderId == other.messageSenderId &&
           lastSendDateTime == other.lastSendDateTime &&
           sendDateTime == other.sendDateTime);
@@ -92,7 +87,6 @@ class Chat {
       offeredUserId.hashCode ^
       offeredUserInAppUserName.hashCode ^
       offeredUserPhotoUrl.hashCode ^
-      message.hashCode ^
       messageSenderId.hashCode ^
       lastSendDateTime.hashCode ^
       sendDateTime.hashCode;
@@ -106,7 +100,6 @@ class Chat {
       offeredUserId: map['offeredUserId'] as String,
       offeredUserInAppUserName: map['offeredUserInAppUserName'] as String,
       offeredUserPhotoUrl: map['offeredUserPhotoUrl'] as String,
-      message: map['message'] as String,
       messageSenderId: map['messageSenderId'] as String,
       lastSendDateTime: map['lastSendDateTime'] == null
           ? null
@@ -129,7 +122,6 @@ class Chat {
       'offeredUserId': this.offeredUserId,
       'offeredUserInAppUserName': this.offeredUserInAppUserName,
       'offeredUserPhotoUrl': this.offeredUserPhotoUrl,
-      'message': this.message,
       'messageSenderId': this.messageSenderId,
       'lastSendDateTime': this.lastSendDateTime.toIso8601String(),
       'sendDateTime': this.sendDateTime.toIso8601String(),

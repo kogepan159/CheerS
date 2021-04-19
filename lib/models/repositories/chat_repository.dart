@@ -22,20 +22,19 @@ class ChatRepository {
 
  Future<void> insertChat(HostParty hostParty, User currentUser)async {
 
-
-
-
+   print("repo  insertChat");
    hostPartyUser =  await dbManager.getUserInfoFromDbById(hostParty.uId);
 
    final chat = Chat(
      chatRoomId: Uuid().v1(),
      sendDateTime: DateTime.now(),
+     lastSendDateTime: DateTime.now(),
      offerUserId: currentUser.uId ,
      offerUserInAppUserName:  currentUser.inAppUserName,
      offerUserPhotoUrl: currentUser.photoUrl_1,
      offeredUserId: hostPartyUser.uId,
      offeredUserInAppUserName: hostPartyUser.inAppUserName,
-     offeredUserPhotoUrl: hostPartyUser.photoUrl_1
+     offeredUserPhotoUrl: hostPartyUser.photoUrl_1,
    );
 
    await dbManager.insertChat(chat);
@@ -60,7 +59,7 @@ class ChatRepository {
 
   }
 
-  Stream<List<Chat>>  getChat(Chat chat) {
+  Stream<QuerySnapshot>  getChat(Chat chat) {
     print("getChat repository");
    return  dbManager.getChat(chat);
   }

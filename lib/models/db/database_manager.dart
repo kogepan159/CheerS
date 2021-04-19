@@ -677,6 +677,7 @@ class DatabaseManager {
  //トークルームを作成
  Future<void> insertChat(Chat chat) async{
 
+   print("db  insertChat");
     //トークルームを作成
    await _db
        .collection("chats")
@@ -695,7 +696,9 @@ class DatabaseManager {
     var results = List<Chat>();
 
     print("getChats db");
-    //offerUserIdが自分のチャット取得（他人の合コンにいいねした場合）
+
+
+    // //offerUserIdが自分のチャット取得（他人の合コンにいいねした場合）
     await _db
         .collection("chats")
         .where("offerUserId", isEqualTo: uId)
@@ -706,6 +709,7 @@ class DatabaseManager {
       });
     });
 
+    print("getChats db2");
 
     //offeredUserIdが自分のチャット取得（自分の合コンにいいねされた場合）
     await _db
@@ -720,6 +724,7 @@ class DatabaseManager {
 
     results.sort((a,b) => b.sendDateTime.compareTo(a.sendDateTime));
 
+    print("results $results");
     return results;
 
   }
@@ -735,16 +740,15 @@ class DatabaseManager {
 
  }
 
-  Stream<List<Chat>>  getChat(Chat chat) {
+  Stream<QuerySnapshot>  getChat(Chat chat) {
 
     print("getChat db");
-      return _db.collection("chats")
-      .doc(chat.chatRoomId)
-      .collection("messages")
-      .orderBy("sendDataTime", descending: true)
-      .snapshots()
-      .map<List<Chat>>((QuerySnapshot event) => event.docs.map((e) => Chat.fromMap(e.data())));
-    }
+    return _db.collection("chats")
+        .doc(chat.chatRoomId)
+        .collection("messages")
+        .orderBy("sendDateTime", descending: true)
+        .snapshots();
+  }
   }
 
 

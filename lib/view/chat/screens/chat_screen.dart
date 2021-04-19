@@ -48,22 +48,19 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text(_checkName(context, widget.chat)),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection("chats")
-            .doc(widget.chat.chatRoomId)
-            .collection("messages")
-            .orderBy("sendDateTime" , descending: true)
-            .snapshots(),
-        // stream: chatViewModel.getChat(widget.chat),
+        // stream: FirebaseFirestore.instance
+        //     .collection("chats")
+        //     .doc(widget.chat.chatRoomId)
+        //     .collection("messages")
+        //     .orderBy("sendDateTime" , descending: true)
+        //     .snapshots(),
+        stream: chatViewModel.getChat(widget.chat),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          //   builder: (context ,AsyncSnapshot<List<Chat>> snapshot) {
+            // builder: (context ,AsyncSnapshot<List<Chat>> snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             final chatDatas = snapshot.data.docs;
-            // final uId = chatDatas.map((document) => document["uId"]).toList();
-            // final message = chatDatas.map((document) => document["message"]).toList();
 
             print("chatDatas $chatDatas");
-            // print("message $message");
 
             return ListView.builder(
                 reverse: true,

@@ -19,16 +19,12 @@ class ChatViewModel extends ChangeNotifier {
   bool isProcessing = false;
   Chat chatData ;
 
-  final streamController = StreamController<Chat>();
-
 
 
 
   Future<void> insertChat(HostParty hostParty)async {
+    print("viewmodel  insertChat");
     await chatRepository.insertChat(hostParty,currentUser);
-
-
-
 
   }
 
@@ -48,7 +44,7 @@ class ChatViewModel extends ChangeNotifier {
 
  }
 
-  Stream<List<Chat>> getChat(Chat chat) {
+  Stream<QuerySnapshot> getChat(Chat chat) {
     print("getChat  viewModel");
     return chatRepository.getChat(chat);
 
