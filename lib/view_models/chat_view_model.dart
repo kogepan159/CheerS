@@ -48,7 +48,7 @@ class ChatViewModel extends ChangeNotifier {
 
  }
 
-  Stream<List<Chat>> getChat(Chat chat) {
+  Stream<QuerySnapshot> getChat(Chat chat) {
     print("getChat  viewModel");
     return chatRepository.getChat(chat);
 
