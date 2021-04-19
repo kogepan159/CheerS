@@ -60,7 +60,7 @@ class ChatRepository {
 
   }
 
-  Stream<List<Chat>>  getChat(Chat chat) {
+  Stream<QuerySnapshot>  getChat(Chat chat) {
     print("getChat repository");
    return  dbManager.getChat(chat);
   }

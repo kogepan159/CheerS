@@ -735,16 +735,15 @@ class DatabaseManager {
 
  }
 
-  Stream<List<Chat>>  getChat(Chat chat) {
+  Stream<QuerySnapshot>  getChat(Chat chat) {
 
     print("getChat db");
       return _db.collection("chats")
       .doc(chat.chatRoomId)
       .collection("messages")
-      .orderBy("sendDataTime", descending: true)
-      .snapshots()
-      .map<List<Chat>>((QuerySnapshot event) => event.docs.map((e) => Chat.fromMap(e.data())));
-    }
+      .orderBy("sendDateTime", descending: true)
+      .snapshots();
   }
+}
 
 

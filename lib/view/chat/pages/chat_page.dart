@@ -10,24 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ChatPage extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
     final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: Colors.black12,
+        backgroundColor: Colors.black12,
         appBar: AppBar(
           title: Center(child: Text(S.of(context).message)),
         ),
         body: FutureBuilder(
             future: chatViewModel.getChats(),
             builder: (context, AsyncSnapshot<List<Chat>> snapshot) {
-              if (snapshot.hasData &&
-                  snapshot.data.length > 0 &&
-                  snapshot.data != null) {
+              if (snapshot.hasData && snapshot.data.length > 0 && snapshot.data != null) {
                 final chats = snapshot.data;
                 print("chats $chats");
 
@@ -58,18 +53,17 @@ class ChatPage extends StatelessWidget {
 
                             //メッセージ画面へ（コンポーネンツ）
                             child: GestureDetector(
-                              onTap: () =>  _openChatScreen(context,chat),
+                              onTap: () => _openChatScreen(context, chat),
                               child: ListTile(
                                 leading: CirclePhoto(
-                                  photoUrl: _checkPhotoUrl(context,offerUserPhotoUrl , offeredUserPhotoUrl),
+                                  photoUrl: _checkPhotoUrl(context, offerUserPhotoUrl, offeredUserPhotoUrl),
                                   radius: 30.0,
                                   isImageFromFile: false,
                                 ),
                                 title: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text(_checkName(context,offerUserInAppUserName,offeredUserInAppUserName )),
+                                    Text(_checkName(context, offerUserInAppUserName, offeredUserInAppUserName)),
                                   ],
                                 ),
                                 subtitle: Text(chat.sendDateTime.toString()),
@@ -79,18 +73,12 @@ class ChatPage extends StatelessWidget {
                         ),
                       );
                     });
-              }
-              else if(
-                  !snapshot.hasData ||
-                  snapshot.data == null){
+              } else if (!snapshot.hasData || snapshot.data == null) {
                 return Center(child: Text(S.of(context).noMessage));
-              }
-              else {
+              } else {
                 return Center(child: CircularProgressIndicator());
               }
-            }
-            )
-    );
+            }));
   }
 
   // _openProfileScreen(BuildContext context, Chat chat) {
@@ -121,36 +109,32 @@ class ChatPage extends StatelessWidget {
   _checkPhotoUrl(BuildContext context, String offerUserPhotoUrl, String offeredUserPhotoUrl) {
     final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
 
-    if(offerUserPhotoUrl == chatViewModel.currentUser.photoUrl_1){
+    if (offerUserPhotoUrl == chatViewModel.currentUser.photoUrl_1) {
       return offeredUserPhotoUrl;
-    }else if (offeredUserPhotoUrl == chatViewModel.currentUser.photoUrl_1){
+    } else if (offeredUserPhotoUrl == chatViewModel.currentUser.photoUrl_1) {
       return offerUserPhotoUrl;
     }
-
   }
 
   //チャット相手の名前を特定する
   _checkName(BuildContext context, String offerUserInAppUserName, String offeredUserInAppUserName) {
-
     final chatViewModel = Provider.of<ChatViewModel>(context, listen: false);
 
-    if(offerUserInAppUserName == chatViewModel.currentUser.inAppUserName){
+    if (offerUserInAppUserName == chatViewModel.currentUser.inAppUserName) {
       return offeredUserInAppUserName;
-    }else if (offeredUserInAppUserName == chatViewModel.currentUser.inAppUserName){
+    } else if (offeredUserInAppUserName == chatViewModel.currentUser.inAppUserName) {
       return offerUserInAppUserName;
     }
   }
 
   _openChatScreen(BuildContext context, Chat chat) {
-
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(chat: chat,),),);
-
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatScreen(
+          chat: chat,
+        ),
+      ),
+    );
   }
-
-
-
-
-
-
-
 }
