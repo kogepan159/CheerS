@@ -427,6 +427,13 @@ class DatabaseManager {
 
   }
 
+  Future<void>   unBlock(User profileUser, User currentUser) async{
+//(currentUserがprofileUserのブロック辞める。currentUserのサブコレクション[blockUsers]からprofileUserのIDを削除)
+    await _db.collection("users").doc(currentUser.uId).collection("blockUsersByMe").doc(profileUser.uId).delete();
+
+
+  }
+
   //友達申請しているかどうかを確認
  Future<bool> checkIsFollowing(User profileUser, User currentUser) async{
     //followingsにデータが入っているのかどうかを確認
@@ -471,8 +478,20 @@ class DatabaseManager {
     }else{
       return false;
     }
+  }
 
-
+  //自分がブロックしているかどうかを確認
+  Future<bool> checkIsBlocked(User profileUser, User currentUser) async{
+    //blockUsersByMeにデータが入っているのかどうかを確認
+    final query = await _db.collection("users").doc(currentUser.uId).collection("blockUsersByMe").get();
+    if (query.docs.length == 0) return false;
+    //profileUserをcurrentUserがブロックしているかどうかを確認。currentUserのドキュメントを読み込み
+    final checkQuery = await _db.collection("users").doc(currentUser.uId).collection("blockUsersByMe").where("uId", isEqualTo: profileUser.uId).get();
+    if (checkQuery.docs.length > 0) {
+      return true;
+    }else{
+      return false;
+    }
   }
 
 
@@ -530,6 +549,30 @@ class DatabaseManager {
 
     return userIds;
   }
+
+  //ブロックユーザー人数を確認
+  Future<List<String>> getNumberOfBlockUsersByMe(String uId)async {
+
+    //cloudfirestoreに入っている自分がブロックしている人のユーザーIDを読み込み
+    final query = await _db.collection("users").doc(uId).collection("blockUsersByMe").get();
+
+    //データベースにデータがなかった場合、空のLISTを返す
+    if(query.docs.length == 0)
+      return List();
+
+    //ブロックユーザーIDを取得してくる
+    var userIds = List<String>();
+    query.docs.forEach((id) {
+      userIds.add(id.data()["uId"]);
+    });
+
+    print("userIds: $userIds");
+
+    return userIds;
+
+  }
+
+
 
 
   //誰から友達申請をされているのか表示用（getFollowerUserIdsメソッドから、友達申請してきた人のIDを取得し、そのIDを元にユーザーデータ全体を取得する）
@@ -592,6 +635,21 @@ class DatabaseManager {
 
     });
     return friends;
+
+
+  }
+
+  //ブロックユーザーリストを取ってくる（getFollowingUserIdsメソッドから、自分が申請している人のIDを取得し、そのIDを元にユーザーデータ全体を取得する）
+  Future<List<User>> getBlockUsersList(String uId) async{
+    final blockUserIds = await getNumberOfBlockUsersByMe(uId);
+    print({"friendUserIds: $blockUserIds"});
+    var blockUsers = List<User>();
+    await Future.forEach(blockUserIds, (blockUserId)async {
+      final user = await getUserInfoFromDbById(blockUserId);
+      blockUsers.add(user);
+
+    });
+    return blockUsers;
 
 
   }
@@ -749,6 +807,23 @@ class DatabaseManager {
         .orderBy("sendDateTime", descending: true)
         .snapshots();
   }
+
+ Future<void> block(User profileUser, User currentUser) async{
+   //(currentUserがprofileUserをブロックする。currentUserのサブコレクション[blockUsersByMe]にprofileUserのIDを登録)
+   await _db.collection("users").doc(currentUser.uId).collection("blockUsersByMe").doc(profileUser.uId).set({"uId" : profileUser.uId});
+
+   //(currentUserがprofileUserをブロックする。profileUserのサブコレクション[blockUsersByOther]にcurrentUserのIDを登録)
+   await _db.collection("users").doc(profileUser.uId).collection("blockUsersByOther").doc(currentUser.uId).set({"uId" : currentUser.uId});
+
+
+
+ }
+
+
+
+
+
+
   }
 
 

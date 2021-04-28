@@ -7,7 +7,7 @@ class ButtonWithIcon extends StatelessWidget {
   final VoidCallback onPressed;
   final String label;
 
-  ButtonWithIcon({@required this.onPressed,@required this.iconData, @required this.label});
+  ButtonWithIcon({@required this.onPressed, this.iconData, @required this.label});
 
   @override
   Widget build(BuildContext context) {

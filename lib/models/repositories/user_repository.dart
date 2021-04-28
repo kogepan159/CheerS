@@ -483,6 +483,10 @@ class UserRepository {
     await dbManager.unFollow(profileUser,currentUser);
   }
 
+  Future<void> unBlock(User profileUser) async{
+    await dbManager.unBlock(profileUser,currentUser);
+  }
+
 
  Future<bool> checkIsFollowing(User profileUser)async {
    return await dbManager.checkIsFollowing(profileUser, currentUser);
@@ -494,6 +498,10 @@ class UserRepository {
 
   Future<bool> checkIsFriends(User profileUser)async {
     return await dbManager.checkIsFriends(profileUser, currentUser);
+  }
+
+  Future<bool> checkIsBlocked(User profileUser)async {
+    return await dbManager.checkIsBlocked(profileUser, currentUser);
   }
 
 
@@ -531,6 +539,18 @@ class UserRepository {
     return results;
   }
 
+  Future<List>  getBlockUsersList(String uId)async {
+
+    var results = List<User>();
+
+    results = await dbManager.getBlockUsersList(uId);
+    print("results: $results");
+
+    return results;
+
+  }
+
+
   Future<void>  quitFriends(User profileUser) async{
     await dbManager.quitFriends(profileUser,currentUser);
 
@@ -553,6 +573,16 @@ class UserRepository {
     return (await dbManager.getFollowerUserIds(profileUser.uId)).length;
 
   }
+  //ブロックユーザー人数を取得
+  Future<int>  getNumberOfBlockUsers(User profileUser) async{
+    return (await dbManager.getNumberOfBlockUsersByMe(profileUser.uId)).length;
+  }
+
+ Future<void> block(User profileUser) async{
+    await dbManager.block(profileUser, currentUser);
+ }
+
+
 
 
 }

@@ -1265,6 +1265,16 @@ class S {
     );
   }
 
+  /// `No user you are blocking`
+  String get noUserYouAreBlocking {
+    return Intl.message(
+      'No user you are blocking',
+      name: 'noUserYouAreBlocking',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Friends`
   String get friends {
     return Intl.message(
@@ -1400,6 +1410,26 @@ class S {
     return Intl.message(
       'Send message',
       name: 'sendMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Block`
+  String get block {
+    return Intl.message(
+      'Block',
+      name: 'block',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `On blocking`
+  String get onBlock {
+    return Intl.message(
+      'On blocking',
+      name: 'onBlock',
       desc: '',
       args: [],
     );

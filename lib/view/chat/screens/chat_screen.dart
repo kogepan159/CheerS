@@ -48,15 +48,8 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text(_checkName(context, widget.chat)),
       ),
       body: StreamBuilder(
-        // stream: FirebaseFirestore.instance
-        //     .collection("chats")
-        //     .doc(widget.chat.chatRoomId)
-        //     .collection("messages")
-        //     .orderBy("sendDateTime" , descending: true)
-        //     .snapshots(),
         stream: chatViewModel.getChat(widget.chat),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            // builder: (context ,AsyncSnapshot<List<Chat>> snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             final chatDatas = snapshot.data.docs;
 

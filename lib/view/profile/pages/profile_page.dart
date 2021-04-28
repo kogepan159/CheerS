@@ -8,12 +8,14 @@ import 'package:cheers_app/view/profile/components/profile_photo_part.dart';
 import 'package:cheers_app/view/profile/components/profile_post_tile.dart';
 import 'package:cheers_app/view/profile/components/profile_setting_part.dart';
 import 'package:cheers_app/view/profile/components/sub/profile_application_of_friends_part.dart';
+import 'package:cheers_app/view/profile/components/sub/profile_block_users_part.dart';
 import 'package:cheers_app/view/profile/components/sub/profile_friend_request_by_me_part.dart';
 import 'package:cheers_app/view/profile/components/sub/profile_number_of_friends_part.dart';
 import 'package:cheers_app/view/profile/screens/profile_application_of_friends_screen.dart';
 import 'package:cheers_app/view/profile/components/sub/profile_detail_part.dart';
 import 'package:cheers_app/view/profile/components/sub/profile_likes_part.dart';
 import 'package:cheers_app/view/profile/screens/change_photo_screen.dart';
+import 'package:cheers_app/view/profile/screens/profile_block_users_screen.dart';
 import 'package:cheers_app/view/profile/screens/profile_edit_screen.dart';
 import 'package:cheers_app/view/profile/screens/profile_friend_request_by_me_screen.dart';
 import 'package:cheers_app/view/profile/screens/profile_number_of_friends_screen.dart';
@@ -58,6 +60,10 @@ class _ProfilePageState extends State<ProfilePage> {
       return Scaffold(
         appBar: AppBar(
           title: Text(profileUser.inAppUserName),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
           actions: [
             ProfileSettingPart(
               mode: widget.profileMode,
@@ -131,6 +137,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                     child: ProfileApplicationOfFriendsPart()),
                               )
                             : Container(),
+                        ///""""""""""""ブロックユーザーリスト"""""""""""""""""""""""""""
+                        widget.profileMode == ProfileMode.MYSELF
+                            ? Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                              onTap: () =>
+                                  _openBlockUsersScreen(
+                                      context),
+                              child: ProfileBlockUsersPart()),
+                        )
+                            : Container(),
                       ],
                     ),
 
@@ -143,29 +160,95 @@ class _ProfilePageState extends State<ProfilePage> {
                           )
                         : profileViewModel.isFriends
                             //既に友達だったら、友達を辞めるボタン。友達じゃなかったら、友達申請or申請中表示ボタン
-                            ? ButtonWithIcon(
-                                onPressed: () {
-                                  setState(() {
-                                    _quitFriends(context);
-                                  });
-                                },
-                                label: S.of(context).quitBeingFriends,
-                                iconData: FontAwesomeIcons.heartBroken,
-                              )
-                            : profileViewModel.isFollowingProfileUser
-                                ? ButtonWithIcon(
-                                    onPressed: null,
-                                    label: S.of(context).requestFromYou,
-                                    iconData: FontAwesomeIcons.handshake,
-                                  )
-                                : ButtonWithIcon(
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ButtonWithIcon(
                                     onPressed: () {
                                       setState(() {
-                                        _follow(context);
+                                        _quitFriends(context);
                                       });
                                     },
-                                    label: S.of(context).becomeFriend,
-                                    iconData: FontAwesomeIcons.handshake,
+                                    label: S.of(context).quitBeingFriends,
+                                    iconData: FontAwesomeIcons.heartBroken,
+                                  ),
+                                  //既にブロックいているかしていないかで、表示を分ける
+                                  profileViewModel.isBlocked
+                                      ? ButtonWithIcon(
+                                          onPressed: null,
+                                          label: S.of(context).onBlock,
+                                          iconData: FontAwesomeIcons.times,
+                                        )
+                                      : ButtonWithIcon(
+                                          onPressed: () {
+                                            setState(() {
+                                              _block(context);
+                                            });
+                                          },
+                                          label: S.of(context).block,
+                                          iconData: FontAwesomeIcons.times,
+                                        )
+                                ],
+                              )
+                            : profileViewModel.isFollowingProfileUser
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ButtonWithIcon(
+                                        onPressed: null,
+                                        label: S.of(context).requestFromYou,
+                                        iconData: FontAwesomeIcons.handshake,
+                                      ),
+                                      //既にブロックいているかしていないかで、表示を分ける
+                                      profileViewModel.isBlocked
+                                          ? ButtonWithIcon(
+                                              onPressed: null,
+                                              label: S.of(context).onBlock,
+                                              iconData: FontAwesomeIcons.times,
+                                            )
+                                          : ButtonWithIcon(
+                                              onPressed: () {
+                                                setState(() {
+                                                  _block(context);
+                                                });
+                                              },
+                                              label: S.of(context).block,
+                                              iconData: FontAwesomeIcons.times,
+                                            ),
+                                    ],
+                                  )
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ButtonWithIcon(
+                                        onPressed: () {
+                                          setState(() {
+                                            _follow(context);
+                                          });
+                                        },
+                                        label: S.of(context).becomeFriend,
+                                        iconData: FontAwesomeIcons.handshake,
+                                      ),
+                                      //既にブロックいているかしていないかで、表示を分ける
+                                      profileViewModel.isBlocked
+                                          ? ButtonWithIcon(
+                                              onPressed: null,
+                                              label: S.of(context).onBlock,
+                                              iconData: FontAwesomeIcons.times,
+                                            )
+                                          : ButtonWithIcon(
+                                              onPressed: () {
+                                                setState(() {
+                                                  _block(context);
+                                                });
+                                              },
+                                              label: S.of(context).block,
+                                              iconData: FontAwesomeIcons.times,
+                                            ),
+                                    ],
                                   ),
 
                     //""""""""""""アイコンボタン（プロフィール変更）"""""""""""""""""""""""""""
@@ -203,17 +286,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                   itemCount: model.parties.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
                                       child: ProfilePostTile(
                                         profileMode: widget.profileMode,
                                         hostParty: model.parties[index],
                                       ),
                                     );
                                   }),
-
                             ],
                           )
-                        : CircularProgressIndicator(),
+                        : Container(),
                   ],
                 ),
               ),
@@ -258,7 +341,10 @@ class _ProfilePageState extends State<ProfilePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ProfileNumberOfFriendsScreen(numberOfFriendsScreenOpenMode: NumberOfFriendsScreenOpenMode.FROM_PROFILE,),
+        builder: (context) => ProfileNumberOfFriendsScreen(
+          numberOfFriendsScreenOpenMode:
+              NumberOfFriendsScreenOpenMode.FROM_PROFILE,
+        ),
       ),
     );
   }
@@ -272,10 +358,29 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  _quitFriends(BuildContext context) {
+  _openBlockUsersScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfileBlockUsersScreen(),
+      ),
+    );
+
+  }
+
+  Future<void>_quitFriends(BuildContext context)async {
     final profileViewModel =
         Provider.of<ProfileViewModel>(context, listen: false);
 
-    profileViewModel.quitFriends();
+   await profileViewModel.quitFriends();
   }
+
+  Future<void> _block(BuildContext context) async {
+    final profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
+    await profileViewModel.block();
+    await profileViewModel.quitFriends();
+
+  }
+
 }

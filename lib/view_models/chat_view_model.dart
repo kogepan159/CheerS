@@ -18,6 +18,7 @@ class ChatViewModel extends ChangeNotifier {
   User chatUser;
   bool isProcessing = false;
   Chat chatData ;
+  Future<List<Chat>> chats;
 
 
 
@@ -29,7 +30,11 @@ class ChatViewModel extends ChangeNotifier {
   }
 
  Future<List<Chat>> getChats() {
-    return  chatRepository.getChats(currentUser);
+
+    isProcessing = true;
+    chats = chatRepository.getChats(currentUser);
+    isProcessing = false;
+    return chats;
  }
 
  Future<void> getChatUserInfo(String chatUserId)async {
@@ -49,6 +54,8 @@ class ChatViewModel extends ChangeNotifier {
     return chatRepository.getChat(chat);
 
   }
+
+
 
 
 

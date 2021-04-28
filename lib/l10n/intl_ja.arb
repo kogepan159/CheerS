@@ -122,7 +122,8 @@
   "approved": "承認済み",
   "noOneSentTheFriendRequest": "あなたへ友達申請しているユーザーはいません",
   "noUserYouAreApplyingForAFriend": "あなたが友達申請しているユーザーはいません",
-  "friends": "友達",
+  "noUserYouAreBlocking": "あなたがブロックしているユーザーはいません",
+  "friends": "同性友達",
   "noFriends": "友達がいません",
   "numberOfParty": "開催実績",
   "requestFromYou": "友達申請中",
@@ -135,5 +136,7 @@
   "yearsOld": "才",
   "message": "メッセージ",
   "noMessage": "メッセージがありません",
-  "sendMessage": "メッセージの送信"
+  "sendMessage": "メッセージの送信",
+  "block": "ブロック",
+  "onBlock": "ブロック中"
 }

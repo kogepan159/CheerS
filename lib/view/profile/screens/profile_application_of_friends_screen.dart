@@ -32,7 +32,12 @@ class _ProfileApplicationOfFriendsScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).friendRequestToYou),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage(profileMode: ProfileMode.MYSELF))),
+        ),
       ),
+
       body: FutureBuilder(
         future: profileViewModel.getApplicationOfFriends(),
         builder: (context, AsyncSnapshot<List<User>> snapshot) {

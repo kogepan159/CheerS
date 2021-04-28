@@ -122,6 +122,7 @@
   "approved": "Approved",
   "noOneSentTheFriendRequest": "No one sent you the friend request",
   "noUserYouAreApplyingForAFriend": "No user you are applying for a friend",
+  "noUserYouAreBlocking": "No user you are blocking",
   "friends": "Friends",
   "noFriends": "No friends",
   "numberOfParty": "Party",
@@ -135,7 +136,9 @@
   "yearsOld": "",
   "message": "Direct message",
   "noMessage": "No message",
-  "sendMessage": "Send message"
+  "sendMessage": "Send message",
+  "block": "Block",
+  "onBlock": "On blocking"
 }
 
 

@@ -38,7 +38,7 @@ class ProfileSettingPart extends StatelessWidget {
         });
   }
 
-  //TODO
+
   _onPopupMenuSelected(BuildContext context, ProfileSettingMenu selectedMenu) {
 
     switch(selectedMenu){

@@ -2,6 +2,7 @@ import 'package:cheers_app/data_models/user.dart';
 import 'package:cheers_app/generated/l10n.dart';
 import 'package:cheers_app/utils/constants.dart';
 import 'package:cheers_app/view/profile/components/sub/user_card_for_applied_and_applying_user_and_friends.dart';
+import 'package:cheers_app/view/profile/pages/profile_page.dart';
 import 'package:cheers_app/view/profile/screens/profile_screen.dart';
 import 'package:cheers_app/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,15 @@ class _ProfileFriendRequestByMeScreenState
         Provider.of<ProfileViewModel>(context, listen: false);
 
     //自分が友達申請をしている人のリストを取ってくる
-    Future(() => profileViewModel.getFriendRequestByMe());
+    // Future(() => profileViewModel.getFriendRequestByMe());
 
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).friendRequestFromYou),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage(profileMode: ProfileMode.MYSELF))),
+        ),
       ),
       body: FutureBuilder(
         future: profileViewModel.getFriendRequestByMe(),
@@ -46,7 +51,7 @@ class _ProfileFriendRequestByMeScreenState
                     title: user.inAppUserName,
                     onTap: () => _openProfileScreen(context, user),
                     subTitle: user.residence,
-                    //フォローしている場合は、取り消しボタン。取り消しボタン押したら、ボタンを消す
+                    //フォローしている場合は、取り消しボタン。
                     trailing: profileViewModel.isFollowingProfileUser
                         ? OutlineButton(
                             color: Colors.deepOrange,

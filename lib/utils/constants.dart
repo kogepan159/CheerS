@@ -32,3 +32,7 @@ enum NumberOfFriendsScreenOpenMode{
   FROM_PROFILE,
 
 }
+
+enum ChatMenu{
+  DELETE,
+}

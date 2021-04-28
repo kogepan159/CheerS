@@ -23,6 +23,7 @@ class ProfileViewModel extends ChangeNotifier {
   bool isFollowingProfileUser = false;
   bool isFriends = false;
   bool isFollowedProfileUser = false;
+  bool isBlocked = false;
 
   List<HostParty> parties = List();
   List<User> appliedUser = List();
@@ -59,6 +60,8 @@ class ProfileViewModel extends ChangeNotifier {
       checkIsFollowing();
       checkIsFollowed();
       checkIsFriends();
+      checkIsBlocked();
+
     }
   }
 
@@ -97,6 +100,12 @@ class ProfileViewModel extends ChangeNotifier {
   Future<int> getNumberOfApplicationOfFriends() async {
     return await userRepository.getNumberOfApplicationOfFriends(profileUser);
   }
+
+  //ブロックユーザー人数を取ってくる
+  Future<int>  getNumberOfBlockUsers() async{
+    return await userRepository.getNumberOfBlockUsers(profileUser);
+  }
+
 
   void updateProfile() async {
     isProcessing = true;
@@ -336,19 +345,6 @@ class ProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> addProfilePhoto_2(String photoUrl_2, bool isImageFromFile) async {
-  //   isProcessing = true;
-  //   notifyListeners();
-  //
-  //   await userRepository.addProfilePhoto_2(profileUser, photoUrl_2, isImageFromFile);
-  //
-  //   // プロフィール写真更新後にユーザーデータを再取得。staticに保存
-  //   await userRepository.getCurrentUserById(profileUser.uId);
-  //   profileUser = currentUser;
-  //
-  //   isProcessing = false;
-  //   notifyListeners();
-  // }
 
   Future<void> deleteHostParty(String hostPartyId,
       ProfileMode profileMode) async {
@@ -376,6 +372,13 @@ class ProfileViewModel extends ChangeNotifier {
 
   }
 
+  Future<void> unBlock(User profileUser)async {
+    await userRepository.unBlock(profileUser);
+    isBlocked = false;
+    notifyListeners();
+
+  }
+
 
 Future<void> checkIsFollowing() async{
     isFollowingProfileUser = await userRepository.checkIsFollowing(profileUser);
@@ -390,6 +393,15 @@ Future<void> checkIsFollowing() async{
   Future<void> checkIsFriends() async{
     isFriends = await userRepository.checkIsFriends(profileUser);
     notifyListeners();
+  }
+
+  Future<void> checkIsBlocked() async{
+    isBlocked = await userRepository.checkIsBlocked(profileUser);
+    notifyListeners();
+  }
+  Future<bool> checkIsBlockedFromList(User user) async{
+    return await userRepository.checkIsBlocked(user);
+
   }
 
 
@@ -422,6 +434,10 @@ Future<void> checkIsFollowing() async{
 
   }
 
+  Future<List<User>> getBlockUsersList() async{
+    return await userRepository.getBlockUsersList(profileUser.uId);
+  }
+
  Future<void> quitFriends()async {
    await userRepository.quitFriends(profileUser);
    isFollowingProfileUser = false;
@@ -430,6 +446,14 @@ Future<void> checkIsFollowing() async{
 
 
  }
+
+  Future<void>  block() async{
+    await userRepository.block(profileUser);
+    isBlocked = true;
+    notifyListeners();
+  }
+
+
 
 
 }
